@@ -1,0 +1,78 @@
+.container {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  h4, h1 {
+    font-size: 1.6rem;
+    color: #343a40;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+
+  h1 {
+    font-size: 1.8rem;
+    color: #007bff;
+    margin-top: 20px;
+    text-align: left;
+    padding-left: 10px;
+  }
+  
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-control {
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+  }
+  
+
+  .form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+  }
+  
+
+  button[type="submit"] {
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #218838;
+    cursor: pointer;
+  }
+  
+
+  .card {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 30px;
+  }
+  
+ 
+  @media (max-width: 768px) {
+    .col-md-6 {
+      width: 100% !important;
+      margin-bottom: 20px;
+    }
+  
+    h1 {
+      font-size: 1.4rem;
+    }
+  
+    .container {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
