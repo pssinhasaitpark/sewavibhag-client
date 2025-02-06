@@ -10,16 +10,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* Define the Dashboard route with nested routes */}
-        <Route path="/" element={<Dashboard />}>
-          <Route index element={<DashboardCards />} /> {/* Default route */}
-          <Route path="dashboard/jilareport" element={<Jilareport />} /> {/* Nested route */}
-          <Route path="/dashboard/viewkendratable" element={<ViewKendraTable />} /> {/* Nested route */}
-        </Route>
-      </Routes>
-    </Router>
+    // <Router>
+    //   <Routes>
+    //     {/* Define the Dashboard route with nested routes */}
+    //     <Route path="/" element={<Dashboard />}>
+    //       <Route index element={<DashboardCards />} /> {/* Default route */}
+    //       <Route path="dashboard/jilareport" element={<Jilareport />} /> {/* Nested route */}
+    //       <Route path="/dashboard/viewkendratable" element={<ViewKendraTable />} /> {/* Nested route */}
+    //     </Route>
+    //   </Routes>
+    // </Router>
+   <Jilareport />
+    // <ViewKendraTable />
   );
 }
 export default App;

@@ -1,19 +1,17 @@
-/* ViewKendraTable.css */
 
-/* General Container */
 .view-kendra-table-container {
     margin-top: 20px;
   }
   
-  /* Title */
+
   .view-kendra-table-title {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #333;
+    color: #b40a0a;
     margin-bottom: 20px;
   }
   
-  /* Search Form */
+
   .view-kendra-table-search {
     margin-bottom: 1.5rem;
   }
@@ -32,7 +30,7 @@
     font-size: 1rem;
   }
   
-  /* Table Styling */
+
   .view-kendra-table {
     width: 100%;
     border-collapse: collapse;
@@ -61,7 +59,7 @@
     overflow-x: auto;
   }
   
-  /* Pagination */
+
   .view-kendra-table-pagination {
     display: flex;
     justify-content: space-between;
@@ -79,7 +77,7 @@
     margin-left: 10px;
   }
   
-  /* Button Styling */
+ 
   .btn-secondary {
     background-color: #6c757d;
     color: white;
@@ -92,7 +90,7 @@
   }
   
   .btn:hover {
-    background-color: #5a6268;
+    background-color:  #b40a0a;;
     border-color: #545b62;
   }
   
