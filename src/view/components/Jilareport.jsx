@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -6,7 +6,7 @@ import axios from 'axios';
 import './Jilareport.css';
 import Header from  "../layout/Header"
 
-// Validation Schema with Yup
+
 const validationSchema = Yup.object({
   districtNumber: Yup.number().required('This field is required'),
   settlementNumber: Yup.number().required('This field is required'),
@@ -27,12 +27,19 @@ const validationSchema = Yup.object({
 });
 
 const Jilareport = () => {
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [language, setLanguage] = useState('english'); // Default language is English
 
-  const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
-  };
+  const savedLanguage = localStorage.getItem('language') || 'english';
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [language, setLanguage] = useState(savedLanguage);
+
+  useEffect(() => {
+   
+    localStorage.setItem('language', language);
+  }, [language]);
+
+  // const handleCategoryChange = (e) => {
+  //   setSelectedCategory(e.target.value);
+  // };
 
   const handleLanguageChange = (e) => {
     setLanguage(e.target.value);
@@ -68,7 +75,7 @@ const Jilareport = () => {
       });
   };
 
-  // Field Labels based on Language
+
   const fieldLabels = {
     english: {
       districtNumber: 'District Number / Section',
@@ -122,7 +129,7 @@ const Jilareport = () => {
     <Container >
     
       <Row className="mt-3">
-        <Col>
+        {/* <Col>
           <h4>{fieldLabels[language].selectNagar}</h4>
           <div className=''>
           <Form className='d-flex gap-3'>
@@ -152,7 +159,7 @@ const Jilareport = () => {
             />
           </Form>
           </div>
-        </Col>
+        </Col> */}
 
         <Col xs="auto" className="mt-3">
           
@@ -171,13 +178,11 @@ const Jilareport = () => {
       >
         {({ values, handleChange, handleSubmit, errors, touched }) => (
           <form onSubmit={handleSubmit}>
-            {selectedCategory && (
+           
               <Row className="mt-3">
                 <Col>
-                  <h1>{fieldLabels[language].Nagar}</h1>
-                  {(selectedCategory === 'Mahanagar' ||
-                    selectedCategory === 'Jila Kendra' ||
-                    selectedCategory === 'Anya Nagar') && (
+                  <h2>{fieldLabels[language].Mahanagar}</h2>
+                 
                     <>
                       {/* All Fields */}
                       <Row>
@@ -331,15 +336,323 @@ const Jilareport = () => {
 
                     
                     </>
-                  )}
+         
                 </Col>
               </Row>
-            )}
+        
+
+            <Row className="mt-3">
+              <Col>
+              <h2>{fieldLabels[language].JilaKendra}</h2>
+              <Row>
+                        <Col md={6}>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].districtNumber}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="districtNumber"
+                              // value={values.districtNumber}
+                              // onChange={handleChange}
+                              isInvalid={touched.districtNumber && !!errors.districtNumber}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.districtNumber}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col md={6}>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].settlementNumber}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="settlementNumber"
+                              // value={values.settlementNumber}
+                              // onChange={handleChange}
+                              isInvalid={touched.settlementNumber && !!errors.settlementNumber}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.settlementNumber}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={6} className='mt-2'>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].serviceSettlementNumber}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="serviceSettlementNumber"
+                              // value={values.serviceSettlementNumber}
+                              // onChange={handleChange}
+                              isInvalid={touched.serviceSettlementNumber && !!errors.serviceSettlementNumber}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.serviceSettlementNumber}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col md={6} className='mt-2'>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].businessCollegeNumber}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="businessCollegeNumber"
+                              // value={values.businessCollegeNumber}
+                              // onChange={handleChange}
+                              isInvalid={touched.businessCollegeNumber && !!errors.businessCollegeNumber}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.businessCollegeNumber}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col md={6} className='mt-2'>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].settlementBranchNumber}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="settlementBranchNumber"
+                              // value={values.settlementBranchNumber}
+                              // onChange={handleChange}
+                              isInvalid={touched.settlementBranchNumber && !!errors.settlementBranchNumber}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.settlementBranchNumber}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col md={6} className='mt-2'>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].serviceWorkerBranchNumber}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="serviceWorkerBranchNumber"
+                              // value={values.serviceWorkerBranchNumber}
+                              // onChange={handleChange}
+                              isInvalid={touched.serviceWorkerBranchNumber && !!errors.serviceWorkerBranchNumber}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.serviceWorkerBranchNumber}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col md={6} className='mt-2'>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].totalServiceWorkers}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="totalServiceWorkers"
+                              // value={values.totalServiceWorkers}
+                              // onChange={handleChange}
+                              isInvalid={touched.totalServiceWorkers && !!errors.totalServiceWorkers}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.totalServiceWorkers}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col md={6} className='mt-2'>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].totalServiceWork}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="totalServiceWork"
+                              // value={values.totalServiceWork}
+                              // onChange={handleChange}
+                              isInvalid={touched.totalServiceWork && !!errors.totalServiceWork}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.totalServiceWork}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col md={6} className='mt-2'>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].monthlyContactNumber}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="monthlyContactNumber"
+                              // value={values.monthlyContactNumber}
+                              // onChange={handleChange}
+                              isInvalid={touched.monthlyContactNumber && !!errors.monthlyContactNumber}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.monthlyContactNumber}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                      </Row>
+              </Col>
+            </Row>
+
+            <Row className="mt-3">
+              <Col>
+              <h2>{fieldLabels[language].AnyaNagar}</h2>
+              <Row>
+                        <Col md={6}>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].districtNumber}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="districtNumber"
+                              // value={values.districtNumber}
+                              // onChange={handleChange}
+                              isInvalid={touched.districtNumber && !!errors.districtNumber}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.districtNumber}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col md={6}>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].settlementNumber}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="settlementNumber"
+                              // value={values.settlementNumber}
+                              // onChange={handleChange}
+                              isInvalid={touched.settlementNumber && !!errors.settlementNumber}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.settlementNumber}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={6} className='mt-2'>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].serviceSettlementNumber}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="serviceSettlementNumber"
+                              // value={values.serviceSettlementNumber}
+                              // onChange={handleChange}
+                              isInvalid={touched.serviceSettlementNumber && !!errors.serviceSettlementNumber}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.serviceSettlementNumber}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col md={6} className='mt-2'>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].businessCollegeNumber}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="businessCollegeNumber"
+                              // value={values.businessCollegeNumber}
+                              // onChange={handleChange}
+                              isInvalid={touched.businessCollegeNumber && !!errors.businessCollegeNumber}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.businessCollegeNumber}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col md={6} className='mt-2'>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].settlementBranchNumber}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="settlementBranchNumber"
+                              // value={values.settlementBranchNumber}
+                              // onChange={handleChange}
+                              isInvalid={touched.settlementBranchNumber && !!errors.settlementBranchNumber}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.settlementBranchNumber}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col md={6} className='mt-2'>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].serviceWorkerBranchNumber}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="serviceWorkerBranchNumber"
+                              // value={values.serviceWorkerBranchNumber}
+                              // onChange={handleChange}
+                              isInvalid={touched.serviceWorkerBranchNumber && !!errors.serviceWorkerBranchNumber}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.serviceWorkerBranchNumber}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col md={6} className='mt-2'>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].totalServiceWorkers}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="totalServiceWorkers"
+                              // value={values.totalServiceWorkers}
+                              // onChange={handleChange}
+                              isInvalid={touched.totalServiceWorkers && !!errors.totalServiceWorkers}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.totalServiceWorkers}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col md={6} className='mt-2'>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].totalServiceWork}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="totalServiceWork"
+                              // value={values.totalServiceWork}
+                              // onChange={handleChange}
+                              isInvalid={touched.totalServiceWork && !!errors.totalServiceWork}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.totalServiceWork}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col md={6} className='mt-2'>
+                          <Form.Group>
+                            <Form.Label>{fieldLabels[language].monthlyContactNumber}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter number"
+                              name="monthlyContactNumber"
+                              // value={values.monthlyContactNumber}
+                              // onChange={handleChange}
+                              isInvalid={touched.monthlyContactNumber && !!errors.monthlyContactNumber}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.monthlyContactNumber}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                      </Row>
+              </Col>
+            </Row>
 
             {/* Villages Section */}
             <Row className="mt-3">
               <Col>
-                <h1>{fieldLabels[language].villagesAbove5000}</h1>
+                <h2>{fieldLabels[language].villagesAbove5000}</h2>
                 <Row>
                 <Col md={6}>
                           <Form.Group>
@@ -417,7 +730,7 @@ const Jilareport = () => {
 
             <Row>
               <Col>
-              <h1>{fieldLabels[language].villagesBelow5000}</h1>
+              <h2>{fieldLabels[language].villagesBelow5000}</h2>
               <Row>
               <Col md={6}>
                           <Form.Group>

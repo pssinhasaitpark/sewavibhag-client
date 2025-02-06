@@ -71,14 +71,14 @@ const ViewKendraTable = () => {
           <h3 className="view-kendra-table-title">View Users</h3>
           
           <div className="view-kendra-table-search mb-3 d-flex justify-content-end">
-            <Form.Group as={Row} className="view-kendra-table-form-group" style={{ maxWidth: '300px' }}>
+            <Form.Group as={Row} className="view-kendra-table-form-group" style={{ maxWidth: '400px' }}>
               <Form.Label column sm={4} className="view-kendra-table-form-label">
-                Search by Kendra Name
+         
               </Form.Label>
               <Col sm={8}>
                 <Form.Control
                   type="text"
-                  placeholder="Enter Kendra Name"
+                  placeholder="Search by Kendra Name"
                   onChange={handleKendraSearch}
                   className="view-kendra-table-input"
                 />
