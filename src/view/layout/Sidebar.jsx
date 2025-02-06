@@ -135,7 +135,7 @@ const Sidebar = () => {
 
             <li>
               <Link
-                to="/view-user"
+                to="/dashboard/viewkendratable"
                 className="sidebar-link"
                 style={{
                   display: "flex",
