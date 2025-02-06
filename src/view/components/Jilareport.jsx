@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import './Jilareport.css';
+import Header from  "../layout/Header"
 
 // Validation Schema with Yup
 const validationSchema = Yup.object({
@@ -119,6 +120,7 @@ const Jilareport = () => {
 
   return (
     <Container >
+    
       <Row className="mt-3">
         <Col>
           <h4>{fieldLabels[language].selectNagar}</h4>
@@ -456,7 +458,7 @@ const Jilareport = () => {
 
             
 
-            {/* Submit Button */}
+
             <Row className="mt-3">
               <Col className='text-center'>
                 <Button type="submit">Submit</Button>
