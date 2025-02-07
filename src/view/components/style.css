@@ -1,6 +1,7 @@
-.card {
+.recievedCard {
     height: 35px !important;
-}
+
+background: aliceblue;}
 
 button.btn.btn-link {
     /* margin-top: -60px !important; */

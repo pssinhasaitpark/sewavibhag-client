@@ -1,8 +1,8 @@
-.container {
-    /* padding-top: 20px; */
+/* .container {
+    
     padding-bottom: 40px;
       /* margin-right: 123px; */
-  }
+  /* } */
 
   h4, h2 {
     font-size: 20px;
@@ -81,4 +81,118 @@
     }
   }
 
-  
+   */
+
+
+   /* Apply the gradient background to the specific div */
+.gradient-background {
+  /* background: linear-gradient(to right, #a088ba, #07214c); */
+  min-height: 100vh;
+  padding-bottom: 40px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  padding-top: 4px;
+}
+
+/* Container Background */
+.container {
+  padding-bottom: 40px;
+  background: linear-gradient(to bottom, #ffffff, #f8f9fa); /* White to Light Gray gradient */
+  border-radius: 8px;
+  margin: 20px auto; /* Center the container */
+  max-width: 1200px;
+}
+
+/* Header (h2) Background */
+h2 {
+  font-size: 20px;
+  color: #0c5153;
+  margin-top: 20px;
+  text-align: left;
+  padding-left: 10px;
+  font-weight: 900;
+  background: linear-gradient(to right, #fdfbd4, #f8f9fa); /* Light yellow to Light gray gradient */
+  padding: 4px;
+  border-radius: 5px;
+}
+
+/* Form Controls Background */
+.form-control {
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  background: linear-gradient(to right, #f0f8ff, #e0f7fa); /* Light blue gradient */
+  transition: all 0.3s ease;
+}
+
+/* Form Control Focus Effect */
+.form-control:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+  background: linear-gradient(to right, #d4f1ff, #c3f7ff); /* Focus gradient */
+}
+
+/* Hover Effect for Form Control */
+.form-control:hover {
+  /* background: linear-gradient(to right, #e0f7fa, #c6f5fc); */
+   /* Light blue gradient hover effect */
+  border-color: #007bff;
+}
+
+/* Submit Button Background */
+button[type="submit"] {
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background: linear-gradient(to right, #28a745, #218838); /* Green gradient */
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Submit Button Hover Effect */
+button[type="submit"]:hover {
+  background: linear-gradient(to right, #218838, #1e7e34); /* Darker green on hover */
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+/* Submit Button Active State */
+button[type="submit"]:active {
+  background: linear-gradient(to right, #1e7e34, #155d27); /* Active button state */
+  transform: scale(1);
+}
+
+/* Card Background */
+.card {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 30px;
+  background: linear-gradient(to right, #ffffff, #f8f9fa); /* White to light gray gradient */
+}
+
+/* Card Hover Effect */
+.card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  background: linear-gradient(to right, #f8f9fa, #e9ecef); /* Card hover gradient */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .col-md-6 {
+      width: 100% !important;
+      margin-bottom: 20px;
+  }
+
+  h1 {
+      font-size: 1.4rem;
+  }
+
+  .container {
+      padding-left: 15px;
+      padding-right: 15px;
+  }
+}

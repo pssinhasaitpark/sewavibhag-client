@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, Button, Collapse, Container } from "react-bootstrap";
-import './style.css'
+import "./style.css";
 const HierarchyBox = () => {
   const [openSections, setOpenSections] = useState({
     allIndia: true,
@@ -21,9 +21,16 @@ const HierarchyBox = () => {
   return (
     <Container className="mt-2" style={{ maxWidth: "800px" }}>
       {/* All India */}
-      <Card className="" style={{ backgroundColor: "#ff4d4d", color: "white" }}>
+      <Card
+        className="recievedCard"
+        style={{ backgroundColor: "#ff4d4d", color: "black" }}
+      >
         <Card.Body className="jilsCard-all-india">
-          <Button variant="link" style={{ color: "white" }} onClick={() => toggleSection("allIndia")}>
+          <Button
+            variant="link"
+            style={{ color: "black" }}
+            onClick={() => toggleSection("allIndia")}
+          >
             All India
           </Button>
         </Card.Body>
@@ -31,10 +38,23 @@ const HierarchyBox = () => {
 
       {/* Kshetra Level */}
       <Collapse in={openSections["allIndia"]}>
-        <div style={{ borderLeft: "2px solid #000", paddingLeft: "15px", marginLeft: "15px" }}>
-          <Card className="mb-2" style={{ backgroundColor: "#80ff80", color: "white" }}>
+        <div
+          style={{
+            borderLeft: "2px solid #000",
+            paddingLeft: "15px",
+            marginLeft: "15px",
+          }}
+        >
+          <Card
+            className="recievedCard mb-2"
+            style={{ backgroundColor: "#80ff80", color: "black" }}
+          >
             <Card.Body className="jilsCard">
-              <Button variant="link" style={{ color: "white", padding: "0" }} onClick={() => toggleSection("kshetra")}>
+              <Button
+                variant="link"
+                style={{ color: "black", padding: "0" }}
+                onClick={() => toggleSection("kshetra")}
+              >
                 Kshetra Level
               </Button>
             </Card.Body>
@@ -42,10 +62,23 @@ const HierarchyBox = () => {
 
           {/* Prant Level */}
           <Collapse in={openSections["kshetra"]}>
-            <div style={{ borderLeft: "2px solid #000", paddingLeft: "15px", marginLeft: "15px" }}>
-              <Card className="mb-2" style={{ backgroundColor: "#ff4d4d", color: "white" }}>
+            <div
+              style={{
+                borderLeft: "2px solid #000",
+                paddingLeft: "15px",
+                marginLeft: "15px",
+              }}
+            >
+              <Card
+                className="recievedCard mb-2"
+                style={{ backgroundColor: "#ff4d4d", color: "black" }}
+              >
                 <Card.Body className="jilsCard">
-                  <Button variant="link" style={{ color: "white", padding: "0" }} onClick={() => toggleSection("prant")}>
+                  <Button
+                    variant="link"
+                    style={{ color: "black", padding: "0" }}
+                    onClick={() => toggleSection("prant")}
+                  >
                     Prant Level
                   </Button>
                 </Card.Body>
@@ -53,10 +86,23 @@ const HierarchyBox = () => {
 
               {/* Vibhag Level */}
               <Collapse in={openSections["prant"]}>
-                <div style={{ borderLeft: "2px solid #000", paddingLeft: "15px", marginLeft: "15px" }}>
-                  <Card className="mb-2" style={{ backgroundColor: "#80ff80", color: "white" }}>
+                <div
+                  style={{
+                    borderLeft: "2px solid #000",
+                    paddingLeft: "15px",
+                    marginLeft: "15px",
+                  }}
+                >
+                  <Card
+                    className="recievedCard mb-2"
+                    style={{ backgroundColor: "#80ff80", color: "black" }}
+                  >
                     <Card.Body className="jilsCard">
-                      <Button variant="link" style={{ color: "white", padding: "0" }} onClick={() => toggleSection("vibhag")}>
+                      <Button
+                        variant="link"
+                        style={{ color: "black", padding: "0" }}
+                        onClick={() => toggleSection("vibhag")}
+                      >
                         Vibhag Level
                       </Button>
                     </Card.Body>
@@ -64,10 +110,23 @@ const HierarchyBox = () => {
 
                   {/* Jila Levels */}
                   <Collapse in={openSections["vibhag"]}>
-                    <div style={{ borderLeft: "2px solid #000", paddingLeft: "15px", marginLeft: "15px" }}>
-                      <Card className="mb-2" style={{ backgroundColor: "#ff4d4d", color: "black" }}>
+                    <div
+                      style={{
+                        borderLeft: "2px solid #000",
+                        paddingLeft: "15px",
+                        marginLeft: "15px",
+                      }}
+                    >
+                      <Card
+                        className="recievedCard mb-2"
+                        style={{ backgroundColor: "#ff4d4d", color: "black" }}
+                      >
                         <Card.Body className="jilsCard">
-                          <Button variant="link" style={{ color: "black", padding: "0" }} onClick={() => toggleSection("jila1")}>
+                          <Button
+                            variant="link"
+                            style={{ color: "black", padding: "0" }}
+                            onClick={() => toggleSection("jila1")}
+                          >
                             Jila Level 1
                           </Button>
                         </Card.Body>
@@ -75,8 +134,20 @@ const HierarchyBox = () => {
 
                       {/* More Cards Inside Jila */}
                       <Collapse in={openSections["jila1"]}>
-                        <div style={{ borderLeft: "2px solid #000", paddingLeft: "15px", marginLeft: "15px" }}>
-                          <Card className="mb-2" style={{ backgroundColor: "#80ff80", color: "black" }}>
+                        <div
+                          style={{
+                            borderLeft: "2px solid #000",
+                            paddingLeft: "15px",
+                            marginLeft: "15px",
+                          }}
+                        >
+                          <Card
+                            className="recievedCard mb-2"
+                            style={{
+                              backgroundColor: "#80ff80",
+                              color: "black",
+                            }}
+                          >
                             <Card.Body className="jilsCard">Jila 2</Card.Body>
                           </Card>
                         </div>
