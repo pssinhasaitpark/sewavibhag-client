@@ -122,6 +122,22 @@
         display: none;
     }
 }
+@media (min-width: 350px) {
+    .hamburger {
+        display: none;
+    }
+
+    .sidebar {
+        width: 260px; /* Increased width */
+        left: 0;
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .sidebar-overlay {
+        display: none;
+    }
+}
 
 /* Convert sidebar into a hamburger menu below 1675px */
 @media (max-width: 1861px) {
