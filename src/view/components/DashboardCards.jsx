@@ -58,9 +58,31 @@ const Dashboard = () => {
 
   return (
     <Container className="py-3 cards_wholedata">
-      <div className="text-end mb-3"></div>
-      <h5 className="fw-bold">Dashboard</h5>
-      <p className="text-secondary fw-bold">Whole data about your business here</p>
+      <Row className="g-3 justify-content-center">
+        <Col xs={12} md={12} className="mb-3">
+          <Card
+            className="text-center p-3 shadow-sm border-0"
+            style={{ margin: "10px", backgroundColor: "#f7f7f7" }}
+          >
+            <Card.Body>
+              <div className="row text-center">
+                <div className="col">
+                  <strong>Prant Name</strong>
+                  <div className="fw-bold">Malwa</div>
+                </div>
+                <div className="col">
+                  <strong>Vibhag Name</strong>
+                  <div className="fw-bold">DEWAS</div>
+                </div>
+                <div className="col">
+                  <strong>Jila Name</strong>
+                  <div className="fw-bold">SHAJAPUR</div>
+                </div>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
 
       {/* Stats Summary Card */}
       <Row className="g-3 justify-content-center">
@@ -77,6 +99,7 @@ const Dashboard = () => {
     </Card>
   </Col>
 
+
   {/* Card for Vibhag Name */}
   <Col xs={12} sm={4} md={3}>
     <Card
@@ -89,6 +112,7 @@ const Dashboard = () => {
       </Card.Body>
     </Card>
   </Col>
+  
 
   {/* Card for Jila Name */}
   <Col xs={12} sm={4} md={3}>
@@ -106,38 +130,7 @@ const Dashboard = () => {
 
 
       {/* Stats Cards */}
-      <Row className="g-3 justify-content-center">
-        {stats.slice(1).map((stat, index) => (
-          <Col xs={12} sm={6} md={4} lg={2} key={index} className="d-flex justify-content-center">
-            <Card
-              className="text-center p-3 shadow-sm border-0"
-              style={{
-                minWidth: "180px",
-                backgroundColor: "#f7f7f7",
-                borderRadius: "8px", // Added border radius for a more rounded look
-                padding: "20px", // Added some internal padding for better content spacing
-              }}
-            >
-              <div
-                style={{
-                  color: stat.color,
-                  fontSize: "24px", // Larger icons for better visibility
-                }}
-              >
-                {iconMapping[stat.icon]}
-              </div>
-              <Card.Body className="p-2">
-                <h6 className="mt-2" style={{ fontSize: "14px" }}>
-                  {stat.title}
-                </h6>
-                <h5 className="fw-bold mt-1" style={{ fontSize: "16px" }}>
-                  {stat.value}
-                </h5>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+    
     </Container>
   );
 };

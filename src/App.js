@@ -1,29 +1,37 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./view/redux/store/AuthStore";
+import PrivateRoute from "./view/routes/privateRoutes/PrivateRoutes";
 import Dashboard from "./view/layout/Dashboard";
 import DashboardCards from "./view/components/DashboardCards";
 import Jilareport from "./view/components/Jilareport";
 import ViewKendraTable from "./view/components/table/ViewKendraTable";
-import LoginForm from "./view/pages/login/Login";  // Import the LoginForm component
+import Login from "./view/pages/login/Login";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
-    <Router>
-      <Routes>
+
+ 
   
-        <Route path="/" element={<LoginForm />} /> {/* This is the home page with the login form */}
-        
-        {/* Define the Dashboard route with nested routes */}
-        <Route path="/dashboard" element={<Dashboard />}>
-          <Route index element={<DashboardCards />} /> {/* Default route */}
-          <Route path="jilareport" element={<Jilareport />} /> {/* Nested route */}
-          <Route path="viewkendratable" element={<ViewKendraTable />} /> {/* Nested route */}
-        </Route>
-      </Routes>
-    </Router>
-  
+
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<Dashboard />}>
+              <Route index element={<DashboardCards />} />
+              <Route path="jilareport" element={<Jilareport />} />
+              <Route path="viewkendratable" element={<ViewKendraTable />} />
+            </Route>
+          </Route>
+        </Routes>
+      </Router>
+    </Provider>
+
   );
 }
 
