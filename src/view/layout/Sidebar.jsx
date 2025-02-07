@@ -23,26 +23,31 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Hamburger Icon for Mobile */}
       <div className="hamburger" onClick={toggleSidebar}>
         {isSidebarOpen ? <FaTimes size={30} /> : <FaBars size={30} />}
       </div>
-
-      {/* Sidebar */}
       <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
         <div className="sidebar-header">
-          <img src={sidelogo} alt="Sewa Vibhag Logo" className="sidebar-logo" />
+          <img
+            src="https://bharatmapping.com//assets/img/logo1.jpg"
+            alt="Sewa Vibhag Logo"
+            className="sidebar-logo"
+          />
         </div>
 
         <ul className="sidebar-menu">
           <li>
-            <Link to="/dashboard" className="sidebar-link" onClick={toggleSidebar}>
+            <Link
+              to="/dashboard"
+              className="sidebar-link"
+              onClick={toggleSidebar}
+            >
               <FaTv className="icon text-primary" />
               <span>Dashboard</span>
             </Link>
           </li>
 
-          <li>
+          {/* <li>
             <Link to="#" className="sidebar-link" onClick={toggleSidebar}>
               <FaUserShield className="icon text-warning" />
               <span>Create Sub Admin</span>
@@ -56,31 +61,39 @@ const Sidebar = () => {
             </Link>
           </li>
 
-          <hr />
+          <hr /> */}
 
-          <div className="sidebar-section">Reporting Form</div>
+          <div className="sidebar-section">Reporting</div>
           <li>
-            <Link to="/dashboard/jilareport" className="sidebar-link" onClick={toggleSidebar}>
+            <Link
+              to="/dashboard/jilareport"
+              className="sidebar-link"
+              onClick={toggleSidebar}
+            >
               <FaRocket className="icon text-success" />
-              <span>Create Reportings</span>
+              <span>View Form</span>
             </Link>
           </li>
 
           <li>
-            <Link to="/dashboard/viewkendratable" className="sidebar-link" onClick={toggleSidebar}>
+            <Link
+              to="/dashboard/viewkendratable"
+              className="sidebar-link"
+              onClick={toggleSidebar}
+            >
               <FaUsers className="icon text-info" />
-              <span>View Reportings</span>
+              <span>View Reporting</span>
             </Link>
           </li>
 
           <li>
-            <Link to="#" className="sidebar-link" onClick={toggleSidebar}>
+            <Link to="/dashboard/revieved" className="sidebar-link" onClick={toggleSidebar}>
               <FaTasks className="icon text-secondary" />
-              <span>Assign Survey</span>
+              <span>Recieved</span>
             </Link>
           </li>
 
-          <hr />
+          {/* <hr />
 
           <div className="sidebar-section">NAGAR</div>
           <li>
@@ -97,14 +110,14 @@ const Sidebar = () => {
             </Link>
           </li>
 
-          <hr />
+          <hr /> */}
         </ul>
       </div>
 
-     
-      {isSidebarOpen && <div className="sidebar-overlay" onClick={toggleSidebar} />}
+      {isSidebarOpen && <div onClick={toggleSidebar} />}
     </>
   );
 };
 
 export default Sidebar;
+

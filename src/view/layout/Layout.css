@@ -1,0 +1,46 @@
+.layout-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  
+  .sidebar-col {
+    padding: 0;
+    background-color: #f8f9fa;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  
+  .content-col {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  
+  .main-content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  
+  @media (max-width: 768px) {
+    .sidebar-col {
+      position: fixed;
+      left: -100%;
+      transition: left 0.3s ease-in-out;
+    }
+  
+    .sidebar-col.open {
+      left: 0;
+    }
+  
+    .content-col {
+      width: 100%;
+    }
+  }
