@@ -41,31 +41,18 @@ const Dashboard = () => {
           transition: "transform 0.3s ease-in-out",
         }}
       >
-        <Sidebar isOpen={isSidebarOpen} language={language} />
       </div>
 
-      {/* Main content */}
+
       <div
         className="d-flex flex-column flex-grow-1"
         style={{
           marginTop: "0",
         }}
       >
+        <Sidebar isOpen={isSidebarOpen} language={language} />
         <Header
-          onMenuClick={handleMenuClick}
-          style={{
-            marginLeft: isSidebarOpen && !isMobile ? "250px" : "0" // Push content for sidebar on desktop
-          }}
-          language={language}
-          onLanguageChange={handleLanguageChange}
         />
-
-        {isMobile && (
-          <button onClick={handleMenuClick} className="d-md-none">
-            ☰
-          </button>
-        )}
-
         <div className="flex-grow-1 p-3">
           <Outlet />
         </div>

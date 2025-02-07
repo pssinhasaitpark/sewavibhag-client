@@ -1,127 +1,114 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../redux/slice/AuthSlice";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Button, Form, Container, Row, Col, InputGroup, FormControl } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form as BootstrapForm,
+  Button,
+  InputGroup,
+} from "react-bootstrap";
 import sidelogo from "../../../assests/sewavibhag.png";
-import { ToastContainer } from "react-toastify"; // Import the ToastContainer
 
-function Login() {
+const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.auth);
 
-  // Set the initial state values for email and password to predefined values
-  const [email, setEmail] = useState("test@gmail.com");  // Pre-fill the email
-  const [password, setPassword] = useState("123456");  // Pre-fill the password
-  const [remember, setRemember] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const validationSchema = Yup.object({
+    user_name: Yup.string().required("Username is required"),
+    password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+  });
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setLoading(true);
+  const initialValues = {
+    user_name: "testuser3",
+    password: "password123",
+  };
 
-    // Simulating login validation (replace with your actual API call)
-    if (email === "test@gmail.com" && password === "123456") {
-      toast.success("Login successful!", {
-        position: "top-right",
-        autoClose: 2000,
-      });
+  const handleSubmit = async (values) => {
+    try {
+      await dispatch(loginUser(values)).unwrap();
+      toast.success("Login successful!", { position: "top-right", autoClose: 2000 });
+
       setTimeout(() => {
         navigate("/dashboard", { replace: true });
       }, 1500);
-    } else {
-      toast.error("Invalid Credentials! Please try again.", {
-        position: "top-right",
-        autoClose: 2000,
-      });
+    } catch (error) {
+      toast.error("Invalid Credentials! Please try again.", { position: "top-right", autoClose: 2000 });
     }
-
-    setLoading(false);
   };
 
   return (
-    <>
-      {/* ToastContainer should be at the root level or the level where you want to display toasts */}
+    <Container
+      fluid
+      className="d-flex justify-content-center align-items-center"
+      style={{ height: "100vh", backgroundColor: "#f8f9fa" }}
+    >
       <ToastContainer />
-
-      <Container
-        fluid
-        style={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Row className="justify-content-center w-100">
-          <Col xs={12} sm={10} md={6} lg={5} xl={4}>
-            <div className="border p-5 shadow-sm rounded" style={{ backgroundColor: "#f9f9f9" }}>
-              <div className="text-center mb-4">
-                <img
-                  src={sidelogo}
-                  alt="Logo"
-                  style={{ width: "150px", height: "auto", marginBottom: "20px" }}
-                />
-              </div>
-              <h3 className="text-center mb-4">Login</h3>
-              <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3" controlId="formEmail">
-                  <Form.Label>Username or email</Form.Label>
-                  <InputGroup>
-                    <FormControl
-                      type="email"
-                      placeholder="Enter your email"
-                      value={email}  
-                      onChange={(e) => setEmail(e.target.value)}  
-                      required
-                      style={{ fontSize: "16px" }}
-                    />
-                  </InputGroup>
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formPassword">
-                  <Form.Label>Password</Form.Label>
-                  <InputGroup>
-                    <FormControl
-                      type="password"
-                      placeholder="Enter your password"
-                      value={password}  
-                      onChange={(e) => setPassword(e.target.value)}  
-                      required
-                      style={{ fontSize: "16px" }}
-                    />
-                  </InputGroup>
-                </Form.Group>
-
-                <Form.Group className="mb-3 d-flex justify-content-between align-items-center">
-                  <div>
-                    <Form.Check
-                      type="checkbox"
-                      label="Remember me"
-                      checked={remember}
-                      onChange={() => setRemember(!remember)}
-                    />
-                  </div>
-                  <a href="#" className="text-decoration-none" style={{ fontSize: "14px" }}>
-                    Forgot password?
-                  </a>
-                </Form.Group>
-
-                <Button
-                  variant="success"
-                  type="submit"
-                  className="w-100"
-                  disabled={loading}
-                  style={{ padding: "10px", fontSize: "16px" }}
-                >
-                  {loading ? "Logging in..." : "Login"}
-                </Button>
-              </Form>
+      <Row className="justify-content-center w-100">
+        <Col xs={12} sm={10} md={6} lg={5} xl={4}>
+          <div className="border p-4 shadow-sm rounded bg-white">
+            <div className="text-center mb-3">
+              <img src={sidelogo} alt="Logo" style={{ width: "150px", height: "auto" }} />
             </div>
-          </Col>
-        </Row>
-      </Container>
-    </>
+            <h3 className="text-center mb-4">Login</h3>
+
+            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+              {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
+                <BootstrapForm onSubmit={handleSubmit}>
+                  <BootstrapForm.Group className="mb-3" controlId="user_name">
+                    <BootstrapForm.Label>Username</BootstrapForm.Label>
+                    <InputGroup>
+                      <BootstrapForm.Control
+                        type="text"
+                        name="user_name"
+                        placeholder="Enter your username"
+                        value={values.user_name || "testuser3"}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        isInvalid={touched.user_name && errors.user_name}
+                      />
+                      <BootstrapForm.Control.Feedback type="invalid">
+                        {errors.user_name}
+                      </BootstrapForm.Control.Feedback>
+                    </InputGroup>
+                  </BootstrapForm.Group>
+
+                  <BootstrapForm.Group className="mb-3" controlId="password">
+                    <BootstrapForm.Label>Password</BootstrapForm.Label>
+                    <InputGroup>
+                      <BootstrapForm.Control
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        value={values.password || "password123"}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        isInvalid={touched.password && errors.password}
+                      />
+                      <BootstrapForm.Control.Feedback type="invalid">
+                        {errors.password}
+                      </BootstrapForm.Control.Feedback>
+                    </InputGroup>
+                  </BootstrapForm.Group>
+
+                  <Button variant="success" type="submit" className="w-100" disabled={loading}>
+                    {loading ? "Logging in..." : "Login"}
+                  </Button>
+                </BootstrapForm>
+              )}
+            </Formik>
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
-}
+};
 
 export default Login;
