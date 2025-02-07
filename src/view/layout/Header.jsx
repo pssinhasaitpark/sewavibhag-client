@@ -16,7 +16,6 @@ const Header = ({ onMenuClick, language, onLanguageChange }) => {
 
   return (
     <Navbar bg="light" className="px-3 border-bottom d-flex justify-content-end">
-      {/* Profile Icon (Always Visible) */}
       <Dropdown show={showDropdown} onToggle={() => setShowDropdown(!showDropdown)}>
         <Dropdown.Toggle variant="link" id="dropdown-user" className="text-dark">
           <FaUserCircle size={24} className="ms-2" />

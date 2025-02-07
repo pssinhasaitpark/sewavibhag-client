@@ -1,0 +1,29 @@
+.card {
+    height: 35px !important;
+}
+
+button.btn.btn-link {
+    /* margin-top: -60px !important; */
+}
+.jilsCard.card-body {
+    margin-top: -25px;
+}
+.jilsCard-all-india.card-body {
+    margin-top: -35px !important;
+}
+
+button.btn.btn-link {
+    text-decoration: none;
+} 
+
+
+@media(min-width:300px) {
+   .card{
+    width: 90;
+
+   }
+   button.btn.btn-link {
+    padding: 0px;
+    width: 116px;
+}
+}

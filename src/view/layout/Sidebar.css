@@ -1,47 +1,59 @@
-
 .hamburger {
-    display: none;
-    position: fixed;
-    top: 8px;
+    display: none; /* Hidden by default for larger screens */
+    position: absolute;
+    top: 15px;
     left: 15px;
     z-index: 110;
     cursor: pointer;
-
     padding: 5px 10px;
     border-radius: 5px;
- 
 }
 
+/* Sidebar */
 .sidebar {
     position: fixed;
     top: 0;
-    left: -260px;
+    left: 0;
     height: 100vh;
-    width: 250px;
+    width: 280px; /* Increased width */
+    max-width: 80%;
     background: #fff;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    transition: left 0.3s ease-in-out;
     overflow-y: auto;
     z-index: 105;
     padding-top: 20px;
+    transition: left 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    visibility: visible;
+    opacity: 1;
 }
 
+/* Updated Sidebar Logo Size */
+.sidebar-logo {
+    width: 150px; /* Increased */
+    height: auto;
+}
+
+/* Sidebar when collapsed */
+.sidebar.closed {
+    left: -300px;
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* Sidebar opened via hamburger */
 .sidebar.open {
     left: 0;
+    visibility: visible;
+    opacity: 1;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
-
 
 .sidebar-header {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.sidebar-logo {
-    width: 100px;
-    height: auto;
-}
-
-
+/* Sidebar Menu */
 .sidebar-menu {
     list-style: none;
     padding: 0;
@@ -51,7 +63,7 @@
 .sidebar-link {
     display: flex;
     align-items: center;
-    padding: 12px;
+    padding: 14px; /* Increased padding */
     text-decoration: none;
     color: #333;
     transition: background 0.3s ease;
@@ -68,7 +80,6 @@
     font-size: 20px;
 }
 
-/* Sidebar Section Headers */
 .sidebar-section {
     color: #777;
     font-size: 12px;
@@ -78,7 +89,6 @@
     margin-top: 10px;
 }
 
-/* Sidebar Overlay for Mobile */
 .sidebar-overlay {
     position: fixed;
     top: 0;
@@ -87,34 +97,68 @@
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 104;
+    display: none;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hamburger {
-        position: absolute;
-        display: block;
-    }
-
-    .sidebar {
-        left: -250px;
-    }
-
-    .sidebar.open {
-        left: 0;
-    }
+/* Show overlay when sidebar is open */
+.sidebar.open ~ .sidebar-overlay {
+    display: block;
 }
 
-@media (min-width: 769px) {
+/* Sidebar remains visible for larger screens */
+@media (min-width: 1676px) {
     .hamburger {
         display: none;
     }
 
     .sidebar {
+        width: 260px; /* Increased width */
         left: 0;
+        visibility: visible;
+        opacity: 1;
     }
 
     .sidebar-overlay {
         display: none;
+    }
+}
+@media (min-width: 350px) {
+    .hamburger {
+        display: none;
+    }
+
+    .sidebar {
+        width: 260px; /* Increased width */
+        left: 0;
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .sidebar-overlay {
+        display: none;
+    }
+}
+
+/* Convert sidebar into a hamburger menu below 1675px */
+@media (max-width: 1861px) {
+    .hamburger {
+        display: block;
+    }
+
+    .sidebar {
+        width: 260px; /* Slightly wider */
+        left: -260px; /* Adjusted for consistency */
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .sidebar.open {
+        left: 0;
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .sidebar-overlay {
+        display: block;
     }
 }

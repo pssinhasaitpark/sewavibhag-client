@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "../layout/Sidebar";
-import Header from "../layout/Header";
 
 const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -17,14 +15,6 @@ const Dashboard = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleMenuClick = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  const handleLanguageChange = (newLanguage) => {
-    setLanguage(newLanguage);
-  };
-
   return (
     <div className="d-flex flex-column min-vh-100">
       {/* Sidebar */}
@@ -36,13 +26,21 @@ const Dashboard = () => {
           height: "100vh",
           zIndex: 100,
           width: "250px",
-          position: isMobile ? "absolute" : "fixed", 
+          position: isMobile ? "absolute" : "fixed",
           transform: isMobile && !isSidebarOpen ? "translateX(-100%)" : "translateX(0)",
           transition: "transform 0.3s ease-in-out",
         }}
       >
+        {/* Add a button to toggle the sidebar */}
+        {isMobile && (
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="btn btn-primary"
+          >
+            Toggle Sidebar
+          </button>
+        )}
       </div>
-
 
       <div
         className="d-flex flex-column flex-grow-1"
@@ -50,9 +48,6 @@ const Dashboard = () => {
           marginTop: "0",
         }}
       >
-        <Sidebar isOpen={isSidebarOpen} language={language} />
-        <Header
-        />
         <div className="flex-grow-1 p-3">
           <Outlet />
         </div>
