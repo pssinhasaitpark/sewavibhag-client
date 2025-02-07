@@ -27,8 +27,8 @@ const Login = () => {
   });
 
   const initialValues = {
-    user_name: "testuser3",
-    password: "password123",
+    user_name: "",
+    password: "",
   };
 
   const handleSubmit = async (values) => {
@@ -69,7 +69,7 @@ const Login = () => {
                         type="text"
                         name="user_name"
                         placeholder="Enter your username"
-                        value={values.user_name || "testuser3"}
+                        value={values.user_name || ""}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         isInvalid={touched.user_name && errors.user_name}
@@ -87,7 +87,7 @@ const Login = () => {
                         type="password"
                         name="password"
                         placeholder="Enter your password"
-                        value={values.password || "password123"}
+                        value={values.password || ""}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         isInvalid={touched.password && errors.password}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Container, Row, Col, Card } from "react-bootstrap";
-import "./DashboardCards.css"
+import "./DashboardCards.css";
 import {
   FaDollarSign,
   FaShoppingCart,
@@ -50,7 +50,7 @@ const iconMapping = {
 };
 
 const Dashboard = () => {
-  const [stats, setStats] = useState([]);
+  const [satate, setStats] = useState([]);
 
   useEffect(() => {
     setStats(statsData);
@@ -67,16 +67,16 @@ const Dashboard = () => {
             <Card.Body>
               <div className="row text-center">
                 <div className="col">
-                  <strong>Prant Name</strong>
-                  <div className="fw-bold">Malwa</div>
+                  <strong>Total Prant</strong>
+                  <div className="fw-bold">46</div>
                 </div>
                 <div className="col">
-                  <strong>Vibhag Name</strong>
-                  <div className="fw-bold">DEWAS</div>
+                  <strong>Total Vibhah</strong>
+                  <div className="fw-bold">318</div>
                 </div>
                 <div className="col">
-                  <strong>Jila Name</strong>
-                  <div className="fw-bold">SHAJAPUR</div>
+                  <strong>Total Jila</strong>
+                  <div className="fw-bold">1100</div>
                 </div>
               </div>
             </Card.Body>
@@ -86,54 +86,49 @@ const Dashboard = () => {
 
       {/* Stats Summary Card */}
       <Row className="g-3 justify-content-center">
-  {/* Card for Prant Name */}
-  <Col xs={12} sm={4} md={3}>
-    <Card
-      className="text-center p-3 shadow-sm border-0"
-      style={{ margin: "10px", backgroundColor: "#f7f7f7" }}
-    >
-      <Card.Body>
-        <strong>Prant Name</strong>
-        <div className="fw-bold">Malwa</div>
-      </Card.Body>
-    </Card>
-  </Col>
+        {/* Card for Prant Name */}
+        <Col xs={12} sm={4} md={3}>
+          <Card
+            className="text-center p-3 shadow-sm border-0"
+            style={{ margin: "10px", backgroundColor: "#f7f7f7" }}
+          >
+            <Card.Body>
+              <strong>Prant Name</strong>
+              <div className="fw-bold">Malwa</div>
+            </Card.Body>
+          </Card>
+        </Col>
 
+        {/* Card for Vibhag Name */}
+        <Col xs={12} sm={4} md={3}>
+          <Card
+            className="text-center p-3 shadow-sm border-0"
+            style={{ margin: "10px", backgroundColor: "#f7f7f7" }}
+          >
+            <Card.Body>
+              <strong>Vibhag Name</strong>
+              <div className="fw-bold">DEWAS</div>
+            </Card.Body>
+          </Card>
+        </Col>
 
-  {/* Card for Vibhag Name */}
-  <Col xs={12} sm={4} md={3}>
-    <Card
-      className="text-center p-3 shadow-sm border-0"
-      style={{ margin: "10px", backgroundColor: "#f7f7f7" }}
-    >
-      <Card.Body>
-        <strong>Vibhag Name</strong>
-        <div className="fw-bold">DEWAS</div>
-      </Card.Body>
-    </Card>
-  </Col>
-  
-
-  {/* Card for Jila Name */}
-  <Col xs={12} sm={4} md={3}>
-    <Card
-      className="text-center p-3 shadow-sm border-0"
-      style={{ margin: "10px", backgroundColor: "#f7f7f7" }}
-    >
-      <Card.Body>
-        <strong>Jila Name</strong>
-        <div className="fw-bold">SHAJAPUR</div>
-      </Card.Body>
-    </Card>
-  </Col>
-</Row>
-
+        {/* Card for Jila Name */}
+        <Col xs={12} sm={4} md={3}>
+          <Card
+            className="text-center p-3 shadow-sm border-0"
+            style={{ margin: "10px", backgroundColor: "#f7f7f7" }}
+          >
+            <Card.Body>
+              <strong>Jila Name</strong>
+              <div className="fw-bold">SHAJAPUR</div>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
 
       {/* Stats Cards */}
-    
     </Container>
   );
 };
 
 export default Dashboard;
-
