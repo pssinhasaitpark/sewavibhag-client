@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, Button, Collapse, Container } from "react-bootstrap";
-import "./style.css";
+import "./hierarchyBox.css";
 const HierarchyBox = () => {
   const [openSections, setOpenSections] = useState({
     allIndia: true,
