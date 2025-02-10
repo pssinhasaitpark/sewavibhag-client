@@ -15,6 +15,7 @@ import ViewKendraTable from "./view/components/table/ViewKendraTable";
 import Login from "./view/pages/login/Login";
 import Sidebar from "./view/layout/Sidebar";
 import Header from "./view/layout/Header";
+import "./App.css"
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import HierarchyBox from "./view/components/HierarchyBox";
