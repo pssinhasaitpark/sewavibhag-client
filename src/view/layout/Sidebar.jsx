@@ -23,7 +23,7 @@ const Sidebar = () => {
   return (
     <>
       <div className="hamburger svg1" onClick={toggleSidebar}>
-        {isSidebarOpen ? <FaTimes size={30} /> : <FaBars size={25} />}
+        {isSidebarOpen ? <FaTimes size={30} /> : <FaBars size={20} />}
       </div>
       <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
         <div className="sidebar-header">

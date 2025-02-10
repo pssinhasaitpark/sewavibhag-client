@@ -1,0 +1,11 @@
+.login_form_style{
+    margin-right: 245px !important;
+}
+
+
+@media(max-width:767px){
+    .login_form_style{
+
+        margin-right: 0px !important;
+    }
+}

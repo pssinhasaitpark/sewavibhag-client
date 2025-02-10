@@ -68,7 +68,7 @@ const ViewKendraTable = () => {
           <table className="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>जिला</th>
+                <th class="fixed-col">जिला</th>
                 <th>जिला सम महानगर/भाग संख्या</th>
                 <th>इनमें सेवा बस्ती संख्या</th>
                 <th>सेवा कार्य युक्त सेवा बस्ती</th>

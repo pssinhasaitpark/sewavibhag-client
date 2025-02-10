@@ -48,11 +48,11 @@ const Login = () => {
     <Container
       fluid
       className="d-flex justify-content-center align-items-center"
-      style={{ height: "100vh", backgroundColor: "#f8f9fa" }}
+      style={{ height: "100vh" }}
     >
       <ToastContainer />
-      <Row className="justify-content-center w-100">
-        <Col xs={12} sm={10} md={8} lg={6} xl={5}> {/* Increased width for larger screens */}
+      <Row className="justify-content-center w-100 ">
+        <Col xs={12} sm={10} md={8} lg={6} xl={5} className="login_form_style" style={{marginRight:"245px"}}> {/* Increased width for larger screens */}
           <div className="border p-5 shadow-sm rounded bg-white"> {/* Increased padding for better spacing */}
             <div className="text-center mb-4">
               <img src={BrandLogo} alt="Logo" style={{ width: "170px", height: "auto" }} /> {/* Slightly larger logo */}
