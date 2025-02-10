@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "./Jilareport.css";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const validationSchema = Yup.object({
   mahanagar: Yup.object({
@@ -112,12 +113,12 @@ const Jilareport = () => {
     },
   };
 
-  console.log("heyyyyyyy");
+
   
   const onSubmit = async (values) => {
-    console.log("Submitting values:", values); 
+  
     try {
-      const response = await axios.post("http://192.168.0.118:5500/api/v1/reporting-forms", values);
+      const response = await axios.post(`${BASE_URL}/api/v1/reporting-forms`,  values);
       alert("Forms Submitted Successfully")
       toast.success("forms data succes");
       console.log("Data submitted successfully:", response);
