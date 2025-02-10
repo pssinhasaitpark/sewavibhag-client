@@ -1,82 +1,21 @@
-/* Wrapper for the entire table */
-.table-wrapper {
-  width: 100%;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+.table thead th {
+  white-space: nowrap;
+  text-align: center;
 }
 
-/* Main table styles */
 .table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: auto; /* Allow columns to adjust based on content */
+  table-layout: auto;
+  /* width: 100%; */
 }
 
-/* Header styling */
-th {
-  background-color: #f2f2f2;
-  color: #333;
-  font-weight: bold;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  text-align: center;
-  padding: 10px;
-  border: 1px solid #ddd;
-  white-space: nowrap; /* Prevent text wrapping in headers */
-}
-
-/* Footer styling */
-tfoot td {
-  background-color: #f2f2f2;
-  font-weight: bold;
-  text-align: center;
-  padding: 10px;
-  border-top: 1px solid #ddd;
-}
-
-/* Scrollable table body with vertical scrolling */
 .table-scroll {
-  max-height: 400px; /* Adjust height as needed */
-  overflow-y: auto;  /* Enables vertical scrolling */
-  display: block;
+  margin-top: 10px;
 }
-
-/* Hover effect on rows */
-.clickable-row:hover {
-  background-color: #f1f1f1;
-  cursor: pointer;
-}
-
-/* Border styling for the table */
-.table-bordered th, .table-bordered td {
-  border: 1px solid #ddd;
-}
-
-/* Table spacing and structure */
-table {
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-
-/* Table cell styling */
-td {
-  background-color: #fff;
-  text-align: center;
-  padding: 10px;
-  word-wrap: break-word; /* Ensure long words break and don't overflow */
-}
-
-/* Responsive table adjustments */
-@media (max-width: 768px) {
-  .table-wrapper {
-    overflow-x: auto; /* Enable horizontal scrolling on smaller screens */
-  }
-
-  th, td {
-    font-size: 14px;
-    padding: 8px;
-  }
+.fixed-col {
+  position: sticky;
+  left: 0;
+  background: white; /* Background color to prevent content overlap */
+  z-index: 1;
+  text-align: left;
+  font-weight: bold;
 }
