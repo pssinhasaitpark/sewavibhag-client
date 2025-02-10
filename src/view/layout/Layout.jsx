@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
         <Col xs={12} md={3} lg={2} className="sidebar-col">
           <Sidebar />
         </Col>
-        <Col xs={12} md={9} lg={10} className="content-col">
+        <Col xs={12} md={5 } lg={8} className="content-col">
           <Header />
           <div className="main-content">{children}</div>
         </Col>

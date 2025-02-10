@@ -1,3 +1,4 @@
+/* Hamburger (Mobile) */
 .hamburger {
     display: none; /* Hidden by default for larger screens */
     position: absolute;
@@ -7,22 +8,33 @@
     cursor: pointer;
     padding: 5px 10px;
     border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+svg{
+    margin-bottom: 5px;
 }
 
 /* Sidebar */
 .sidebar {
     position: fixed;
     top: 0;
-    left: 0;
+    left: -280px; /* Initially hidden */
     height: 100vh;
     width: 280px; /* Increased width */
-    max-width: 80%;
     background: #fff;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     z-index: 105;
     padding-top: 20px;
     transition: left 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* Sidebar when open */
+.sidebar.open {
+    left: 0;
     visibility: visible;
     opacity: 1;
 }
@@ -38,19 +50,6 @@
     left: -300px;
     visibility: hidden;
     opacity: 0;
-}
-
-/* Sidebar opened via hamburger */
-.sidebar.open {
-    left: 0;
-    visibility: visible;
-    opacity: 1;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.sidebar-header {
-    text-align: center;
-    margin-bottom: 20px;
 }
 
 /* Sidebar Menu */
@@ -100,7 +99,7 @@
     display: none;
 }
 
-/* Show overlay when sidebar is open */
+/* Show overlay when sidebar is open (Mobile) */
 .sidebar.open ~ .sidebar-overlay {
     display: block;
 }
@@ -121,12 +120,16 @@
     .sidebar-overlay {
         display: none;
     }
+  
 }
+
 @media (min-width: 350px) {
     .hamburger {
         display: none;
     }
-
+    svg{
+        margin-bottom: 10px;
+    }
     .sidebar {
         width: 260px; /* Increased width */
         left: 0;
@@ -139,7 +142,7 @@
     }
 }
 
-/* Convert sidebar into a hamburger menu below 1675px */
+/* Mobile Hamburger */
 @media (max-width: 1861px) {
     .hamburger {
         display: block;
