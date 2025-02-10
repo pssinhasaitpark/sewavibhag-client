@@ -11,9 +11,8 @@ import {
   FaBars,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import sidelogo from "../../assests/sewavibhag.png";
 import "./Sidebar.css";
-
+import BrandLogo from "../../assests/brandLogo.jpg";
 const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -23,13 +22,13 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="hamburger" onClick={toggleSidebar}>
-        {isSidebarOpen ? <FaTimes size={30} /> : <FaBars size={30} />}
+      <div className="hamburger svg1" onClick={toggleSidebar}>
+        {isSidebarOpen ? <FaTimes size={30} /> : <FaBars size={25} />}
       </div>
       <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
         <div className="sidebar-header">
           <img
-            src="https://bharatmapping.com//assets/img/logo1.jpg"
+            src={BrandLogo}
             alt="Sewa Vibhag Logo"
             className="sidebar-logo"
           />
@@ -87,7 +86,11 @@ const Sidebar = () => {
           </li>
 
           <li>
-            <Link to="/dashboard/revieved" className="sidebar-link" onClick={toggleSidebar}>
+            <Link
+              to="/dashboard/revieved"
+              className="sidebar-link"
+              onClick={toggleSidebar}
+            >
               <FaTasks className="icon text-secondary" />
               <span>Recieved</span>
             </Link>
@@ -120,4 +123,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-

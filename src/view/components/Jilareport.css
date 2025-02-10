@@ -121,13 +121,13 @@ h2 {
   border-radius: 5px;
   padding: 10px;
   border: 1px solid #ced4da;
-  background: linear-gradient(to right, #f0f8ff, #e0f7fa); /* Light blue gradient */
+  /* background: linear-gradient(to right, #f0f8ff, #e0f7fa);  */
   transition: all 0.3s ease;
 }
 
 /* Form Control Focus Effect */
 .form-control:focus {
-  border-color: #80bdff;
+  /* border-color: #80bdff; */
   box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
   background: linear-gradient(to right, #d4f1ff, #c3f7ff); /* Focus gradient */
 }
@@ -136,7 +136,7 @@ h2 {
 .form-control:hover {
   /* background: linear-gradient(to right, #e0f7fa, #c6f5fc); */
    /* Light blue gradient hover effect */
-  border-color: #007bff;
+  /* border-color: #007bff; */
 }
 
 /* Submit Button Background */

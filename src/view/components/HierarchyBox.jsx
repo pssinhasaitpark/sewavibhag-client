@@ -23,7 +23,7 @@ const HierarchyBox = () => {
       {/* All India */}
       <Card
         className="recievedCard"
-        style={{ backgroundColor: "#ff4d4d", color: "black" }}
+        style={{  color: "black" }}
       >
         <Card.Body className="jilsCard-all-india">
           <Button
@@ -131,27 +131,34 @@ const HierarchyBox = () => {
                           </Button>
                         </Card.Body>
                       </Card>
-
-                      {/* More Cards Inside Jila */}
-                      <Collapse in={openSections["jila1"]}>
-                        <div
-                          style={{
-                            borderLeft: "2px solid #000",
-                            paddingLeft: "15px",
-                            marginLeft: "15px",
-                          }}
-                        >
-                          <Card
-                            className="recievedCard mb-2"
-                            style={{
-                              backgroundColor: "#80ff80",
-                              color: "black",
-                            }}
+                      <Card
+                        className="recievedCard mb-2"
+                        style={{ backgroundColor: "#80ff80", color: "black" }}
+                      >
+                        <Card.Body className="jilsCard">
+                          <Button
+                            variant="link"
+                            style={{ color: "black", padding: "0" }}
+                            onClick={() => toggleSection("jila1")}
                           >
-                            <Card.Body className="jilsCard">Jila 2</Card.Body>
-                          </Card>
-                        </div>
-                      </Collapse>
+                            Jila 
+                          </Button>
+                        </Card.Body>
+                      </Card>
+                      <Card
+                        className="recievedCard mb-2"
+                        style={{ backgroundColor: "#ff4d4d", color: "black" }}
+                      >
+                        <Card.Body className="jilsCard">
+                          <Button
+                            variant="link"
+                            style={{ color: "black", padding: "0" }}
+                            onClick={() => toggleSection("jila1")}
+                          >
+                            Jila 
+                          </Button>
+                        </Card.Body>
+                      </Card>
                     </div>
                   </Collapse>
                 </div>

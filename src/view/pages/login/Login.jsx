@@ -14,7 +14,7 @@ import {
   Button,
   InputGroup,
 } from "react-bootstrap";
-import sidelogo from "../../../assests/sewavibhag.png";
+import BrandLogo from "../../../assests/brandLogo.jpg";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -52,10 +52,10 @@ const Login = () => {
     >
       <ToastContainer />
       <Row className="justify-content-center w-100">
-        <Col xs={12} sm={10} md={6} lg={5} xl={4}>
-          <div className="border p-4 shadow-sm rounded bg-white">
-            <div className="text-center mb-3">
-              <img src={sidelogo} alt="Logo" style={{ width: "150px", height: "auto" }} />
+        <Col xs={12} sm={10} md={8} lg={6} xl={5}> {/* Increased width for larger screens */}
+          <div className="border p-5 shadow-sm rounded bg-white"> {/* Increased padding for better spacing */}
+            <div className="text-center mb-4">
+              <img src={BrandLogo} alt="Logo" style={{ width: "170px", height: "auto" }} /> {/* Slightly larger logo */}
             </div>
             <h3 className="text-center mb-4">Login</h3>
 
