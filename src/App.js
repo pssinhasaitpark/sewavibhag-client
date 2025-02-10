@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
-  BrowserRouter as Router,
+  BrowserRouter ,
   Routes,
   Route,
   useLocation,
@@ -66,9 +66,9 @@ function Layout() {
 function App() {
   return (
     <Provider store={store}>
-      <Router>
+      <BrowserRouter>
         <Layout />
-      </Router>
+      </BrowserRouter>
     </Provider>
   );
 }
