@@ -12,7 +12,7 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
-import BrandLogo from "../../assests/brandLogo.jpg";
+import BrandLogo from "../../assests/brandlogo.png";
 const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 

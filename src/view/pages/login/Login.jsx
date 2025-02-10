@@ -14,7 +14,7 @@ import {
   Button,
   InputGroup,
 } from "react-bootstrap";
-import BrandLogo from "../../../assests/brandLogo.jpg";
+import BrandLogo from "../../../assests/brandlogo.png";
 
 const Login = () => {
   const navigate = useNavigate();
