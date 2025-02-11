@@ -1,63 +1,67 @@
 /* General Login Form Styles */
 .login_form_style {
-    max-width: 450px;
-    width: 100%;
+  max-width: 450px;
+  width: 100%;
+  padding: 30px;
+  /* margin: auto;  */
+margin-right: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+
+
+/* Disable horizontal scrolling */
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .login_form_style {
+    max-width: 90%;
+    padding: 20px;
+    margin-left: 240px;
+  }
+
+  .login_form_style h3 {
+    font-size: 20px;
+  }
+
+  .login_form_style img {
+    width: 120px;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .login_form_style {
+    max-width: 90%;
+    padding: 25px;
+    margin-left: px;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .login_form_style {
+    max-width: 60%;
     padding: 30px;
-    margin-right: 450px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
-  
-  /* Extra small devices (phones, 600px and down) */
-  @media only screen and (max-width: 600px) {
-    .login_form_style {
-      max-width: 90%;
-      padding: 20px;
-      margin-left: 450px;
-     
-    }
-  
-    .login_form_style h3 {
-      font-size: 20px;
-    }
-  
-    .login_form_style img {
-      width: 120px;
-    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .login_form_style {
+    max-width: 450px;
   }
-  
-  /* Small devices (portrait tablets and large phones, 600px and up) */
-  @media only screen and (min-width: 600px) {
-    .login_form_style {
-      max-width: 90%;
-      padding: 25px;
-      margin-left: 245px;
-      
-    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .login_form_style {
+    max-width: 450px;
   }
-  
-  /* Medium devices (landscape tablets, 768px and up) */
-  @media only screen and (min-width: 768px) {
-    .login_form_style {
-      max-width: 60%;
-      padding: 30px;
-      
-    }
-  }
-  
-  /* Large devices (laptops/desktops, 992px and up) */
-  @media only screen and (min-width: 992px) {
-    .login_form_style {
-      max-width: 450px;
-    }
-  }
-  
-  /* Extra large devices (large laptops and desktops, 1200px and up) */
-  @media only screen and (min-width: 1200px) {
-    .login_form_style {
-      max-width: 450px;
-    }
-  }
-  
+}

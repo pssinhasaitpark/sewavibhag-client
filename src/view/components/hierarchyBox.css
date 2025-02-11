@@ -1,40 +1,132 @@
-.recievedCard {
-    height: 35px !important;
-    /* background: aliceblue; */
-    background: #ff4d4d
+/* General Styles */
+.hierarchy-container {
+    max-width: 800px;
+    width: 100%;
+    padding: 10px;
 }
 
+.recievedCard {
+    /* min-height: 40px; */
+    padding: 1px 1px; 
+    background: #ff4d4d;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    /* align-items: center; */
+    justify-content: flex-start;
+    word-wrap: break-word;
+}
 
-button.btn.btn-link {
+.recievedCard:hover {
+    transform: scale(1.02);
+}
+
+.hierarchy-btn {
     text-decoration: none;
     color: black !important;
- 
-    padding: 0px;
-    /* width: 116px; */
-    width: 6.3rem !important;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0;
+    white-space: normal;
+    text-align: left;
+    width: 100%;
 }
 
-
-button.btn.btn-link:hover,
-button.btn.btn-link:focus {
+.hierarchy-btn:hover,
+.hierarchy-btn:focus {
+    text-decoration: none;
     color: black !important;
-    text-decoration: none !important;
-    
 }
 
-.jilsCard.card-body {
-    margin-top: -25px;
+/* Indentation for Nested Levels */
+.hierarchy-level {
+    border-left: 2px solid black;
+    padding-left: 12px; /* Slightly reduced */
+    margin-left: 12px;
 }
 
-.jilsCard-all-india.card-body {
-    margin-top: -35px !important;
+/* Different Level Backgrounds */
+.level-kshetra {
+    background-color: #80ff80;
 }
 
-@media(min-width: 300px) {
-   .card {
-      width: 90%;
-   }
+.level-prant {
+    background-color: #ff4d4d;
 }
 
+.level-vibhag {
+    background-color: #80ff80;
+}
 
+.level-jila {
+    background-color: #ff4d4d;
+}
 
+/* Responsive Design */
+
+/* Extra Small Devices (Phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .hierarchy-container {
+        width: 95%;
+        padding: 5px;
+    }
+
+    .recievedCard {
+        font-size: 14px;
+        padding: 5px 8px; /* Reduced padding */
+        min-height: 35px; /* Ensures a proper height */
+    }
+
+    .hierarchy-btn {
+        font-size: 14px;
+        white-space: normal;
+        text-align: left;
+        display: block;
+    }
+
+    .hierarchy-level {
+        padding-left: 8px;
+        margin-left: 8px;
+    }
+}
+
+/* Small Devices (Tablets and Large Phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .hierarchy-container {
+        width: 90%;
+    }
+
+    .hierarchy-btn {
+        font-size: 15px;
+    }
+}
+
+/* Medium Devices (Tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .hierarchy-container {
+        width: 85%;
+    }
+
+    .recievedCard {
+        min-height: 38px;
+    }
+}
+
+/* Large Devices (Laptops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .hierarchy-container {
+        width: 80%;
+    }
+
+    .hierarchy-btn {
+        font-size: 16px;
+    }
+}
+
+/* Extra Large Devices (Desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .hierarchy-container {
+        width: 75%;
+    }
+}
