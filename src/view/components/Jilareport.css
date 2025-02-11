@@ -91,7 +91,7 @@ button[type="submit"]:active {
 .card:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transform: translateY(-5px);
-  background: linear-gradient(to right, #f8f9fa, #e9ecef); /* Card hover gradient */
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
 }
 
 /* Responsive Design */

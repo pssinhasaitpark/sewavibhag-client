@@ -6,15 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/slice/AuthSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  Container,
-  Row,
-  Col,
-  Form as BootstrapForm,
-  Button,
-  InputGroup,
-} from "react-bootstrap";
+import { Container, Row, Col, Form as BootstrapForm, Button, InputGroup } from "react-bootstrap";
 import BrandLogo from "../../../assests/brandlogo.png";
+import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -45,17 +39,13 @@ const Login = () => {
   };
 
   return (
-    <Container
-      fluid
-      className="d-flex justify-content-center align-items-center"
-      style={{ height: "100vh" }}
-    >
+    <Container fluid className="d-flex justify-content-center align-items-center vh-100">
       <ToastContainer />
-      <Row className="justify-content-center w-100 ">
-        <Col xs={12} sm={10} md={8} lg={6} xl={5} className="login_form_style" style={{marginRight:"245px"}}> {/* Increased width for larger screens */}
-          <div className="border p-5 shadow-sm rounded bg-white"> {/* Increased padding for better spacing */}
+      <Row className="justify-content-center align-items-center w-100">
+        <Col xs={12} sm={10} md={8} lg={6} xl={4} className="d-flex flex-column align-items-center">
+          <div className="login_form_style bg-white">
             <div className="text-center mb-4">
-              <img src={BrandLogo} alt="Logo" style={{ width: "170px", height: "auto" }} /> {/* Slightly larger logo */}
+              <img src={BrandLogo} alt="Logo" style={{ width: "150px", height: "auto" }} />
             </div>
             <h3 className="text-center mb-4">Login</h3>
 
