@@ -1,3 +1,60 @@
-.cards_wholedata{
-    margin-right: 215px;
+/* General Container */
+.py-3 {
+    padding: 15px;
+}
+
+/* Remove box-shadow, background color, and hover effect from all cards */
+.no-bg-card {
+    background: transparent !important;
+    box-shadow: none !important;
+    transition: none !important;
+}
+
+/* Remove hover effects */
+.no-bg-card:hover {
+    transform: none !important;
+}
+
+/* Responsive Design */
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .no-bg-card {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .no-bg-card {
+        width: 90%;
+        max-width: 100%;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .no-bg-card {
+        width: 80%;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .no-bg-card {
+        width: 75%;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .no-bg-card {
+        width: 100%;
+    }
 }
