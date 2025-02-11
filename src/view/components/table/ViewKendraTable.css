@@ -14,8 +14,12 @@
 .fixed-col {
   position: sticky;
   left: 0;
-  background: white; /* Background color to prevent content overlap */
+  background: white; 
   z-index: 1;
   text-align: left;
   font-weight: bold;
+}
+
+.show-type{
+  content: "show" !important
 }
