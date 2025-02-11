@@ -1,60 +1,69 @@
 /* General Container */
-.py-3 {
+.dashboard-container {
     padding: 15px;
 }
 
-/* Remove box-shadow, background color, and hover effect from all cards */
-.no-bg-card {
-    background: transparent !important;
-    box-shadow: none !important;
-    transition: none !important;
+/* Summary Card */
+.summary-card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
 }
 
-/* Remove hover effects */
-.no-bg-card:hover {
-    transform: none !important;
+/* Info Cards */
+.info-card {
+    width: 100%;
+    max-width: 250px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 15px;
+    transition: none !important; /* Disable transition */
+    transform: none !important; /* Remove any transformation */
+    pointer-events: none; /* Disable pointer interactions */
+}
+
+/* Disable hover effects */
+.info-card:hover,
+.summary-card:hover,
+.dashboard-container:hover,
+.card:hover {
+    transform: none !important; /* No movement */
+    box-shadow: none !important; /* No shadow change */
+    background-color: inherit !important; /* No background change */
 }
 
 /* Responsive Design */
 
-/* Extra small devices (phones, 600px and down) */
+/* Small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-    .row {
-        flex-direction: column;
-        align-items: center;
+    .summary-card {
+        padding: 15px;
     }
 
-    .no-bg-card {
-        width: 100%;
+    .info-card {
+        max-width: 100%;
         margin-bottom: 10px;
     }
 }
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-    .no-bg-card {
-        width: 90%;
-        max-width: 100%;
-    }
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
+/* Medium devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-    .no-bg-card {
-        width: 80%;
+    .info-card {
+        max-width: 230px;
     }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-    .no-bg-card {
-        width: 75%;
+    .summary-card {
+        max-width: 80%;
+        margin: auto;
     }
-}
 
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-    .no-bg-card {
-        width: 100%;
+    .info-card {
+        max-width: 250px;
     }
 }

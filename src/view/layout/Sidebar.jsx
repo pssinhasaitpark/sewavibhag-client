@@ -22,8 +22,8 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="hamburger svg1" onClick={toggleSidebar}>
-        {isSidebarOpen ? <FaTimes size={30} /> : <FaBars size={20} />}
+      <div className="hamburger " onClick={toggleSidebar}>
+        {isSidebarOpen ? <FaTimes className="svg1" size={20} /> : <FaBars size={20} />}
       </div>
       <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
         <div className="sidebar-header">
@@ -46,21 +46,7 @@ const Sidebar = () => {
             </Link>
           </li>
 
-          {/* <li>
-            <Link to="#" className="sidebar-link" onClick={toggleSidebar}>
-              <FaUserShield className="icon text-warning" />
-              <span>Create Sub Admin</span>
-            </Link>
-          </li>
-
-          <li>
-            <Link to="#" className="sidebar-link" onClick={toggleSidebar}>
-              <FaMapMarkerAlt className="icon text-danger" />
-              <span>View Sub Admin</span>
-            </Link>
-          </li>
-
-          <hr /> */}
+    
 
           <div className="sidebar-section">Reporting</div>
           <li>
@@ -96,24 +82,6 @@ const Sidebar = () => {
             </Link>
           </li>
 
-          {/* <hr />
-
-          <div className="sidebar-section">NAGAR</div>
-          <li>
-            <Link to="#" className="sidebar-link" onClick={toggleSidebar}>
-              <FaRocket className="icon" />
-              <span>Create Nagar</span>
-            </Link>
-          </li>
-
-          <li>
-            <Link to="#" className="sidebar-link" onClick={toggleSidebar}>
-              <FaUsers className="icon" />
-              <span>View Nagar</span>
-            </Link>
-          </li>
-
-          <hr /> */}
         </ul>
       </div>
 
