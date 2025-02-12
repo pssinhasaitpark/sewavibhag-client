@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -7,6 +7,7 @@ import { loginUser } from "../../redux/slice/AuthSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Container, Row, Col, Form as BootstrapForm, Button, InputGroup } from "react-bootstrap";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import BrandLogo from "../../../assests/brandlogo.png";
 import "./Login.css";
 
@@ -14,6 +15,8 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.auth);
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const validationSchema = Yup.object({
     user_name: Yup.string().required("Username is required"),
@@ -74,7 +77,7 @@ const Login = () => {
                     <BootstrapForm.Label>Password</BootstrapForm.Label>
                     <InputGroup>
                       <BootstrapForm.Control
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         name="password"
                         placeholder="Enter your password"
                         value={values.password || ""}
@@ -82,6 +85,12 @@ const Login = () => {
                         onBlur={handleBlur}
                         isInvalid={touched.password && errors.password}
                       />
+                      <InputGroup.Text
+                        onClick={() => setShowPassword(!showPassword)}
+                        style={{ cursor: "pointer", backgroundColor: "white", borderLeft: "none" }}
+                      >
+                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                      </InputGroup.Text>
                       <BootstrapForm.Control.Feedback type="invalid">
                         {errors.password}
                       </BootstrapForm.Control.Feedback>
