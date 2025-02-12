@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Accordion } from "react-bootstrap";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "./Jilareport.css";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -92,9 +93,43 @@ const validationSchema = Yup.object({
 
 const Jilareport = () => {
   const savedLanguage = localStorage.getItem("language") || "english";
-  const userType = localStorage.getItem("user_type") || "guest";
+  // const userType = localStorage.getItem("user");
 
+  const user = useSelector((state) => state.auth.user);
+  const [userType, setUserType] = useState("Guest");
   const [language, setLanguage] = useState(savedLanguage);
+
+  const [vibhagList, setVibhagList] = useState([]);
+
+  const [vibhagId, setVibhagId] = useState([]);
+
+
+  const [selectedVibhag, setSelectedVibhag] = useState("");
+
+  const [jilaList, setJilaList] = useState();
+  const [selectedJila, setSelectedJila] = useState("");
+
+  useEffect(() => {
+    if (user?.user_type) {
+      setUserType(user.user_type);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (userType === "prant") {
+      axios.get(`${BASE_URL}/api/v1/prantAndVibhag`, {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YWM2MjgwNzA4MmY2NjhkOGJjMjRlNyIsInVzZXJfdHlwZSI6InByYW50IiwidXNlcl90eXBlX2lkIjoiNjdhNWI2YThiYjRhMDM1MDc3ZDFiOWNlIiwiaWF0IjoxNzM5MzY1NjQyLCJleHAiOjE3MzkzNjkyNDJ9.qjOWu7HGZsW_pxfOOd78V13nxXP-UCxR3tmbO6890GM",
+        },
+      })
+        .then((response) => setVibhagList(() => response?.data))
+        .catch((error) => console.error("Error fetching vibhag data:", error));
+    }
+  }, [userType]);
+
+
+
 
   useEffect(() => {
     localStorage.setItem("language", language);
@@ -152,13 +187,15 @@ const Jilareport = () => {
 
   const onSubmit = async (values) => {
     try {
-      const response = await axios.post(`${BASE_URL}/api/v1/reporting-forms`, values);
+      const response = await axios.post(
+        `${BASE_URL}/api/v1/reporting-forms`,
+        values
+      );
 
       if (response?.data) {
         toast.success(`${response?.data?.message}`);
       }
       console.log("Data submitted successfully:", response);
-
     } catch (error) {
       if (error.response) {
         console.error("Error response:", error.response.data);
@@ -171,8 +208,6 @@ const Jilareport = () => {
       }
     }
   };
-
-
 
   const fieldLabels = {
     english: {
@@ -226,19 +261,96 @@ const Jilareport = () => {
     },
   };
 
+  console.log('vibhagId<>>>>>>>>>>>>>>>>', vibhagId);
 
   return (
     <>
       <ToastContainer />
       <div className="gradient-background">
-        <Container >
-          <Row className="mt-3">
+        <Container>
+          <Row className="mt-3 d-flex justify-content-between align-items-center">
+            <Col xs="auto" className="mt-3">
+              {userType === "prant" && (
+                <Col xs="auto" className="mt-3">
+                  <Form.Control
+                    as="select"
+                    className="form-select"
+                    value={selectedVibhag}
+
+                    onChange={(e) => {
+                      const selectedId = e.target.value;
+
+
+
+                      setSelectedVibhag(selectedId);
+
+                      const selectedVibhagData = vibhagList?.map((vibhag) => vibhag?.vibhags?.find(vibhag => vibhag._id === selectedId));
+                      
+
+                      setJilaList(() => selectedVibhagData)
+
+
+                    }}
+                  >
+                    <option value="" className="bg-dark text-light">Select Vibhag</option>
+                    {vibhagList?.map((vibhag) => {
+                      return (
+                        <optgroup label={vibhag.vibhag_name} key={vibhag.id} >
+                          {vibhag?.vibhags?.map((item) => {
+                            return (
+                              <>
+                                <option key={item.id} value={item._id} >
+                                  {item.vibhag_name}
+                                </option>
+                              </>
+                            )
+                          }
+                          )}
+                        </optgroup>
+                      );
+                    })}
+                  </Form.Control>
+
+                  {selectedVibhag && (
+                    <Form.Control
+                      as="select"
+                      className="form-select mt-3"
+                      value={selectedJila}
+                      onChange={(e) => setSelectedJila(e.target.value)}
+                    >
+                      <option value="" className="bg-dark text-light">
+                        Select Jila
+                      </option>
+                      {jilaList[0].jilas?.map((jila) => {
+
+                        return (<>
+
+                          <option key={jila._id} value={jila._id}>
+                            {jila.jila_name}
+                          </option>
+                        </>)
+                      })}
+                    </Form.Control>
+                  )}
+
+                </Col>
+              )}
+
+              {userType === "vibhag" && (
+                <Form.Control as="select" className="form-select">
+                  <option value="vibhag1">Dewas</option>
+                  <option value="vibhag2">Indore</option>
+                </Form.Control>
+              )}
+            </Col>
+
+            {/* Language Dropdown (Right) */}
             <Col xs="auto" className="mt-3">
               <Form.Control
                 as="select"
+                className="form-select"
                 value={language}
                 onChange={handleLanguageChange}
-
               >
                 <option value="english">English</option>
                 <option value="hindi">Hindi</option>
@@ -250,13 +362,9 @@ const Jilareport = () => {
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
-
           >
             {({ values, handleChange, handleSubmit, errors, touched }) => (
-
-              <form onSubmit={handleSubmit} >
-
-
+              <form onSubmit={handleSubmit}>
                 {/* Mahanagar Section */}
                 <Row className="mt-3">
                   <Col>
@@ -271,9 +379,16 @@ const Jilareport = () => {
                             type="number"
                             placeholder="Enter number"
                             name="mahanagar.zila_sam_mahanagar_bhag_sankhya"
-                            value={values.mahanagar.zila_sam_mahanagar_bhag_sankhya}
+                            value={
+                              values.mahanagar.zila_sam_mahanagar_bhag_sankhya
+                            }
                             onChange={handleChange}
-                            isInvalid={touched.mahanagar?.zila_sam_mahanagar_bhag_sankhya && !!errors.mahanagar?.zila_sam_mahanagar_bhag_sankhya}
+                            isInvalid={
+                              touched.mahanagar
+                                ?.zila_sam_mahanagar_bhag_sankhya &&
+                              !!errors.mahanagar
+                                ?.zila_sam_mahanagar_bhag_sankhya
+                            }
                             disabled={userType !== "jila"}
                           />
                           <Form.Control.Feedback type="invalid">
@@ -292,7 +407,10 @@ const Jilareport = () => {
                             name="mahanagar.sewa_basti_sankhya"
                             value={values.mahanagar.sewa_basti_sankhya}
                             onChange={handleChange}
-                            isInvalid={touched.mahanagar?.sewa_basti_sankhya && !!errors.mahanagar?.sewa_basti_sankhya}
+                            isInvalid={
+                              touched.mahanagar?.sewa_basti_sankhya &&
+                              !!errors.mahanagar?.sewa_basti_sankhya
+                            }
                             disabled={userType !== "jila"}
                           />
                           <Form.Control.Feedback type="invalid">
@@ -515,7 +633,8 @@ const Jilareport = () => {
                             isInvalid={
                               touched.jilaKendra
                                 ?.zila_sam_mahanagar_bhag_sankhya &&
-                              !!errors.jilaKendra?.zila_sam_mahanagar_bhag_sankhya
+                              !!errors.jilaKendra
+                                ?.zila_sam_mahanagar_bhag_sankhya
                             }
                             disabled={userType !== "jila"}
                           />
@@ -691,10 +810,13 @@ const Jilareport = () => {
                             type="number"
                             placeholder="Enter number"
                             name="jilaKendra.mahanagar_mein_kul_sewa_kary"
-                            value={values.jilaKendra.mahanagar_mein_kul_sewa_kary}
+                            value={
+                              values.jilaKendra.mahanagar_mein_kul_sewa_kary
+                            }
                             onChange={handleChange}
                             isInvalid={
-                              touched.jilaKendra?.mahanagar_mein_kul_sewa_kary &&
+                              touched.jilaKendra
+                                ?.mahanagar_mein_kul_sewa_kary &&
                               !!errors.jilaKendra?.mahanagar_mein_kul_sewa_kary
                             }
                             disabled={userType !== "jila"}
@@ -759,7 +881,8 @@ const Jilareport = () => {
                             isInvalid={
                               touched.anyaNagar
                                 ?.zila_sam_mahanagar_bhag_sankhya &&
-                              !!errors.anyaNagar?.zila_sam_mahanagar_bhag_sankhya
+                              !!errors.anyaNagar
+                                ?.zila_sam_mahanagar_bhag_sankhya
                             }
                             disabled={userType !== "jila"}
                           />
@@ -808,7 +931,6 @@ const Jilareport = () => {
                               !!errors.anyaNagar?.sewa_kary_yukt_sewa_basti
                             }
                             disabled={userType !== "jila"}
-
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.anyaNagar?.sewa_kary_yukt_sewa_basti}
@@ -836,7 +958,6 @@ const Jilareport = () => {
                                 ?.vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya
                             }
                             disabled={userType !== "jila"}
-
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -867,7 +988,6 @@ const Jilareport = () => {
                                 ?.sewa_basti_palak_shakha_w_milan_sankhya
                             }
                             disabled={userType !== "jila"}
-
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -898,7 +1018,6 @@ const Jilareport = () => {
                                 ?.sewa_karyakarta_yukt_shakha_w_milan_sankhya
                             }
                             disabled={userType !== "jila"}
-
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -924,7 +1043,6 @@ const Jilareport = () => {
                               !!errors.anyaNagar?.kul_sewa_karyakarta
                             }
                             disabled={userType !== "jila"}
-
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.anyaNagar?.kul_sewa_karyakarta}
@@ -940,14 +1058,15 @@ const Jilareport = () => {
                             type="number"
                             placeholder="Enter number"
                             name="anyaNagar.mahanagar_mein_kul_sewa_kary"
-                            value={values.anyaNagar.mahanagar_mein_kul_sewa_kary}
+                            value={
+                              values.anyaNagar.mahanagar_mein_kul_sewa_kary
+                            }
                             onChange={handleChange}
                             isInvalid={
                               touched.anyaNagar?.mahanagar_mein_kul_sewa_kary &&
                               !!errors.anyaNagar?.mahanagar_mein_kul_sewa_kary
                             }
                             disabled={userType !== "jila"}
-
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.anyaNagar?.mahanagar_mein_kul_sewa_kary}
@@ -975,7 +1094,6 @@ const Jilareport = () => {
                                 ?.masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya
                             }
                             disabled={userType !== "jila"}
-
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -1010,7 +1128,6 @@ const Jilareport = () => {
                               !!errors.villagesOver5000?.total_villages
                             }
                             disabled={userType !== "jila"}
-
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.villagesOver5000?.total_villages}
@@ -1039,7 +1156,6 @@ const Jilareport = () => {
                                 ?.business_and_farming_villages
                             }
                             disabled={userType !== "jila"}
-
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -1059,14 +1175,15 @@ const Jilareport = () => {
                             type="number"
                             placeholder="Enter number"
                             name="villagesOver5000.service_work_villages"
-                            value={values.villagesOver5000.service_work_villages}
+                            value={
+                              values.villagesOver5000.service_work_villages
+                            }
                             onChange={handleChange}
                             isInvalid={
                               touched.villagesOver5000?.service_work_villages &&
                               !!errors.villagesOver5000?.service_work_villages
                             }
                             disabled={userType !== "jila"}
-
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.villagesOver5000?.service_work_villages}
@@ -1090,7 +1207,6 @@ const Jilareport = () => {
                               !!errors.villagesOver5000?.total_service_work
                             }
                             disabled={userType !== "jila"}
-
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.villagesOver5000?.total_service_work}
@@ -1115,14 +1231,16 @@ const Jilareport = () => {
                             type="number"
                             placeholder="Enter number"
                             name="villagesUnder5000.service_work_villages"
-                            value={values.villagesUnder5000.service_work_villages}
+                            value={
+                              values.villagesUnder5000.service_work_villages
+                            }
                             onChange={handleChange}
                             isInvalid={
-                              touched.villagesUnder5000?.service_work_villages &&
+                              touched.villagesUnder5000
+                                ?.service_work_villages &&
                               !!errors.villagesUnder5000?.service_work_villages
                             }
                             disabled={userType !== "jila"}
-
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.villagesUnder5000?.service_work_villages}
@@ -1146,7 +1264,6 @@ const Jilareport = () => {
                               !!errors.villagesUnder5000?.total_service_work
                             }
                             disabled={userType !== "jila"}
-
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.villagesUnder5000?.total_service_work}
@@ -1159,14 +1276,16 @@ const Jilareport = () => {
 
                 <Row className="mt-3">
                   <Col className="text-center">
-                    <Button type="submit" disabled={userType !== "jila"}>Submit</Button>
+                    <Button type="submit" disabled={userType !== "jila"}>
+                      Submit
+                    </Button>
                   </Col>
                 </Row>
               </form>
             )}
           </Formik>
         </Container>
-      </div>
+      </div >
     </>
   );
 };
