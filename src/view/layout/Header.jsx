@@ -22,9 +22,6 @@ const Header = () => {
     }
   }, [user]);
 
-  console.log("User in Redux:", user);
-  console.log("User Type in Redux:", userType);
-
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
