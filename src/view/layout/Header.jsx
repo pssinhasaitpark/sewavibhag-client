@@ -22,9 +22,6 @@ const Header = () => {
     }
   }, [user]);
 
-  console.log("User in Redux:", user);
-  console.log("User Type in Redux:", userType);
-
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
@@ -56,7 +53,7 @@ const Header = () => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu align="end">
-              <Dropdown.Item>Profile</Dropdown.Item>
+              <Dropdown.Item href="/dashboard/profile">Profile</Dropdown.Item>
               <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

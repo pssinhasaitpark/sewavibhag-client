@@ -94,7 +94,8 @@ import ViewKendraTable from "./view/components/table/ViewKendraTable";
 import Login from "./view/pages/login/Login";
 import Sidebar from "./view/layout/Sidebar";
 import Header from "./view/layout/Header";
-import HierarchyBox from "./view/components/HierarchyBox";
+// import HierarchyBox from "./view/components/HierarchyBox";
+import ProfilePage from "./view/pages/ProfilePage/ProfilePage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -136,7 +137,8 @@ function Layout() {
                 <Route index element={<DashboardCards />} />
                 <Route path="jilareport" element={<Jilareport />} />
                 <Route path="viewkendratable" element={<ViewKendraTable />} />
-                <Route path="/dashboard/revieved" element={<HierarchyBox />} />
+                <Route path="profile" element={<ProfilePage />} />
+                {/* <Route path="/dashboard/revieved" element={<HierarchyBox />} /> */}
               </Route>
             </Route>
           </Routes>
