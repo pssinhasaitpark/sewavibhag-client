@@ -1,216 +1,74 @@
-import React, { useEffect, useState } from "react";
-import {  Container, Row, Col, Card } from "react-bootstrap";
-// import "./DashboardCards.css";
-import {
-  FaDollarSign,
-  FaShoppingCart,
-  FaThLarge,
-  FaStar,
-} from "react-icons/fa";
+import React from "react";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
-const statsData = [
-  {
-    icon: "Category",
-    value: <></>,
-    color: "#9c27b0",
-    isWide: true,
-  },
-  {
-    title: "Total Kshetra ",
-    value: "$13,456.5",
-    color: "#4caf50",
-  },
-  {
-    title: "Total Prant",
-    value: "53,668",
-    color: "#66bb6a",
-  },
-  {
-    title: "Total Vibhag",
-    value: "9,856",
-    color: "#ffa726",
-  },
-  {
-    title: "Total Jila",
-    value: "$6,982",
-    color: "#42a5f5",
-  },
-  {
-    title: "Total Reporting Forms",
-    value: "$6,982",
-    color: "#42a5f5",
-  },
-];
+const DashboardCards = () => {
+  const user = useSelector((state) => state.auth.user); 
+  const userType = user?.user_type; 
+  const jilaName = user?.jila_name || "Jila XYZ"; 
 
-const iconMapping = {
-  AttachMoney: <FaDollarSign size={24} />,
-  ShoppingCart: <FaShoppingCart size={24} />,
-  Category: <FaThLarge size={24} />,
-  Star: <FaStar size={24} />,
-};
+  // Define cards based on user_type
+  const getCards = () => {
+    switch (userType) {
+      case "kendra":
+        return [
+          { title: "Total Kshetra", value: "10", color: "#4caf50" },
+          { title: "Total Prant", value: "46", color: "#66bb6a" },
+          { title: "Total Vibhag", value: "318", color: "#ffa726" },
+          { title: "Total Jila", value: "1100", color: "#42a5f5" },
+        ];
+      case "kshetra":
+        return [
+          { title: "Kshetra Name", value: "Kshetra XYZ", color: "#4caf50" },
+          { title: "Total Prant", value: "46", color: "#66bb6a" },
+          { title: "Total Vibhag", value: "318", color: "#ffa726" },
+          { title: "Total Jila", value: "1100", color: "#42a5f5" },
+        ];
+      case "prant":
+        return [
+          { title: "Prant Name", value: "Prant ABC", color: "#4caf50" },
+          { title: "Total Vibhag", value: "318", color: "#ffa726" },
+          { title: "Total Jila", value: "1100", color: "#42a5f5" },
+        ];
+      case "vibhag":
+        return [
+          { title: "Vibhag Name", value: "Vibhag XYZ", color: "#ffa726" },
+          { title: "Total Jila", value: "1100", color: "#42a5f5" },
+        ];
+      case "jila":
+        return [
+          { title: "Jila Name", value: jilaName, color: "#42a5f5" }, 
+        ];
+      default:
+        return [];
+    }
+  };
 
-const Dashboard = () => {
-  const [satate, setStats] = useState([]);
-
-  useEffect(() => {
-    setStats(statsData);
-  }, []);
+  const cards = getCards();
 
   return (
-    <Container className="py-3 cards_wholedata">
+    <Container className="py-3">
       <Row className="g-3 justify-content-center">
-        <Col xs={12} md={12} className="mb-3">
-          <Card
-            className="text-center p-3 shadow-sm border-0"
-            style={{ margin: "10px", backgroundColor: "#f7f7f7" }}
-          >
-            <Card.Body>
-              <div className="row text-center">
-                <div className="col">
-                  <strong>Total Prant</strong>
-                  <div className="fw-bold">46</div>
-                </div>
-                <div className="col">
-                  <strong>Total Vibhah</strong>
-                  <div className="fw-bold">318</div>
-                </div>
-                <div className="col">
-                  <strong>Total Jila</strong>
-                  <div className="fw-bold">1100</div>
-                </div>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
+        {cards.length > 0 ? (
+          cards.map((card, index) => (
+            <Col key={index} xs={12} sm={6} md={4} lg={3}>
+              <Card
+                className="text-center p-3 shadow-sm border-0"
+                style={{ margin: "10px", backgroundColor: card.color }}
+              >
+                <Card.Body>
+                  <strong>{card.title}</strong>
+                  <div className="fw-bold">{card.value}</div>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))
+        ) : (
+          <h5 className="text-center text-muted">No Data Available</h5>
+        )}
       </Row>
-
-      {/* Stats Summary Card */}
-      <Row className="g-3 justify-content-center">
-        {/* Card for Prant Name */}
-        <Col xs={12} sm={4} md={4}>
-          <Card
-            className="text-center p-3 shadow-sm border-0"
-            style={{ margin: "10px", backgroundColor: "#f7f7f7" }}
-          >
-            <Card.Body>
-              <strong>Prant Name</strong>
-              <div className="fw-bold">Malwa</div>
-            </Card.Body>
-          </Card>
-        </Col>
-
-        {/* Card for Vibhag Name */}
-        <Col xs={12} sm={4} md={4}>
-          <Card
-            className="text-center p-3 shadow-sm border-0"
-            style={{ margin: "10px", backgroundColor: "#f7f7f7" }}
-          >
-            <Card.Body>
-              <strong>Vibhag Name</strong>
-              <div className="fw-bold">DEWAS</div>
-            </Card.Body>
-          </Card>
-        </Col>
-
-        {/* Card for Jila Name */}
-        <Col xs={12} sm={4} md={4}>
-          <Card
-            className="text-center p-3 shadow-sm border-0"
-            style={{ margin: "10px", backgroundColor: "#f7f7f7" }}
-          >
-            <Card.Body>
-              <strong>Jila Name</strong>
-              <div className="fw-bold">SHAJAPUR</div>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-
-      {/* Stats Cards */}
     </Container>
   );
 };
 
-export default Dashboard;
-
-
-// import React, { useEffect, useState } from "react";
-// import { Container, Row, Col, Card } from "react-bootstrap";
-// import "./DashboardCards.css";
-
-// const statsData = [
-//   { title: "Total Kshetra", value: "13,456.5", color: "#4caf50" },
-//   { title: "Total Prant", value: "53,668", color: "#66bb6a" },
-//   { title: "Total Vibhag", value: "9,856", color: "#ffa726" },
-//   { title: "Total Jila", value: "6,982", color: "#42a5f5" },
- 
-// ];
-
-// const Dashboard = () => {
-//   const [stats, setStats] = useState([]);
-
-//   useEffect(() => {
-//     setStats(statsData);
-//   }, []);
-
-//   return (
-//     <Container className="py-3 dashboard-container">
-//       {/* Summary Card */}
-//       <Row className="justify-content-center">
-//         <Col xs={12} md={10} lg={12}>
-//           <Card className="summary-card text-center">
-//             <Card.Body>
-//               <Row>
-//                 <Col xs={6} sm={4}>
-//                   <strong>Total Prant</strong>
-//                   <div className="fw-bold">46</div>
-//                 </Col>
-//                 <Col xs={6} sm={4}>
-//                   <strong>Total Vibhag</strong>
-//                   <div className="fw-bold">318</div>
-//                 </Col>
-//                 <Col xs={12} sm={4} className="mt-3 mt-sm-0">
-//                   <strong>Total Jila</strong>
-//                   <div className="fw-bold">1100</div>
-//                 </Col>
-//               </Row>
-//             </Card.Body>
-//           </Card>
-//         </Col>
-//       </Row>
-
-//       {/* Location Info Cards */}
-//       <Row className="justify-content-center mt-3">
-//         <Col xs={12} sm={6} md={4} className="d-flex justify-content-center">
-//           <Card className="info-card">
-//             <Card.Body>
-//               <strong>Prant Name</strong>
-//               <div className="fw-bold">Malwa</div>
-//             </Card.Body>
-//           </Card>
-//         </Col>
-
-//         <Col xs={12} sm={6} md={4} className="d-flex justify-content-center">
-//           <Card className="info-card">
-//             <Card.Body>
-//               <strong>Vibhag Name</strong>
-//               <div className="fw-bold">DEWAS</div>
-//             </Card.Body>
-//           </Card>
-//         </Col>
-
-//         <Col xs={12} sm={6} md={4} className="d-flex justify-content-center">
-//           <Card className="info-card">
-//             <Card.Body>
-//               <strong>Jila Name</strong>
-//               <div className="fw-bold">SHAJAPUR</div>
-//             </Card.Body>
-//           </Card>
-//         </Col>
-//       </Row>
-//     </Container>
-//   );
-// };
-
-// export default Dashboard;
-
+export default DashboardCards;

@@ -73,7 +73,7 @@ const Sidebar = () => {
 
           <li>
             <Link
-              to="/dashboard/revieved"
+              // to="/dashboard/revieved"
               className="sidebar-link"
               onClick={toggleSidebar}
             >
