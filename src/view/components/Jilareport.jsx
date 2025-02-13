@@ -176,14 +176,14 @@ const Jilareport = () => {
       masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya: getFormData?.mahanagar?.masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya || "",
     },
     anyaNagar: {
-      zila_sam_mahanagar_bhag_sankhya: getFormData?.anyaNagar?.zila_sam_anyaNagar_bhag_sankhya || "",
-      sewa_basti_sankhya: getFormData?.anyaNagar?.sewa_basti_sankhya || "",
+      zila_sam_mahanagar_bhag_sankhya: getFormData?.anyaNagar?.zila_sam_anya_nagar_bhag_sankhya || "",
+      sewa_basti_sankhya: getFormData?.anyaNagar?.inmein_sewa_basti_sankhya || "",
       sewa_kary_yukt_sewa_basti: getFormData?.anyaNagar?.sewa_kary_yukt_sewa_basti || "",
       vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya: getFormData?.anyaNagar?.vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya || "",
       sewa_basti_palak_shakha_w_milan_sankhya: getFormData?.anyaNagar?.sewa_basti_palak_shakha_w_milan_sankhya || "",
       sewa_karyakarta_yukt_shakha_w_milan_sankhya: getFormData?.anyaNagar?.sewa_karyakarta_yukt_shakha_w_milan_sankhya || "",
       kul_sewa_karyakarta: getFormData?.anyaNagar?.kul_sewa_karyakarta || "",
-      mahanagar_mein_kul_sewa_kary: getFormData?.anyaNagar?.anyaNagar_mein_kul_sewa_kary || "",
+      mahanagar_mein_kul_sewa_kary: getFormData?.anyaNagar?.anya_nagar_mein_kul_sewa_kary || "",
       masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya: getFormData?.anyaNagar?.masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya || "",
     },
     villagesOver5000: {
@@ -200,24 +200,33 @@ const Jilareport = () => {
 
   const onSubmit = async (values) => {
     try {
-      const response = await axios.post(`${BASE_URL}/api/v1/reporting-forms`, values);
-
+      let response;
+      if (userType === "prant" || userType === "vibhag") {
+        response = await axios.patch(
+          `http://192.168.0.119:5000/api/v1/reporting-forms/update?jila_id=${selectedJila}`,
+          values,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`, 
+            },
+          }
+        );
+      } else {
+        response = await axios.post(`${BASE_URL}/api/v1/reporting-forms`, values, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+      }
       if (response?.data) {
         toast.success(`${response?.data?.message}`);
       }
-
     } catch (error) {
-      if (error.response) {
-        console.error("Error response:", error.response.data);
-      } else {
-        console.error("Error message:", error.message);
-        toast.error("Invalid Credentials! Please fill the correct !!", {
-          position: "top-right",
-          autoClose: 2000,
-        });
-      }
+      console.error("Error:", error.message); 
+      toast.error("Failed to submit. Please try again."); 
     }
   };
+  
 
   const fieldLabels = {
     english: {
@@ -1317,9 +1326,10 @@ const Jilareport = () => {
 
                 <Row className="mt-3">
                   <Col className="text-center">
-                    <Button type="submit" disabled={(userType === "kshetra" || userType === "kendra")}
+                    <Button type="submit" 
+                    disabled={(userType === "kshetra" || userType === "kendra")}
                     >
-                      Save As Submit
+                     {userType === "vibhag" || userType === "prant" ? "Save As Submit" : "Submit"}
                     </Button>
                   </Col>
                 </Row>
