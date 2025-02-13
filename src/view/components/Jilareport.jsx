@@ -203,7 +203,7 @@ const Jilareport = () => {
       let response;
       if (userType === "prant" || userType === "vibhag") {
         response = await axios.patch(
-          `http://192.168.0.119:5000/api/v1/reporting-forms/update?jila_id=${selectedJila}`,
+          `${BASE_URL}/api/v1/reporting-forms/update?jila_id=${selectedJila}`,
           values,
           {
             headers: {
