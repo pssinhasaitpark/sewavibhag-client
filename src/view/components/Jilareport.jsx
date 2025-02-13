@@ -131,7 +131,7 @@ const Jilareport = () => {
     }
 
     if (selectedJila) {
-      axios.get(`${BASE_URL}/api/v1/reportingFormByJila?user_type_id=${selectedJila}`, {
+      axios.get(`${BASE_URL}/api/v1/reportingFormByJila?jila_id=${selectedJila}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
