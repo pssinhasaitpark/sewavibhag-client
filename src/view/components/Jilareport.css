@@ -1,4 +1,4 @@
-/* Gradient background applied to the entire page */
+
 .gradient-background {
   /* background: linear-gradient(to right, #a088ba, #07214c); */
   min-height: 100vh;
@@ -8,16 +8,16 @@
   padding-top: 4px;
 }
 
-/* Container Background */
+
 .container {
   padding-bottom: 40px;
-  background: linear-gradient(to bottom, #ffffff, #f8f9fa); /* White to Light Gray gradient */
+  background: linear-gradient(to bottom, #ffffff, #f8f9fa); 
   border-radius: 8px;
-  margin: 20px auto; /* Center the container */
+  margin: 20px auto; 
   max-width: 1200px;
 }
 
-/* Header (h2) Background */
+
 h2 {
   font-size: 20px;
   color: #0c5153;
@@ -25,12 +25,12 @@ h2 {
   text-align: left;
   padding-left: 10px;
   font-weight: 900;
-  background: linear-gradient(to right, #fdfbd4, #f8f9fa); /* Light yellow to Light gray gradient */
+  background: linear-gradient(to right, #fdfbd4, #f8f9fa);
   padding: 4px;
   border-radius: 5px;
 }
 
-/* Form Controls Background */
+
 .form-control {
   border-radius: 5px;
   padding: 10px;
@@ -39,14 +39,14 @@ h2 {
   transition: all 0.3s ease;
 }
 
-/* Form Control Focus Effect */
+
 .form-control:focus {
   /* border-color: #80bdff; */
   box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
   background: linear-gradient(to right, #d4f1ff, #c3f7ff); /* Focus gradient */
 }
 
-/* Hover Effect for Form Control */
+
 .form-control:hover {
   /* background: linear-gradient(to right, #e0f7fa, #c6f5fc); */
    /* Light blue gradient hover effect */
@@ -92,6 +92,12 @@ button[type="submit"]:active {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transform: translateY(-5px);
   background: linear-gradient(to right, #f8f9fa, #e9ecef);
+}
+
+.jila_select {
+  height: 41px;
+  width: 80px;
+  content: "select Jila";
 }
 
 /* Responsive Design */
