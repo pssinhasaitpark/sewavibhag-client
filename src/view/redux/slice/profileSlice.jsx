@@ -1,13 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 // Fetch user data
 export const fetchUser = createAsyncThunk(
   "profile/fetchUser",
   async (_, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://192.168.0.119:5000/api/v1/me", {
+      const response = await axios.get(`${BASE_URL}/api/v1/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
@@ -26,7 +28,7 @@ export const updateUser = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       const response = await axios.put(
-        "http://192.168.0.119:5000/api/v1/me",
+        `${BASE_URL}/api/v1/me`,
         updatedData,
         {
           headers: { Authorization: `Bearer ${token}` },
