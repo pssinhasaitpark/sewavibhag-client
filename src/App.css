@@ -180,3 +180,21 @@ body {
 
 
 
+
+.shadow-sm.text-center.p-3.h-100.profile-card.card {
+  transform: none !important;
+  transform: none !important;
+  box-shadow: none !important;
+  transition: none !important;
+  
+}
+
+.shadow-sm.p-3.h-100.profile-card.card {
+  transform: none !important;
+  transform: none !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+svg.svg1 {
+  margin-left: 150px;
+}

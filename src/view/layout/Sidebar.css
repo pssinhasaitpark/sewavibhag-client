@@ -1,6 +1,5 @@
-/* Hamburger (Mobile) */
-.hamburger {
-    display: none; /* Hidden by default for larger screens */
+/* .hamburger {
+    display: none; 
     position: fixed;
     top: 15px;
     left: 15px;
@@ -18,14 +17,13 @@ svg {
     margin-left: 150px;
 
 }
-/* Sidebar */
+
 .sidebar {
     position: fixed;
 
     top: 0;
-    left: 0; /* Sidebar OPEN by default */
+    left: 0; 
     height: 100vh;
-    /* width: 280px; */
     background: #fff;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
@@ -36,13 +34,12 @@ svg {
     opacity: 1;
 }
 
-/* Sidebar Logo */
 .sidebar-logo {
     width: 150px;
     height: auto;
 }
 
-/* Sidebar Menu */
+
 .sidebar-menu {
     list-style: none;
     padding: 0;
@@ -79,7 +76,7 @@ svg {
 }
 
 .sidebar-overlay {
-    /* position: fixed; */
+    
     top: 0;
     left: 0;
     width: 100vw;
@@ -89,7 +86,7 @@ svg {
     display: none;
 }
 
-/* Sidebar should always be open for large screens */
+
 @media (min-width: 768px) {
     .hamburger {
         display: none;
@@ -112,7 +109,6 @@ svg {
     }
 }
 
-/* Sidebar should always be open for screens larger than 1676px */
 @media (min-width: 1676px) {
     .sidebar {
         width: 280px;
@@ -124,7 +120,6 @@ svg {
     }
 }
 
-/* Mobile (Sidebar should be hidden by default below 768px) */
 @media (max-width: 767px) {
     .hamburger {
         display: block;
@@ -132,7 +127,7 @@ svg {
 
     .sidebar {
         width: 260px;
-        left: -260px; /* Hide sidebar */
+        left: -260px; 
         visibility: hidden;
         opacity: 0;
     }
@@ -150,5 +145,181 @@ svg {
     .main-content {
         margin-left: 0;
         width: 100%;
+    }
+} */
+
+/* Hamburger (Mobile) */
+.hamburger {
+    display: block; /* Ensure it's visible on mobile */
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 2000; /* Keep it above everything */
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+   
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px; 
+    height: 100vh;
+    width: 260px;
+    background: #fff;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    z-index: 1500; /* Ensure it's above other content */
+    padding-top: 20px;
+    transition: left 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    visibility: hidden;
+    opacity: 0;
+}
+/* Sidebar Menu Alignment */
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left; /* Align text to the left */
+}
+
+/* Sidebar Links */
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align text to the left */
+    padding: 14px 20px; /* Add left padding for better spacing */
+    text-decoration: none;
+    color: #333;
+    transition: background 0.3s ease;
+    border-radius: 5px;
+    font-size: 16px;
+    gap: 12px;
+    width: 100%; /* Ensure full width */
+}
+
+/* Sidebar Section Headers */
+.sidebar-section {
+    color: #777;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px 20px; /* Add left padding */
+    margin-top: 10px;
+}
+
+/* Fix Sidebar Logo Alignment */
+.sidebar-logo {
+    display: block;
+    margin: 0 auto; /* Center the logo */
+    width: 120px;
+}
+
+/* Adjust Close Button */
+.close-sidebar {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #333;
+}
+
+.close-sidebar:hover {
+    color: #000;
+}
+
+
+/* Sidebar should be visible when opened */
+.sidebar.open {
+    left: 0;
+    visibility: visible;
+    opacity: 1;
+}
+.sidebar-logo {
+    width: 120px; /* Adjust width as needed */
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Center the logo */
+}
+
+/* Sidebar Overlay */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1400; /* Behind sidebar */
+    display: none;
+}
+
+/* Show overlay when sidebar is open */
+.sidebar.open + .sidebar-overlay {
+    display: block;
+}
+
+/* Mobile View Fix */
+@media (max-width: 767px) {
+    .hamburger {
+        display: block; /* Ensure it's visible */
+    }
+
+    .sidebar {
+        left: -260px; /* Hidden by default */
+    }
+
+    .sidebar.open {
+        left: 0;
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .sidebar-overlay {
+        display: block;
+    }
+}
+
+/* Large Screens (Keep Sidebar Open) */
+@media (min-width: 768px) {
+    .hamburger {
+        display: none;
+    }
+    .sidebar-logo {
+        width: 100px; /* Smaller size for mobile */
+    }
+
+
+    .sidebar {
+        left: 0;
+        width: 260px;
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .sidebar-overlay {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 260px;
+        width: calc(100% - 260px);
+    }
+}
+
+/* Larger Screens */
+@media (min-width: 1676px) {
+    .sidebar {
+        width: 280px;
+    }
+
+    .main-content {
+        margin-left: 280px;
+        width: calc(100% - 280px);
     }
 }
