@@ -101,13 +101,16 @@ const Jilareport = () => {
 
   const [vibhagList, setVibhagList] = useState([]);
 
-  const [vibhagId, setVibhagId] = useState([]);
+  const [getFormData, setFormData] = useState();
 
 
   const [selectedVibhag, setSelectedVibhag] = useState("");
 
   const [jilaList, setJilaList] = useState();
   const [selectedJila, setSelectedJila] = useState("");
+
+  const [selectedJilaData, setSelectedJilaData] = useState("");
+
 
   useEffect(() => {
     if (user?.user_type) {
@@ -116,20 +119,30 @@ const Jilareport = () => {
   }, [user]);
 
   useEffect(() => {
-    if (userType === "prant") {
+    if (userType === "prant" || userType === "vibhag") {
       axios.get(`${BASE_URL}/api/v1/prantAndVibhag`, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YWM2MjgwNzA4MmY2NjhkOGJjMjRlNyIsInVzZXJfdHlwZSI6InByYW50IiwidXNlcl90eXBlX2lkIjoiNjdhNWI2YThiYjRhMDM1MDc3ZDFiOWNlIiwiaWF0IjoxNzM5MzY1NjQyLCJleHAiOjE3MzkzNjkyNDJ9.qjOWu7HGZsW_pxfOOd78V13nxXP-UCxR3tmbO6890GM",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
+
       })
         .then((response) => setVibhagList(() => response?.data))
         .catch((error) => console.error("Error fetching vibhag data:", error));
     }
-  }, [userType]);
+
+    if (selectedJila) {
+      axios.get(`${BASE_URL}/api/v1/reportingFormByJila?user_type_id=${selectedJila}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((response) => setFormData(() => response?.data?.data))
+        .catch((error) => console.error("Error fetching vibhag data:", error));
+    }
 
 
 
+  }, [userType, selectedJila]);
 
   useEffect(() => {
     localStorage.setItem("language", language);
@@ -141,61 +154,58 @@ const Jilareport = () => {
 
   const initialValues = {
     mahanagar: {
-      zila_sam_mahanagar_bhag_sankhya: "",
-      sewa_basti_sankhya: "",
-      sewa_kary_yukt_sewa_basti: "",
-      vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya: "",
-      sewa_basti_palak_shakha_w_milan_sankhya: "",
-      sewa_karyakarta_yukt_shakha_w_milan_sankhya: "",
-      kul_sewa_karyakarta: "",
-      mahanagar_mein_kul_sewa_kary: "",
-      masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya: "",
+      zila_sam_mahanagar_bhag_sankhya: getFormData?.mahanagar?.zila_sam_mahanagar_bhag_sankhya || "",
+      sewa_basti_sankhya: getFormData?.mahanagar?.sewa_basti_sankhya || "",
+      sewa_kary_yukt_sewa_basti: getFormData?.mahanagar?.sewa_kary_yukt_sewa_basti || "",
+      vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya: getFormData?.mahanagar?.vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya || "",
+      sewa_basti_palak_shakha_w_milan_sankhya: getFormData?.mahanagar?.sewa_basti_palak_shakha_w_milan_sankhya || "",
+      sewa_karyakarta_yukt_shakha_w_milan_sankhya: getFormData?.mahanagar?.sewa_karyakarta_yukt_shakha_w_milan_sankhya || "",
+      kul_sewa_karyakarta: getFormData?.mahanagar?.kul_sewa_karyakarta || "",
+      mahanagar_mein_kul_sewa_kary: getFormData?.mahanagar?.mahanagar_mein_kul_sewa_kary || "",
+      masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya: getFormData?.mahanagar?.masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya || "",
     },
     jilaKendra: {
-      zila_sam_mahanagar_bhag_sankhya: "",
-      sewa_basti_sankhya: "",
-      sewa_kary_yukt_sewa_basti: "",
-      vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya: "",
-      sewa_basti_palak_shakha_w_milan_sankhya: "",
-      sewa_karyakarta_yukt_shakha_w_milan_sankhya: "",
-      kul_sewa_karyakarta: "",
-      mahanagar_mein_kul_sewa_kary: "",
-      masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya: "",
+      zila_sam_mahanagar_bhag_sankhya: getFormData?.mahanagar?.zila_sam_mahanagar_bhag_sankhya || "",
+      sewa_basti_sankhya: getFormData?.mahanagar?.sewa_basti_sankhya || "",
+      sewa_kary_yukt_sewa_basti: getFormData?.mahanagar?.sewa_kary_yukt_sewa_basti || "",
+      vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya: getFormData?.mahanagar?.vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya || "",
+      sewa_basti_palak_shakha_w_milan_sankhya: getFormData?.mahanagar?.sewa_basti_palak_shakha_w_milan_sankhya || "",
+      sewa_karyakarta_yukt_shakha_w_milan_sankhya: getFormData?.mahanagar?.sewa_karyakarta_yukt_shakha_w_milan_sankhya || "",
+      kul_sewa_karyakarta: getFormData?.mahanagar?.kul_sewa_karyakarta || "",
+      mahanagar_mein_kul_sewa_kary: getFormData?.mahanagar?.mahanagar_mein_kul_sewa_kary || "",
+      masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya: getFormData?.mahanagar?.masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya || "",
     },
     anyaNagar: {
-      zila_sam_mahanagar_bhag_sankhya: "",
-      sewa_basti_sankhya: "",
-      sewa_kary_yukt_sewa_basti: "",
-      vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya: "",
-      sewa_basti_palak_shakha_w_milan_sankhya: "",
-      sewa_karyakarta_yukt_shakha_w_milan_sankhya: "",
-      kul_sewa_karyakarta: "",
-      mahanagar_mein_kul_sewa_kary: "",
-      masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya: "",
+      zila_sam_mahanagar_bhag_sankhya: getFormData?.anyaNagar?.zila_sam_anyaNagar_bhag_sankhya || "",
+      sewa_basti_sankhya: getFormData?.anyaNagar?.sewa_basti_sankhya || "",
+      sewa_kary_yukt_sewa_basti: getFormData?.anyaNagar?.sewa_kary_yukt_sewa_basti || "",
+      vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya: getFormData?.anyaNagar?.vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya || "",
+      sewa_basti_palak_shakha_w_milan_sankhya: getFormData?.anyaNagar?.sewa_basti_palak_shakha_w_milan_sankhya || "",
+      sewa_karyakarta_yukt_shakha_w_milan_sankhya: getFormData?.anyaNagar?.sewa_karyakarta_yukt_shakha_w_milan_sankhya || "",
+      kul_sewa_karyakarta: getFormData?.anyaNagar?.kul_sewa_karyakarta || "",
+      mahanagar_mein_kul_sewa_kary: getFormData?.anyaNagar?.anyaNagar_mein_kul_sewa_kary || "",
+      masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya: getFormData?.anyaNagar?.masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya || "",
     },
     villagesOver5000: {
-      total_villages: "",
-      business_and_farming_villages: "",
-      service_work_villages: "",
-      total_service_work: "",
+      total_villages: getFormData?.villagesOver5000?.total_villages || "",
+      business_and_farming_villages: getFormData?.villagesOver5000?.business_and_farming_villages || "",
+      service_work_villages: getFormData?.villagesOver5000?.service_work_villages || "",
+      total_service_work: getFormData?.villagesOver5000?.total_service_work || "",
     },
     villagesUnder5000: {
-      service_work_villages: "",
-      total_service_work: "",
+      service_work_villages: getFormData?.villagesUnder5000?.service_work_villages || "",
+      total_service_work: getFormData?.villagesUnder5000?.total_service_work || "",
     },
   };
 
   const onSubmit = async (values) => {
     try {
-      const response = await axios.post(
-        `${BASE_URL}/api/v1/reporting-forms`,
-        values
-      );
+      const response = await axios.post(`${BASE_URL}/api/v1/reporting-forms`, values);
 
       if (response?.data) {
         toast.success(`${response?.data?.message}`);
       }
-      console.log("Data submitted successfully:", response);
+
     } catch (error) {
       if (error.response) {
         console.error("Error response:", error.response.data);
@@ -261,7 +271,6 @@ const Jilareport = () => {
     },
   };
 
-  console.log('vibhagId<>>>>>>>>>>>>>>>>', vibhagId);
 
   return (
     <>
@@ -270,6 +279,7 @@ const Jilareport = () => {
         <Container>
           <Row className="mt-3 d-flex justify-content-between align-items-center">
             <Col xs="auto" className="mt-3">
+
               {userType === "prant" && (
                 <Col xs="auto" className="mt-3">
                   <Form.Control
@@ -279,17 +289,9 @@ const Jilareport = () => {
 
                     onChange={(e) => {
                       const selectedId = e.target.value;
-
-
-
                       setSelectedVibhag(selectedId);
-
                       const selectedVibhagData = vibhagList?.map((vibhag) => vibhag?.vibhags?.find(vibhag => vibhag._id === selectedId));
-                      
-
                       setJilaList(() => selectedVibhagData)
-
-
                     }}
                   >
                     <option value="" className="bg-dark text-light">Select Vibhag</option>
@@ -322,13 +324,12 @@ const Jilareport = () => {
                         Select Jila
                       </option>
                       {jilaList[0].jilas?.map((jila) => {
-
-                        return (<>
-
-                          <option key={jila._id} value={jila._id}>
-                            {jila.jila_name}
-                          </option>
-                        </>)
+                        return (
+                          <>
+                            <option key={jila._id} value={jila._id}>
+                              {jila.jila_name}
+                            </option>
+                          </>)
                       })}
                     </Form.Control>
                   )}
@@ -337,8 +338,23 @@ const Jilareport = () => {
               )}
 
               {userType === "vibhag" && (
-                <Form.Control as="select" className="form-select">
-                  <option value="vibhag1">Dewas</option>
+                <Form.Control as="select" className="form-select"
+                  onChange={(e) => {
+                    const selectedJilaVal = e.target.value;
+                    setSelectedJila(selectedJilaVal)
+                  }}
+                >
+                  {vibhagList?.data?.map((jila) => {
+                    return (
+                      <>
+                        <option key={jila.id} value={jila._id} >
+                          {jila.jila_name}
+                        </option>
+                      </>
+                    )
+                  })}
+
+
                   <option value="vibhag2">Indore</option>
                 </Form.Control>
               )}
@@ -360,6 +376,7 @@ const Jilareport = () => {
 
           <Formik
             initialValues={initialValues}
+            enableReinitialize
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
@@ -379,17 +396,9 @@ const Jilareport = () => {
                             type="number"
                             placeholder="Enter number"
                             name="mahanagar.zila_sam_mahanagar_bhag_sankhya"
-                            value={
-                              values.mahanagar.zila_sam_mahanagar_bhag_sankhya
-                            }
-                            onChange={handleChange}
-                            isInvalid={
-                              touched.mahanagar
-                                ?.zila_sam_mahanagar_bhag_sankhya &&
-                              !!errors.mahanagar
-                                ?.zila_sam_mahanagar_bhag_sankhya
-                            }
-                            disabled={userType !== "jila"}
+                            value={values.mahanagar.zila_sam_mahanagar_bhag_sankhya}
+                            onChange={handleChange} isInvalid={touched.mahanagar?.zila_sam_mahanagar_bhag_sankhya && !!errors.mahanagar?.zila_sam_mahanagar_bhag_sankhya}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.mahanagar?.zila_sam_mahanagar_bhag_sankhya}
@@ -411,7 +420,8 @@ const Jilareport = () => {
                               touched.mahanagar?.sewa_basti_sankhya &&
                               !!errors.mahanagar?.sewa_basti_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.mahanagar?.sewa_basti_sankhya}
@@ -435,7 +445,8 @@ const Jilareport = () => {
                               touched.mahanagar?.sewa_kary_yukt_sewa_basti &&
                               !!errors.mahanagar?.sewa_kary_yukt_sewa_basti
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.mahanagar?.sewa_kary_yukt_sewa_basti}
@@ -462,7 +473,8 @@ const Jilareport = () => {
                               !!errors.mahanagar
                                 ?.vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -492,7 +504,8 @@ const Jilareport = () => {
                               !!errors.mahanagar
                                 ?.sewa_basti_palak_shakha_w_milan_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -522,7 +535,8 @@ const Jilareport = () => {
                               !!errors.mahanagar
                                 ?.sewa_karyakarta_yukt_shakha_w_milan_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -547,7 +561,8 @@ const Jilareport = () => {
                               touched.mahanagar?.kul_sewa_karyakarta &&
                               !!errors.mahanagar?.kul_sewa_karyakarta
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.mahanagar?.kul_sewa_karyakarta}
@@ -571,7 +586,8 @@ const Jilareport = () => {
                               touched.mahanagar?.mahanagar_mein_kul_sewa_kary &&
                               !!errors.mahanagar?.mahanagar_mein_kul_sewa_kary
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.mahanagar?.mahanagar_mein_kul_sewa_kary}
@@ -598,7 +614,8 @@ const Jilareport = () => {
                               !!errors.mahanagar
                                 ?.masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -636,7 +653,8 @@ const Jilareport = () => {
                               !!errors.jilaKendra
                                 ?.zila_sam_mahanagar_bhag_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.jilaKendra?.zila_sam_mahanagar_bhag_sankhya}
@@ -658,7 +676,8 @@ const Jilareport = () => {
                               touched.jilaKendra?.sewa_basti_sankhya &&
                               !!errors.jilaKendra?.sewa_basti_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.jilaKendra?.sewa_basti_sankhya}
@@ -682,7 +701,8 @@ const Jilareport = () => {
                               touched.jilaKendra?.sewa_kary_yukt_sewa_basti &&
                               !!errors.jilaKendra?.sewa_kary_yukt_sewa_basti
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.jilaKendra?.sewa_kary_yukt_sewa_basti}
@@ -709,7 +729,8 @@ const Jilareport = () => {
                               !!errors.jilaKendra
                                 ?.vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -739,7 +760,8 @@ const Jilareport = () => {
                               !!errors.jilaKendra
                                 ?.sewa_basti_palak_shakha_w_milan_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -769,7 +791,8 @@ const Jilareport = () => {
                               !!errors.jilaKendra
                                 ?.sewa_karyakarta_yukt_shakha_w_milan_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -794,7 +817,8 @@ const Jilareport = () => {
                               touched.jilaKendra?.kul_sewa_karyakarta &&
                               !!errors.jilaKendra?.kul_sewa_karyakarta
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.jilaKendra?.kul_sewa_karyakarta}
@@ -819,7 +843,8 @@ const Jilareport = () => {
                                 ?.mahanagar_mein_kul_sewa_kary &&
                               !!errors.jilaKendra?.mahanagar_mein_kul_sewa_kary
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.jilaKendra?.mahanagar_mein_kul_sewa_kary}
@@ -846,7 +871,8 @@ const Jilareport = () => {
                               !!errors.jilaKendra
                                 ?.masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -884,7 +910,8 @@ const Jilareport = () => {
                               !!errors.anyaNagar
                                 ?.zila_sam_mahanagar_bhag_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.anyaNagar?.zila_sam_mahanagar_bhag_sankhya}
@@ -906,7 +933,8 @@ const Jilareport = () => {
                               touched.anyaNagar?.sewa_basti_sankhya &&
                               !!errors.anyaNagar?.sewa_basti_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.anyaNagar?.sewa_basti_sankhya}
@@ -930,7 +958,8 @@ const Jilareport = () => {
                               touched.anyaNagar?.sewa_kary_yukt_sewa_basti &&
                               !!errors.anyaNagar?.sewa_kary_yukt_sewa_basti
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.anyaNagar?.sewa_kary_yukt_sewa_basti}
@@ -957,7 +986,8 @@ const Jilareport = () => {
                               !!errors.anyaNagar
                                 ?.vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -987,7 +1017,8 @@ const Jilareport = () => {
                               !!errors.anyaNagar
                                 ?.sewa_basti_palak_shakha_w_milan_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -1017,7 +1048,8 @@ const Jilareport = () => {
                               !!errors.anyaNagar
                                 ?.sewa_karyakarta_yukt_shakha_w_milan_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -1042,7 +1074,8 @@ const Jilareport = () => {
                               touched.anyaNagar?.kul_sewa_karyakarta &&
                               !!errors.anyaNagar?.kul_sewa_karyakarta
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.anyaNagar?.kul_sewa_karyakarta}
@@ -1066,7 +1099,8 @@ const Jilareport = () => {
                               touched.anyaNagar?.mahanagar_mein_kul_sewa_kary &&
                               !!errors.anyaNagar?.mahanagar_mein_kul_sewa_kary
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.anyaNagar?.mahanagar_mein_kul_sewa_kary}
@@ -1093,7 +1127,8 @@ const Jilareport = () => {
                               !!errors.anyaNagar
                                 ?.masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -1127,7 +1162,8 @@ const Jilareport = () => {
                               touched.villagesOver5000?.total_villages &&
                               !!errors.villagesOver5000?.total_villages
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.villagesOver5000?.total_villages}
@@ -1155,7 +1191,8 @@ const Jilareport = () => {
                               !!errors.villagesOver5000
                                 ?.business_and_farming_villages
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {
@@ -1183,7 +1220,8 @@ const Jilareport = () => {
                               touched.villagesOver5000?.service_work_villages &&
                               !!errors.villagesOver5000?.service_work_villages
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.villagesOver5000?.service_work_villages}
@@ -1206,7 +1244,8 @@ const Jilareport = () => {
                               touched.villagesOver5000?.total_service_work &&
                               !!errors.villagesOver5000?.total_service_work
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.villagesOver5000?.total_service_work}
@@ -1240,7 +1279,8 @@ const Jilareport = () => {
                                 ?.service_work_villages &&
                               !!errors.villagesUnder5000?.service_work_villages
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.villagesUnder5000?.service_work_villages}
@@ -1263,7 +1303,8 @@ const Jilareport = () => {
                               touched.villagesUnder5000?.total_service_work &&
                               !!errors.villagesUnder5000?.total_service_work
                             }
-                            disabled={userType !== "jila"}
+                            disabled={(userType === "kshetra" || userType === "kendra")}
+
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.villagesUnder5000?.total_service_work}
@@ -1276,8 +1317,9 @@ const Jilareport = () => {
 
                 <Row className="mt-3">
                   <Col className="text-center">
-                    <Button type="submit" disabled={userType !== "jila"}>
-                      Submit
+                    <Button type="submit" disabled={(userType === "kshetra" || userType === "kendra")}
+                    >
+                      Save As Submit
                     </Button>
                   </Col>
                 </Row>
