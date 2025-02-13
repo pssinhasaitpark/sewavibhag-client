@@ -1,6 +1,5 @@
-.header {
+/* .header {
   padding: 10px 20px;
-  /* position: fixed; */
 
 }
 
@@ -10,13 +9,15 @@
 }
 
 
-/* Header Styling */
+
 .navbar {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
   position: sticky;
   top: 0;
   background: white; 
+  
 }
+
 .user-container {
   display: flex;
   align-items: center;
@@ -48,16 +49,81 @@
   gap: 14px; 
 }
 
-/* Adjustments for Small Screens */
+
 
 
 @media (max-width: 250px) {
   .user-container h6 {
-    display: none; /* Hide User Type at extremely small screens */
+    display: none; 
   }
 }
 
-/* Adjust dropdown icon positioning */
 button#dropdown-user {
   margin-top: 1px;
+} */
+
+/* Header Styling */
+/* Header Styling */
+.header {
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1050; /* Ensures it stays on top */
+  background: white;
 }
+
+/* Navbar */
+.navbar {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1050;
+}
+
+/* Ensure the hamburger menu is visible */
+.navbar-toggler {
+  z-index: 1100; /* Higher than navbar */
+  border: none;
+  background: transparent;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Ensure dropdowns and menu appear above everything */
+.navbar-collapse {
+  z-index: 1100;
+  background: white; /* Ensures visibility */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
+
+/* Profile Card - Lower z-index */
+.profile-card {
+  position: relative;
+  transition: none !important;
+  transform: none !important;
+  box-shadow: none !important;
+  z-index: 1; /* Lower than navbar and toggle button */
+}
+
+/* Mobile View Fix */
+@media only screen and (max-width: 600px) {
+  .profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin-top: 60px; */
+    padding-top: 0;
+  }
+  .profile-card {
+    width: 100%;
+    z-index: 1;
+  }
+}
+

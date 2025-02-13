@@ -98,6 +98,7 @@ import Header from "./view/layout/Header";
 import ProfilePage from "./view/pages/ProfilePage/ProfilePage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import CreateUser from "./view/pages/CreateUser";
 
 function Layout() {
   const location = useLocation();
@@ -138,6 +139,8 @@ function Layout() {
                 <Route path="jilareport" element={<Jilareport />} />
                 <Route path="viewkendratable" element={<ViewKendraTable />} />
                 <Route path="profile" element={<ProfilePage />} />
+                <Route path="create-user" element={<CreateUser />} />
+                
                 {/* <Route path="/dashboard/revieved" element={<HierarchyBox />} /> */}
               </Route>
             </Route>
