@@ -119,6 +119,8 @@ const Jilareport = () => {
   }, [user]);
 
   useEffect(() => {
+
+    // get api
     if (userType === "prant" || userType === "vibhag") {
       axios.get(`${BASE_URL}/api/v1/prantAndVibhag`, {
         headers: {
@@ -143,6 +145,7 @@ const Jilareport = () => {
 
 
   }, [userType, selectedJila]);
+  
 
   useEffect(() => {
     localStorage.setItem("language", language);
