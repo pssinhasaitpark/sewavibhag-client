@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Table, Button, Collapse, Container, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchHierarchy } from "../../redux/slice/hierarchySlice";
@@ -13,13 +13,35 @@ const CollapsibleTable = () => {
   const [openPrant, setOpenPrant] = useState({});
   const [openVibhag, setOpenVibhag] = useState({});
 
+  // const [selectedPrantId, setSelectedPrantId] = React.useState(null);
+
+  const [selectedKshettraId, setSelectedKshettraId] = useState(null);
+  const [selectedPrantId, setSelectedPrantId] = useState(null);
+  const [selectedVibhagId, setSelectedVibhagId] = useState(null);
+
+  // Function to handle row click
+  const handlePrantRowClick = (id, index, type) => {
+    if (type === "prant") {
+      console.log("indexxx", index);
+
+      setSelectedPrantId((prantId) => (prantId === id ? null : id));
+    } else if (type === "vibhag") {
+      setSelectedVibhagId((vibhagId) => (vibhagId === id ? null : id));
+    } else if (type === "kshettra") {
+      setSelectedKshettraId((kshettraId) => (kshettraId === id ? null : id));
+    }
+  };
+
   useEffect(() => {
     dispatch(fetchHierarchy());
   }, [dispatch]);
 
-  const toggleKshettra = (name) => setOpenKshettra((prev) => ({ ...prev, [name]: !prev[name] }));
-  const togglePrant = (name) => setOpenPrant((prev) => ({ ...prev, [name]: !prev[name] }));
-  const toggleVibhag = (name) => setOpenVibhag((prev) => ({ ...prev, [name]: !prev[name] }));
+  const toggleKshettra = (name) =>
+    setOpenKshettra((prev) => ({ ...prev, [name]: !prev[name] }));
+  const togglePrant = (name) =>
+    setOpenPrant((prev) => ({ ...prev, [name]: !prev[name] }));
+  const toggleVibhag = (name) =>
+    setOpenVibhag((prev) => ({ ...prev, [name]: !prev[name] }));
 
   const fieldGroups = [
     { title: "महानगर", count: 9 },
@@ -29,24 +51,56 @@ const CollapsibleTable = () => {
     { title: "5000 से कम जनसंख्या के सेवा युक्त ग्राम संख्या", count: 2 },
   ];
 
+  const [openFieldGroups, setOpenFieldGroups] = useState(
+    Array(fieldGroups.length).fill(true)
+  );
+
+  const calculateGroupTotal = (groupIndex, kendra) => {
+    const startIndex = fieldGroups
+      .slice(0, groupIndex)
+      .reduce((sum, group) => sum + group.count, 0);
+    const endIndex = startIndex + fieldGroups[groupIndex].count;
+
+    let total = 0;
+    for (let i = startIndex; i < endIndex; i++) {
+      const fieldName = fieldNames[i];
+      total += calculateTotals([kendra], fieldName) || 0;
+    }
+    return total;
+  };
+
   const fieldNames = [
-    "जिला सम महानगर/भाग संख्या", "इनमें सेवा बस्ती संख्या", "सेवा कार्य युक्त सेवा बस्ती",
-    "व्यवसायी व महाविद्यालय शाखा व मिलन संख्या", "सेवा बस्ती पालक शाखा व मिलन संख्या",
-    "सेवा कार्यकर्ता युक्त शाखा व मिलन संख्या", "कुल सेवा कार्यकर्ता",
+    "जिला सम महानगर/भाग संख्या",
+    "इनमें सेवा बस्ती संख्या",
+    "सेवा कार्य युक्त सेवा बस्ती",
+    "व्यवसायी व महाविद्यालय शाखा व मिलन संख्या",
+    "सेवा बस्ती पालक शाखा व मिलन संख्या",
+    "सेवा कार्यकर्ता युक्त शाखा व मिलन संख्या",
+    "कुल सेवा कार्यकर्ता",
     "महानगर में कुल सेवा कार्य (सेवा संस्थाओं के सेवा कार्य सहित)",
     "मासिक सेवा बस्ती संपर्क करने वाली शाखा व मिलन संख्या",
-    "जिला सम महानगर/भाग संख्या", "इनमें सेवा बस्ती संख्या", "सेवा कार्य युक्त सेवा बस्ती",
-    "व्यवसायी व महाविद्यालय शाखा व मिलन संख्या", "सेवा बस्ती पालक शाखा व मिलन संख्या",
-    "सेवा कार्यकर्ता युक्त शाखा व मिलन संख्या", "कुल सेवा कार्यकर्ता",
+    "जिला सम महानगर/भाग संख्या",
+    "इनमें सेवा बस्ती संख्या",
+    "सेवा कार्य युक्त सेवा बस्ती",
+    "व्यवसायी व महाविद्यालय शाखा व मिलन संख्या",
+    "सेवा बस्ती पालक शाखा व मिलन संख्या",
+    "सेवा कार्यकर्ता युक्त शाखा व मिलन संख्या",
+    "कुल सेवा कार्यकर्ता",
     "महानगर में कुल सेवा कार्य (सेवा संस्थाओं के सेवा कार्य सहित)",
     "मासिक सेवा बस्ती संपर्क करने वाली शाखा व मिलन संख्या",
-    "जिला सम महानगर/भाग संख्या", "इनमें सेवा बस्ती संख्या", "सेवा कार्य युक्त सेवा बस्ती",
-    "व्यवसायी व महाविद्यालय शाखा व मिलन संख्या", "सेवा बस्ती पालक शाखा व मिलन संख्या",
-    "सेवा कार्यकर्ता युक्त शाखा व मिलन संख्या", "कुल सेवा कार्यकर्ता",
+    "जिला सम महानगर/भाग संख्या",
+    "इनमें सेवा बस्ती संख्या",
+    "सेवा कार्य युक्त सेवा बस्ती",
+    "व्यवसायी व महाविद्यालय शाखा व मिलन संख्या",
+    "सेवा बस्ती पालक शाखा व मिलन संख्या",
+    "सेवा कार्यकर्ता युक्त शाखा व मिलन संख्या",
+    "कुल सेवा कार्यकर्ता",
     "महानगर में कुल सेवा कार्य (सेवा संस्थाओं के सेवा कार्य सहित)",
     "मासिक सेवा बस्ती संपर्क करने वाली शाखा व मिलन संख्या",
     "5000 या उससे अधिक जनसंख्या के ग्रामों की संख्या",
-    "इनमें व्यवसायी या कृषक शाखायुक्त ग्राम", "इनमें सेवा कार्ययुक्त ग्राम", "इनमें कुल सेवा कार्य",
+    "इनमें व्यवसायी या कृषक शाखायुक्त ग्राम",
+    "इनमें सेवा कार्ययुक्त ग्राम",
+    "इनमें कुल सेवा कार्य",
     "5000 से कम जनसंख्या के सेवा युक्त ग्राम संख्या",
     "इनमें कुल सेवा कार्य",
   ];
@@ -55,7 +109,13 @@ const CollapsibleTable = () => {
   const getNestedData = (jila, fieldName) => {
     if (!jila.reporting_form) return "-";
 
-    const { mahanagar, jilaKendra, anyaNagar, villagesOver5000, villagesUnder5000 } = jila.reporting_form;
+    const {
+      mahanagar,
+      jilaKendra,
+      anyaNagar,
+      villagesOver5000,
+      villagesUnder5000,
+    } = jila.reporting_form;
 
     switch (fieldName) {
       case "जिला सम महानगर/भाग संख्या":
@@ -65,7 +125,9 @@ const CollapsibleTable = () => {
       case "सेवा कार्य युक्त सेवा बस्ती":
         return mahanagar?.sewa_kary_yukt_sewa_basti || "-";
       case "व्यवसायी व महाविद्यालय शाखा व मिलन संख्या":
-        return mahanagar?.vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya || "-";
+        return (
+          mahanagar?.vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya || "-"
+        );
       case "सेवा बस्ती पालक शाखा व मिलन संख्या":
         return mahanagar?.sewa_basti_palak_shakha_w_milan_sankhya || "-";
       case "सेवा कार्यकर्ता युक्त शाखा व मिलन संख्या":
@@ -75,7 +137,10 @@ const CollapsibleTable = () => {
       case "महानगर में कुल सेवा कार्य (सेवा संस्थाओं के सेवा कार्य सहित)":
         return mahanagar?.mahanagar_mein_kul_sewa_kary || "-";
       case "मासिक सेवा बस्ती संपर्क करने वाली शाखा व मिलन संख्या":
-        return mahanagar?.masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya || "-";
+        return (
+          mahanagar?.masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya ||
+          "-"
+        );
       case "5000 या उससे अधिक जनसंख्या के ग्रामों की संख्या":
         return villagesOver5000?.total_villages || "-";
       case "इनमें व्यवसायी या कृषक शाखायुक्त ग्राम":
@@ -93,18 +158,34 @@ const CollapsibleTable = () => {
     }
   };
 
-  // Calculate totals for a given level (Jila → Vibhag → Prant → Kshetra)
   const calculateTotals = (data, fieldName) => {
     return data.reduce((total, item) => {
       if (item.jilas) {
-        return total + item.jilas.reduce((jilaTotal, jila) => {
-          const value = getNestedData(jila, fieldName);
-          return jilaTotal + (value === "-" ? 0 : Number(value));
-        }, 0);
+        return (
+          total +
+          item.jilas.reduce((jilaTotal, jila) => {
+            const value = getNestedData(jila, fieldName);
+            return jilaTotal + (value === "-" ? 0 : Number(value));
+          }, 0)
+        );
       } else if (item.vibhags) {
-        return total + item.vibhags.reduce((vibhagTotal, vibhag) => vibhagTotal + calculateTotals([vibhag], fieldName), 0);
+        return (
+          total +
+          item.vibhags.reduce(
+            (vibhagTotal, vibhag) =>
+              vibhagTotal + calculateTotals([vibhag], fieldName),
+            0
+          )
+        );
       } else if (item.prants) {
-        return total + item.prants.reduce((prantTotal, prant) => prantTotal + calculateTotals([prant], fieldName), 0);
+        return (
+          total +
+          item.prants.reduce(
+            (prantTotal, prant) =>
+              prantTotal + calculateTotals([prant], fieldName),
+            0
+          )
+        );
       } else {
         const value = getNestedData(item, fieldName);
         return total + (value === "-" ? 0 : Number(value));
@@ -115,10 +196,21 @@ const CollapsibleTable = () => {
   // Calculate grand total for all Kshetras
   const calculateGrandTotal = (fieldName) => {
     return data.reduce((total, kendra) => {
-      return total + kendra.kshetras.reduce((kshettraTotal, kshettra) => {
-        return kshettraTotal + calculateTotals([kshettra], fieldName);
-      }, 0);
+      return (
+        total +
+        kendra.kshetras.reduce((kshettraTotal, kshettra) => {
+          return kshettraTotal + calculateTotals([kshettra], fieldName);
+        }, 0)
+      );
     }, 0);
+  };
+
+  const toggleFieldGroup = (index) => {
+    setOpenFieldGroups((prev) => {
+      const updated = [...prev];
+      updated[index] = !updated[index];
+      return updated;
+    });
   };
 
   if (loading) return <PropagateLoader className="text-center" />;
@@ -129,31 +221,78 @@ const CollapsibleTable = () => {
       <Table responsive bordered hover size="sm" className="custom-table">
         <thead>
           <tr>
-            <th rowSpan="2" className="fixed-header">Kshetra/Prant/Vibhag/Jila</th>
+            <th rowSpan="2" className="fixed-header table-main-heading">
+              क्षेत्र / प्रांत / विभाग / जिला
+            </th>
             {fieldGroups.map((group, index) => (
-              <th key={index} colSpan={group.count} className="fixed-header">
-                {group.title}
+              <th
+                key={index}
+                colSpan={group.count}
+                className="fixed-header table-main-heading"
+                onClick={() => toggleFieldGroup(index)}
+                style={{ cursor: "pointer", backgroundColor: "#f0f0f0" }}
+              >
+                {group.title} {openFieldGroups[index] ? "▲" : "▼"}
               </th>
             ))}
           </tr>
           <tr>
-            {fieldNames.map((name, index) => (
-              <th key={index} className="fixed-header">{name}</th>
-            ))}
+          {fieldNames.map((name, index) => {
+              const groupIndex = fieldGroups.findIndex(
+                (group, i) =>
+                  index >=
+                    fieldGroups
+                      .slice(0, i)
+                      .reduce((sum, g) => sum + g.count, 0) &&
+                  index <
+                    fieldGroups
+                      .slice(0, i + 1)
+                      .reduce((sum, g) => sum + g.count, 0)
+              );
+              return openFieldGroups[groupIndex] ? (
+                <th key={index} className="fixed-header">
+                  {name} 
+                </th>
+              ) : (
+                <th
+                  key={index}
+                  className="fixed-header"
+                  style={{ visibility: "hidden" }}
+                >
+                 
+                </th>
+              );
+            })}
           </tr>
         </thead>
         <tbody>
           {data.map((kendra) =>
-            kendra.kshetras.map((kshettra) => (
+            kendra.kshetras.map((kshettra, index) => (
               <React.Fragment key={kshettra._id}>
-                 <tr className="kshettra-row">
+                <tr
+                  className="kshettra-row"
+                  style={{
+                    backgroundColor:
+                      selectedKshettraId === kshettra._id
+                        ? "#add8e6"
+                        : "transparent",
+                  }}
+                  onClick={() =>
+                    handlePrantRowClick(kshettra._id, index, "kshettra")
+                  }
+                >
                   <td>
-                    <Button variant="link" onClick={() => toggleKshettra(kshettra.kshetra_name)}>
+                    <Button
+                      variant="link"
+                      onClick={() => toggleKshettra(kshettra.kshetra_name)}
+                    >
                       {kshettra.kshetra_name}
                     </Button>
                   </td>
                   {fieldNames.map((fieldName, index) => (
-                    <td key={index}>{calculateTotals([kshettra], fieldName) || "-"}</td>
+                    <td key={index}>
+                      {calculateTotals([kshettra], fieldName) || "-"}
+                    </td>
                   ))}
                 </tr>
                 <tr>
@@ -162,60 +301,158 @@ const CollapsibleTable = () => {
                       <div>
                         <Table bordered size="sm" className="custom-table">
                           <tbody>
-                            {kshettra.prants.map((prant) => (
+                            {kshettra.prants.map((prant, index) => (
                               <React.Fragment key={prant._id}>
-                                <tr className="prant-row">
+                                <tr
+                                  className="prant-row"
+                                  style={{
+                                    backgroundColor:
+                                      selectedPrantId === prant._id
+                                        ? "#42cef5"
+                                        : "transparent",
+                                  }}
+                                  onClick={() =>
+                                    handlePrantRowClick(
+                                      prant._id,
+                                      index,
+                                      "prant"
+                                    )
+                                  }
+                                >
                                   <td>
-                                    <Button variant="link" onClick={() => togglePrant(prant.prant_name)}>
+                                    <Button
+                                      variant="link"
+                                      onClick={() =>
+                                        togglePrant(prant.prant_name)
+                                      }
+                                    >
                                       {prant.prant_name}
                                     </Button>
                                   </td>
                                   {fieldNames.map((fieldName, index) => (
-                                    <td key={index}>{calculateTotals([prant], fieldName) || "-"}</td>
+                                    <td key={index}>
+                                      {calculateTotals([prant], fieldName) ||
+                                        "-"}
+                                    </td>
                                   ))}
                                 </tr>
                                 <tr>
                                   <td colSpan={fieldNames.length + 1}>
                                     <Collapse in={openPrant[prant.prant_name]}>
                                       <div>
-                                        <Table bordered size="sm" className="custom-table">
+                                        <Table
+                                          bordered
+                                          size="sm"
+                                          className="custom-table"
+                                        >
                                           <tbody>
-                                            {prant.vibhags.map((vibhag) => (
-                                              <React.Fragment key={vibhag._id}>
-                                                <tr className="vibhag-row">
-                                                  <td>
-                                                    <Button variant="link" onClick={() => toggleVibhag(vibhag.vibhag_name)}>
-                                                      {vibhag.vibhag_name}
-                                                    </Button>
-                                                  </td>
-                                                  {fieldNames.map((fieldName, index) => (
-                                                    <td key={index}>{calculateTotals([vibhag], fieldName) || "-"}</td>
-                                                  ))}
-                                                </tr>
-                                                <tr>
-                                                  <td colSpan={fieldNames.length + 1}>
-                                                    <Collapse in={openVibhag[vibhag.vibhag_name]}>
-                                                      <div>
-                                                        <Table bordered size="sm" className="custom-table">
-                                                          <tbody>
-                                                            {vibhag.jilas.map((jila) => (
-                                                              <tr key={jila._id} className="jila-row" >
-                                                                <td>{jila.jila_name}</td>
-                                                                {fieldNames.map((fieldName, index) => (
-                                                                  <td key={index}>
-                                                                    {getNestedData(jila, fieldName)}
-                                                                  </td>
-                                                                ))}
-                                                              </tr>
-                                                            ))}
-                                                          </tbody>
-                                                        </Table>
-                                                      </div>
-                                                    </Collapse>
-                                                  </td>
-                                                </tr>
-                                              </React.Fragment>
-                                            ))}
+                                            {prant.vibhags.map(
+                                              (vibhag, index) => (
+                                                <React.Fragment
+                                                  key={vibhag._id}
+                                                >
+                                                  <tr
+                                                    className="vibhag-row"
+                                                    style={{
+                                                      backgroundColor:
+                                                        selectedVibhagId ===
+                                                        vibhag._id
+                                                          ? "#c242f5"
+                                                          : "transparent",
+                                                    }}
+                                                    onClick={() =>
+                                                      handlePrantRowClick(
+                                                        vibhag._id,
+                                                        index,
+                                                        "vibhag"
+                                                      )
+                                                    }
+                                                  >
+                                                    <td>
+                                                      <Button
+                                                        variant="link"
+                                                        onClick={() =>
+                                                          toggleVibhag(
+                                                            vibhag.vibhag_name
+                                                          )
+                                                        }
+                                                      >
+                                                        {vibhag.vibhag_name}
+                                                      </Button>
+                                                    </td>
+                                                    {fieldNames.map(
+                                                      (fieldName, index) => (
+                                                        <td key={index}>
+                                                          {calculateTotals(
+                                                            [vibhag],
+                                                            fieldName
+                                                          ) || "-"}
+                                                        </td>
+                                                      )
+                                                    )}
+                                                  </tr>
+                                                  <tr>
+                                                    <td
+                                                      colSpan={
+                                                        fieldNames.length + 1
+                                                      }
+                                                    >
+                                                      <Collapse
+                                                        in={
+                                                          openVibhag[
+                                                            vibhag.vibhag_name
+                                                          ]
+                                                        }
+                                                      >
+                                                        <div>
+                                                          <Table
+                                                            bordered
+                                                            size="sm"
+                                                            className="custom-table"
+                                                          >
+                                                            <tbody>
+                                                              {vibhag.jilas.map(
+                                                                (jila) => (
+                                                                  <tr
+                                                                    key={
+                                                                      jila._id
+                                                                    }
+                                                                    className="jila-row"
+                                                                  >
+                                                                    <td>
+                                                                      {
+                                                                        jila.jila_name
+                                                                      }
+                                                                    </td>
+                                                                    {fieldNames.map(
+                                                                      (
+                                                                        fieldName,
+                                                                        index
+                                                                      ) => (
+                                                                        <td
+                                                                          key={
+                                                                            index
+                                                                          }
+                                                                        >
+                                                                          {getNestedData(
+                                                                            jila,
+                                                                            fieldName
+                                                                          )}
+                                                                        </td>
+                                                                      )
+                                                                    )}
+                                                                  </tr>
+                                                                )
+                                                              )}
+                                                            </tbody>
+                                                          </Table>
+                                                        </div>
+                                                      </Collapse>
+                                                    </td>
+                                                  </tr>
+                                                </React.Fragment>
+                                              )
+                                            )}
                                           </tbody>
                                         </Table>
                                       </div>

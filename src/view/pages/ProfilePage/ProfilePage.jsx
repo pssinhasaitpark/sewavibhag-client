@@ -1,3 +1,6 @@
+
+
+
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +12,7 @@ export default function ProfilePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.profile.user);
+  const userData = useSelector((state) => state.profile.user);
   const token = useSelector((state) => state.profile.token) || localStorage.getItem("token");
 
   const defaultAvatar = "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp";
@@ -28,14 +31,19 @@ export default function ProfilePage() {
 
     dispatch(fetchUser())
       .unwrap()
-      .then((user) => setProfile(user?.data?.user));
+      .then((res) => {
+        if (res?.status === "success" && res?.data) {
+          setProfile(res.data);
+        }
+      })
+      .catch((error) => console.error("Failed to fetch user:", error));
   }, [dispatch, token, navigate]);
 
   const handleUpdate = (field, value) => {
-    if (!profile) return;
+    if (!profile?.user) return;
   
-    const updatedProfile = { ...profile, [field]: value };
-    setProfile(updatedProfile);
+    const updatedUser = { ...profile.user, [field]: value };
+    setProfile((prev) => ({ ...prev, user: updatedUser }));
   
     dispatch(updateUser({ [field]: value })) 
       .unwrap()
@@ -50,7 +58,6 @@ export default function ProfilePage() {
   
     setShowToast(true);
   };
-  
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -58,6 +65,23 @@ export default function ProfilePage() {
       const reader = new FileReader();
       reader.onloadend = () => handleUpdate("avatar", reader.result);
       reader.readAsDataURL(file);
+    }
+  };
+
+  const getUserDesignation = () => {
+    switch (profile?.user?.user_type) {
+      case "prant":
+        return profile?.prant_name ? `Prant: ${profile.prant_name}` : "Prant Not Available";
+      case "vibhag":
+        return profile?.vibhag_name ? `Vibhag: ${profile.vibhag_name}` : "Vibhag Not Available";
+      case "jila":
+        return profile?.jila_name ? `Jila: ${profile.jila_name}` : "Jila Not Available";
+      case "kshetra":
+        return profile?.kshetra_name ? `Kshetra: ${profile.kshetra_name}` : "Kshetra Not Available";
+      case "kendra":
+        return profile?.kendra_name ? `Kendra: ${profile.kendra_name}` : "Kendra Not Available";
+      default:
+        return "User Type Not Available";
     }
   };
 
@@ -70,14 +94,10 @@ export default function ProfilePage() {
               <Card.Body className="d-flex flex-column align-items-center">
                 <label htmlFor="avatarInput" style={{ cursor: "pointer" }}>
                   <img
-                    src={profile?.avatar || defaultAvatar}
+                    src={profile?.user?.avatar || defaultAvatar}
                     alt="avatar"
                     className="rounded-circle mb-3"
-                    style={{
-                      width: "110px",
-                      height: "110px",
-                      objectFit: "cover",
-                    }}
+                    style={{ width: "110px", height: "110px", objectFit: "cover" }}
                   />
                   <div className="text-muted">
                     <span className="ms-2">Change Profile Picture</span> <FaPencilAlt />
@@ -90,8 +110,8 @@ export default function ProfilePage() {
                   style={{ display: "none" }}
                   onChange={handleFileChange}
                 />
-                <h5 className="mb-1">{profile?.full_name || "User Name"}</h5>
-                <p className="text-muted">{profile?.user_type || "User Type Not Available"}</p>
+                <h5 className="mb-1">{profile?.user?.full_name || "User Name"}</h5>
+                <p className="text-muted">{getUserDesignation()}</p>
               </Card.Body>
             </Card>
           </Col>
@@ -99,27 +119,21 @@ export default function ProfilePage() {
           <Col lg={7} md={6} sm={12}>
             <Card className="shadow-sm p-3 h-100 profile-card">
               <Card.Body className="d-flex flex-column justify-content-between">
-                {[
-                  { label: "Full Name", value: profile?.full_name, field: "full_name" },
-                  { label: "Email", value: profile?.email, field: "email" },
-                  { label: "Mobile", value: profile?.mobile, field: "mobile" },
-                ].map(({ label, value, field }) => (
+                {["full_name", "email", "mobile"].map((field) => (
                   <div key={field}>
                     <Row className="mb-2">
-                      <Col sm={4}>
-                        <strong>{label}</strong>
-                      </Col>
+                      <Col sm={4}><strong>{field.replace("_", " ").toUpperCase()}</strong></Col>
                       <Col sm={7}>
                         {editField === field ? (
                           <Form.Control
                             type="text"
-                            value={value || ""}
+                            value={profile?.user?.[field] || ""}
                             onChange={(e) => handleUpdate(field, e.target.value)}
                             onBlur={() => setEditField(null)}
                             autoFocus
                           />
                         ) : (
-                          <span className="text-muted">{value || "Not provided"}</span>
+                          <span className="text-muted">{profile?.user?.[field] || "Not provided"}</span>
                         )}
                       </Col>
                       <Col sm={1} className="text-end">
@@ -131,21 +145,6 @@ export default function ProfilePage() {
                 ))}
               </Card.Body>
             </Card>
-          </Col>
-        </Row>
-
-        <Row className="justify-content-center">
-          <Col xs={12}>
-            <Toast
-              show={showToast}
-              onClose={() => setShowToast(false)}
-              delay={3000}
-              autohide
-              className={`position-fixed bg-${toastVariant} text-white d-flex d-sm-block top-0 end-0 me-3`}
-              style={{ marginTop: "100px" }}
-            >
-              <Toast.Body>{toastMessage}</Toast.Body>
-            </Toast>
           </Col>
         </Row>
       </Container>

@@ -1,0 +1,20 @@
+
+.focused {
+    background-color: #0aa347; /* Greenish background for the focused row */
+  }
+  
+  .kshettra-row.focused:hover {
+    background-color: #146185; /* Light blue for Kshettra rows */
+  }
+  
+  .prant-row.focused:hover  {
+    background-color: #221691; /* Light yellow for Prant rows */
+  }
+  
+  .vibhag-row.focused:hover {
+    background-color: #c51f1f; /* Light red for Vibhag rows */
+  }
+  
+  .jila-row.focused:hover {
+    background-color: #b50fbb; /* Light teal for Jila rows */
+  }
