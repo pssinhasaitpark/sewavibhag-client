@@ -1,64 +1,50 @@
-/* .table thead th {
-  white-space: nowrap;
-  text-align: center;
-}
-
-.table {
-  table-layout: auto;
-
-}
-
-.table-scroll {
-  margin-top: 10px;
-}
-.fixed-col {
-  position: sticky;
-  left: 0;
-  background: white; 
-  z-index: 1;
-  text-align: left;
-  font-weight: bold;
-}
-
-.show-type{
-  content: "show" !important
-} */
-
-/* Ensure headers stay in one line */
 .custom-table th.fixed-header {
-  white-space: nowrap; /* Prevent wrapping */
-  text-align: center; /* Center-align text */
-  background-color: #f8f9fa; /* Optional: Add background color for headers */
+  white-space: nowrap; 
+  text-align: center; 
+  background-color: #f8f9fa;
 }
 
-/* Allow data cells to wrap */
 .custom-table td {
-  white-space: normal; /* Allow wrapping */
-  word-break: break-word; /* Break long words if necessary */
+  white-space: normal; 
+  word-break: break-word;
 }
-
-/* Optional: Add padding for better spacing */
 .custom-table th,
 .custom-table td {
   padding: 8px 12px;
 }
 .custom-table tbody tr td:first-child {
-  width: 200px; /* Set your desired width */
+  width: 200px; 
 }
 
 button.btn.btn-link {
   text-decoration: none !important;
 }
 
+.custom-table .kshettra-row:hover{
+  color: #f8f9fa;
+}
+
 .kshettra-row {
-  background-color: #ffe4b5 !important; /* Soft orange */
+  cursor: pointer;
+  background-color: blue;
+
 }
-.prant-row {
-  background-color: #add8e6 !important; /* Light blue */
+.custom-table tbody tr td{
+  background-color: unset !important;
 }
-.vibhag-row {
-  background-color: #98fb98 !important; /* Soft green */
+
+
+.table-main-heading{
+  font-size: 24px;
+  background: rgb(31,0,36);
+background: linear-gradient(14deg, rgba(31,0,36,1) 0%, rgba(229,231,200,0.9864320728291317) 15%, rgba(214,231,217,1) 100%);
 }
-.jila-row {
-  background-color: #f08080 !important; /* Soft red */
+
+.prant-row{
+  background-color: green;
 }
+
+.vibhag-row{
+  background-color: blue;
+}
+
