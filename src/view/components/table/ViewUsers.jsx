@@ -60,6 +60,7 @@ const UserTable = () => {
               <th>Username</th>
               <th>Email</th>
               <th>Mobile No.</th>
+              <th>User Type</th>
               <th>Filed Type</th>
               <th>Level</th>
             </tr>
@@ -78,6 +79,7 @@ const UserTable = () => {
             <td>{user.user_name}</td>
             <td>{user.email}</td>
             <td>{user.mobile}</td>
+            <td>{user.user_type}</td>
             <td>{lastKeyValue}</td> 
             <td>{user.level || 'N/A'}</td>
           </tr>
