@@ -110,46 +110,52 @@
 
 
 
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 // 🔹 Async action for login
-export const loginUser = createAsyncThunk(
-  "auth/loginUser",
-  async (userData, { rejectWithValue }) => {
-    try {
-      const response = await axios.post(`${BASE_URL}/api/v1/login`, userData);
-      return response.data.data; // Returns { token, user_type, ... }
-    } catch (error) {
-      return rejectWithValue(error.response?.data || "Something went wrong");
-    }
+// 🔹 Async action for login
+export const loginUser = createAsyncThunk("auth/loginUser", async (userData, { rejectWithValue }) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/api/v1/login`, {
+      user_name: userData.user_name,
+      password: userData.password,
+    });
+
+    const userDataResponse = response.data.data; // Extract `data` object
+    localStorage.setItem("token", userDataResponse.token);
+    localStorage.setItem("user", JSON.stringify({
+      ...userDataResponse, // Include user type and user_id
+      user_type: userDataResponse.user_type,
+      user_type_id: userDataResponse.user_type_id
+    }));
+
+    return userDataResponse; // This includes `token`, `user_type`, `user_type_id`
+  } catch (error) {
+    return rejectWithValue(error.response ? error.response.data : "Something went wrong");
   }
-);
+});
 
 // 🔹 Async action for fetching user profile
-export const fetchUserProfile = createAsyncThunk(
-  "auth/fetchUserProfile",
-  async (_, { getState, rejectWithValue, dispatch }) => {
-    try {
-      const token = getState().auth.token || localStorage.getItem("token");
-      if (!token) throw new Error("Unauthorized");
+export const fetchUserProfile = createAsyncThunk("auth/fetchUserProfile", async (_, { getState, rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("Unauthorized");
 
-      const response = await axios.get(`${BASE_URL}/api/v1/user/profile`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+    const response = await axios.get(`${BASE_URL}/api/v1/user/profile`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
-      return response.data.data;
-    } catch (error) {
-      if (error.response?.status === 401) {
-        dispatch(logout()); // Auto logout if token is invalid
-      }
-      return rejectWithValue(error.response?.data || "Something went wrong");
-    }
+    const user = response.data.data;
+    localStorage.setItem("user", JSON.stringify(user)); // Store updated user data, includes `user_type` and `user_type_id`
+    return user;
+  } catch (error) {
+    return rejectWithValue(error.response ? error.response.data : "Something went wrong");
   }
-);
+});
+
 
 // 🔹 Redux Slice
 const authSlice = createSlice({
@@ -182,10 +188,6 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload;
         state.token = action.payload.token;
-
-        // Store in localStorage
-        localStorage.setItem("token", action.payload.token);
-        localStorage.setItem("user", JSON.stringify(action.payload));
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -197,7 +199,6 @@ const authSlice = createSlice({
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
-        localStorage.setItem("user", JSON.stringify(action.payload)); // Store updated user
       })
       .addCase(fetchUserProfile.rejected, (state, action) => {
         state.loading = false;
@@ -208,3 +209,7 @@ const authSlice = createSlice({
 
 export const { logout, setUser } = authSlice.actions;
 export default authSlice.reducer;
+
+
+
+
