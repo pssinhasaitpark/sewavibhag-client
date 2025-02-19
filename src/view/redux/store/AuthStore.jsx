@@ -5,6 +5,8 @@ import hierarchyReducer from "../slice/hierarchySlice";
 import HeaderSlice from "../slice/HeaderSlice";
 import ViewUserSliceReducer from "../slice/ViewUsersSlice"; 
 import reportReducer from "../slice/JilaReportSlice"
+import viewActivitiesReducer from "../slice/ViewActivity";
+
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +16,6 @@ export const store = configureStore({
     header: HeaderSlice,
     report: reportReducer,
     ViewUserSlice: ViewUserSliceReducer,
+    viewActivities: viewActivitiesReducer,
   },
 });
