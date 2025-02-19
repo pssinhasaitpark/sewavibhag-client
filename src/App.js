@@ -100,6 +100,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import CreateUser from "./view/pages/CreateUser";
 import ViewUsers from "./view/components/table/ViewUsers";
+import ActivityTable from "./view/components/table/ViewActivity";
+
 
 function Layout() {
   const location = useLocation();
@@ -142,7 +144,7 @@ function Layout() {
                 <Route path="profile" element={<ProfilePage />} />
                 <Route path="viewusers" element={<ViewUsers />} />
                 <Route path="create-user" element={<CreateUser />} />
-                
+                <Route path="activity" element={<ActivityTable/>} />
                 {/* <Route path="/dashboard/revieved" element={<HierarchyBox />} /> */}
               </Route>
             </Route>
