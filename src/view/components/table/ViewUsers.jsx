@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../../redux/slice/ViewUsersSlice';
 import { Table, Spinner } from 'react-bootstrap';
+import { PropagateLoader } from 'react-spinners';
 
 const UserTable = () => {
   const dispatch = useDispatch();
@@ -19,8 +20,8 @@ const UserTable = () => {
   }, [dispatch]);
 
  
-  const filteredUsers = Array.isArray(users)
-  ? users.filter((user) => {
+  const filteredUsers = Array?.isArray(users)
+  ? users?.filter((user) => {
       console.log("User Type in filter:", user?.user_type);
       if (loggedInUserType === 'kendra') {
         return ['khetra', 'prant', 'vibhag', 'jila'].includes(user.user_type);
@@ -47,28 +48,27 @@ const UserTable = () => {
 
   return (
     <div className="container mt-4">
-      <h2>User List</h2>
+      <h2>उपयोगकर्ता सूची </h2>
 
-      {status === 'loading' && <Spinner animation="border" />}
+      {status === 'loading' && (<PropagateLoader className="text-center" />)}
       {status === 'failed' && <p>Error: {error}</p>}
 
       {status === 'succeeded' && (
         <Table striped bordered hover responsive>
           <thead>
             <tr>
-              <th>Full Name</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Mobile No.</th>
-              <th>User Type</th>
-              <th>Filed Type</th>
-              <th>Level</th>
+              <th>नाम</th>
+              <th>उपयोगकर्ता नाम</th>
+              <th>ईमेल</th>
+              <th>मोबाइल नंबर </th>
+              <th>उपयोगकर्ता प्रकार</th>
+              <th>क्षेत्र प्रकार</th>
+              <th>स्तर</th>
             </tr>
           </thead>
           <tbody>
     {filteredUsers.length > 0 ? (
       filteredUsers.map((user) => {
-        
         const userKeys = Object.keys(user);
         const lastKey = userKeys[userKeys.length - 1];
         const lastKeyValue = user[lastKey];

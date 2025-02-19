@@ -11,6 +11,8 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 const API_URL = `${BASE_URL}/api/v1/view-activities`;
 
 
+
+
 export const viewActivities = createAsyncThunk('users/viewActivities', async (_, { rejectWithValue }) => {
     try {
         const token = localStorage.getItem("token"); 
