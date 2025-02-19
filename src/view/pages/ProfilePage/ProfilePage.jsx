@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Form, Toast } from "react-bootstrap";
 import { fetchUser, updateUser } from "../../redux/slice/profileSlice"; 
-import { FaPencilAlt } from "react-icons/fa";
+import { FaPencilAlt, FaUserCircle } from "react-icons/fa";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
@@ -93,23 +93,16 @@ export default function ProfilePage() {
             <Card className="shadow-sm text-center p-3 h-100 profile-card">
               <Card.Body className="d-flex flex-column align-items-center">
                 <label htmlFor="avatarInput" style={{ cursor: "pointer" }}>
-                  <img
+                   <FaUserCircle size={100} />
+                  {/* <img
                     src={profile?.user?.avatar || defaultAvatar}
                     alt="avatar"
                     className="rounded-circle mb-3"
                     style={{ width: "110px", height: "110px", objectFit: "cover" }}
-                  />
-                  <div className="text-muted">
-                    <span className="ms-2">Change Profile Picture</span> <FaPencilAlt />
-                  </div>
+                  /> */}
+                 
                 </label>
-                <input
-                  type="file"
-                  id="avatarInput"
-                  accept="image/*"
-                  style={{ display: "none" }}
-                  onChange={handleFileChange}
-                />
+            
                 <h5 className="mb-1">{profile?.user?.full_name || "User Name"}</h5>
                 <p className="text-muted">{getUserDesignation()}</p>
               </Card.Body>

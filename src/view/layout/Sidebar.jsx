@@ -59,6 +59,18 @@ const Sidebar = () => {
               <span>Create User</span>
             </Link>
           </li>
+          <li>
+            <Link to="/dashboard/view-user" className="sidebar-link" onClick={toggleSidebar}>
+              <FaUserShield className="icon text-warning" />
+              <span>View User</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/dashboard/activity" className="sidebar-link" onClick={toggleSidebar}>
+              <FaUserShield className="icon text-warning" />
+              <span>View Activity</span>
+            </Link>
+          </li>
         </ul>
       </div>
 
