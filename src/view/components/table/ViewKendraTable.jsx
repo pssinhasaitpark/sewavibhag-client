@@ -22,7 +22,6 @@ const CollapsibleTable = () => {
   // Function to handle row click
   const handlePrantRowClick = (id, index, type) => {
     if (type === "prant") {
-      console.log("indexxx", index);
 
       setSelectedPrantId((prantId) => (prantId === id ? null : id));
     } else if (type === "vibhag") {

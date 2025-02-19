@@ -99,8 +99,10 @@ import ProfilePage from "./view/pages/ProfilePage/ProfilePage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import CreateUser from "./view/pages/CreateUser";
+// import CreateUser2 from "./view/pages/CreateUser2";
 import ViewUsers from "./view/components/table/ViewUsers";
 import ActivityTable from "./view/components/table/ViewActivity";
+
 
 
 function Layout() {
@@ -142,7 +144,7 @@ function Layout() {
                 <Route path="jilareport" element={<Jilareport />} />
                 <Route path="viewkendratable" element={<ViewKendraTable />} />
                 <Route path="profile" element={<ProfilePage />} />
-                <Route path="viewusers" element={<ViewUsers />} />
+                <Route path="view-user" element={<ViewUsers />} />
                 <Route path="create-user" element={<CreateUser />} />
                 <Route path="activity" element={<ActivityTable/>} />
                 {/* <Route path="/dashboard/revieved" element={<HierarchyBox />} /> */}

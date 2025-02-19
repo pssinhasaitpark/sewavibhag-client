@@ -13,6 +13,8 @@ export const fetchHierarchy = createAsyncThunk("hierarchy/fetch", async (_, { re
         Authorization: `Bearer ${token}`, 
       },
     });
+    
+
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response?.data || "Something went wrong");
