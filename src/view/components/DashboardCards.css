@@ -1,7 +1,9 @@
 /* General Container */
 .dashboard-container {
     padding: 15px;
+    
 }
+
 
 /* Summary Card */
 .summary-card {
@@ -9,6 +11,7 @@
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 15px;
+    
 }
 
 /* Info Cards */
@@ -23,6 +26,7 @@
     transition: none !important; /* Disable transition */
     transform: none !important; /* Remove any transformation */
     pointer-events: none; /* Disable pointer interactions */
+    
 }
 
 /* Disable hover effects */
@@ -33,6 +37,7 @@
     transform: none !important; /* No movement */
     box-shadow: none !important; /* No shadow change */
     background-color: inherit !important; /* No background change */
+    
 }
 
 /* Responsive Design */

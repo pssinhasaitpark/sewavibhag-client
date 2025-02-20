@@ -291,7 +291,7 @@ svg {
         display: none;
     }
     .sidebar-logo {
-        width: 100px; /* Smaller size for mobile */
+        width: 156px; /* Smaller size for mobile */
     }
 
 
@@ -322,4 +322,100 @@ svg {
         margin-left: 280px;
         width: calc(100% - 280px);
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.sidebar-link.active {
+    background-color: #007bff; /* Change to your preferred active color */
+    color: white !important;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/* Ensure icon colors stay white when active */
+.sidebar-link.active .icon {
+    color: white !important;
+}
+
+
+
+
+
+
+/* Sidebar Links */
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 14px 20px;
+    text-decoration: none;
+    color: #333;
+    transition: background 0.3s ease;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600; /* Increased font weight */
+    gap: 12px;
+    width: 100%;
+}
+
+/* Sidebar Section Headers */
+.sidebar-section {
+    color: #777;
+    font-size: 15px;
+    font-weight: 700; /* Increased font weight */
+    text-transform: uppercase;
+    padding: 10px 20px;
+    margin-top: 10px;
+}
+
+/* Active Sidebar Link */
+.sidebar-link.active {
+    background-color: #ff6600; /* Deep Saffron */
+    background-image: linear-gradient(315deg, #ff9933 0%, #ff6600 50%, #cc3300 100%);
+    
+
+/* background-color: #2d3436;
+background-image: linear-gradient(315deg, #2d3436 0%, #d3d3d3 74%); */
+
+    /* background-color: #007bff; */
+    /* background: rgb(34,193,195);
+background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%); */
+    color: white !important;
+    font-weight: 700; /* Increased font weight */
+    border-radius: 5px;
+}
+
+/* Ensure icon colors stay white when active */
+.sidebar-link.active .icon {
+    color: white !important;
 }
