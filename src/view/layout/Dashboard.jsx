@@ -16,7 +16,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div className="d-flex flex-column ">
       {/* Sidebar */}
       <div
         className={`sidebar p-3 ${isSidebarOpen || !isMobile ? "d-block" : "d-none"}`}
