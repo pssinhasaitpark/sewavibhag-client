@@ -2,261 +2,217 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button, Accordion } from "react-bootstrap";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "./Jilareport.css";
 import "react-toastify/dist/ReactToastify.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import fieldLabels from "./FiledLabels";
-
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-
-const validationSchema = Yup.object({
-  mahanagar: Yup.object({
-    zila_sam_mahanagar_bhag_sankhya: Yup.number().required(
-      "This field is required"
-    ),
-    sewa_basti_sankhya: Yup.number().required("This field is required"),
-    sewa_kary_yukt_sewa_basti: Yup.number().required("This field is required"),
-    vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya: Yup.number().required(
-      "This field is required"
-    ),
-    sewa_basti_palak_shakha_w_milan_sankhya: Yup.number().required(
-      "This field is required"
-    ),
-    sewa_karyakarta_yukt_shakha_w_milan_sankhya: Yup.number().required(
-      "This field is required"
-    ),
-    kul_sewa_karyakarta: Yup.number().required("This field is required"),
-    mahanagar_mein_kul_sewa_kary: Yup.number().required(
-      "This field is required"
-    ),
-    masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya:
-      Yup.number().required("This field is required"),
-  }),
-  jilaKendra: Yup.object({
-    zila_sam_mahanagar_bhag_sankhya: Yup.number().required(
-      "This field is required"
-    ),
-    sewa_basti_sankhya: Yup.number().required("This field is required"),
-    sewa_kary_yukt_sewa_basti: Yup.number().required("This field is required"),
-    vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya: Yup.number().required(
-      "This field is required"
-    ),
-    sewa_basti_palak_shakha_w_milan_sankhya: Yup.number().required(
-      "This field is required"
-    ),
-    sewa_karyakarta_yukt_shakha_w_milan_sankhya: Yup.number().required(
-      "This field is required"
-    ),
-    kul_sewa_karyakarta: Yup.number().required("This field is required"),
-    mahanagar_mein_kul_sewa_kary: Yup.number().required(
-      "This field is required"
-    ),
-    masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya:
-      Yup.number().required("This field is required"),
-  }),
-  anyaNagar: Yup.object({
-    zila_sam_mahanagar_bhag_sankhya: Yup.number().required(
-      "This field is required"
-    ),
-    sewa_basti_sankhya: Yup.number().required("This field is required"),
-    sewa_kary_yukt_sewa_basti: Yup.number().required("This field is required"),
-    vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya: Yup.number().required(
-      "This field is required"
-    ),
-    sewa_basti_palak_shakha_w_milan_sankhya: Yup.number().required(
-      "This field is required"
-    ),
-    sewa_karyakarta_yukt_shakha_w_milan_sankhya: Yup.number().required(
-      "This field is required"
-    ),
-    kul_sewa_karyakarta: Yup.number().required("This field is required"),
-    mahanagar_mein_kul_sewa_kary: Yup.number().required(
-      "This field is required"
-    ),
-    masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya:
-      Yup.number().required("This field is required"),
-  }),
-  villagesOver5000: Yup.object({
-    total_villages: Yup.number().required("This field is required"),
-    business_and_farming_villages: Yup.number().required(
-      "This field is required"
-    ),
-    service_work_villages: Yup.number().required("This field is required"),
-    total_service_work: Yup.number().required("This field is required"),
-  }),
-  villagesUnder5000: Yup.object({
-    service_work_villages: Yup.number().required("This field is required"),
-    total_service_work: Yup.number().required("This field is required"),
-  }),
-});
+import { fetchVibhagList, fetchFormDataByJila, updateReportingForm, clearFormData } from "../redux/slice/JilaReportSlice"; 
 
 const Jilareport = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const language = useSelector((state) => state.language.language);
   const labels = fieldLabels[language];
-  const [userType, setUserType] = useState("Guest");
-  const [vibhagList, setVibhagList] = useState([]);
-  const [getFormData, setFormData] = useState();
+  
+
+  const vibhagList = useSelector((state) => state.jilareport.vibhagList);
+  const formData = useSelector((state) => state.jilareport.formData);
+  const userType = user?.user_type || "Guest";
+
   const [selectedVibhag, setSelectedVibhag] = useState("");
-  const [jilaList, setJilaList] = useState();
   const [selectedJila, setSelectedJila] = useState("");
+  const [jilaList, setJilaList] = useState();
   const [selectedJilaData, setSelectedJilaData] = useState("");
 
   useEffect(() => {
-    if (user?.user_type) {
-      setUserType(user.user_type);
+    if (userType === "prant" || userType === "vibhag") {
+      dispatch(fetchVibhagList());
     }
-  }, [user]);
+  }, [dispatch, userType]);
 
   useEffect(() => {
-    // get api
-    if (userType === "prant" || userType === "vibhag") {
-      axios
-        .get(`${BASE_URL}/api/v1/prantAndVibhag`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
-        .then((response) => setVibhagList(() => response?.data))
-        .catch((error) => console.error("Error fetching vibhag data:", error));
-    }
-
     if (selectedJila) {
-      //for data clear
-      setFormData(null);
-      axios
-        .get(`${BASE_URL}/api/v1/reportingFormByJila?jila_id=${selectedJila}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
-        .then((response) => setFormData(() => response?.data?.data || null))
-        .catch((error) => console.error("Error fetching vibhag data:", error));
+      dispatch(fetchFormDataByJila(selectedJila));
     } else {
-      setFormData(null);
+      dispatch(clearFormData());
     }
-  }, [userType, selectedJila]);
+  }, [dispatch, selectedJila]);
 
-  //for data clear
   useEffect(() => {
     setSelectedJila("");
-    setFormData(null);
-  }, [selectedVibhag]);
+    dispatch(clearFormData());
+  }, [dispatch, selectedVibhag]);
+
+  const validationSchema = Yup.object({
+    mahanagar: Yup.object({
+      zila_sam_mahanagar_bhag_sankhya: Yup.number().required(
+        "This field is required"
+      ),
+      sewa_basti_sankhya: Yup.number().required("This field is required"),
+      sewa_kary_yukt_sewa_basti: Yup.number().required("This field is required"),
+      vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya: Yup.number().required(
+        "This field is required"
+      ),
+      sewa_basti_palak_shakha_w_milan_sankhya: Yup.number().required(
+        "This field is required"
+      ),
+      sewa_karyakarta_yukt_shakha_w_milan_sankhya: Yup.number().required(
+        "This field is required"
+      ),
+      kul_sewa_karyakarta: Yup.number().required("This field is required"),
+      mahanagar_mein_kul_sewa_kary: Yup.number().required(
+        "This field is required"
+      ),
+      masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya:
+        Yup.number().required("This field is required"),
+    }),
+    jilaKendra: Yup.object({
+      zila_sam_mahanagar_bhag_sankhya: Yup.number().required(
+        "This field is required"
+      ),
+      sewa_basti_sankhya: Yup.number().required("This field is required"),
+      sewa_kary_yukt_sewa_basti: Yup.number().required("This field is required"),
+      vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya: Yup.number().required(
+        "This field is required"
+      ),
+      sewa_basti_palak_shakha_w_milan_sankhya: Yup.number().required(
+        "This field is required"
+      ),
+      sewa_karyakarta_yukt_shakha_w_milan_sankhya: Yup.number().required(
+        "This field is required"
+      ),
+      kul_sewa_karyakarta: Yup.number().required("This field is required"),
+      mahanagar_mein_kul_sewa_kary: Yup.number().required(
+        "This field is required"
+      ),
+      masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya:
+        Yup.number().required("This field is required"),
+    }),
+    anyaNagar: Yup.object({
+      zila_sam_mahanagar_bhag_sankhya: Yup.number().required(
+        "This field is required"
+      ),
+      sewa_basti_sankhya: Yup.number().required("This field is required"),
+      sewa_kary_yukt_sewa_basti: Yup.number().required("This field is required"),
+      vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya: Yup.number().required(
+        "This field is required"
+      ),
+      sewa_basti_palak_shakha_w_milan_sankhya: Yup.number().required(
+        "This field is required"
+      ),
+      sewa_karyakarta_yukt_shakha_w_milan_sankhya: Yup.number().required(
+        "This field is required"
+      ),
+      kul_sewa_karyakarta: Yup.number().required("This field is required"),
+      mahanagar_mein_kul_sewa_kary: Yup.number().required(
+        "This field is required"
+      ),
+      masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya:
+        Yup.number().required("This field is required"),
+    }),
+    villagesOver5000: Yup.object({
+      total_villages: Yup.number().required("This field is required"),
+      business_and_farming_villages: Yup.number().required(
+        "This field is required"
+      ),
+      service_work_villages: Yup.number().required("This field is required"),
+      total_service_work: Yup.number().required("This field is required"),
+    }),
+    villagesUnder5000: Yup.object({
+      service_work_villages: Yup.number().required("This field is required"),
+      total_service_work: Yup.number().required("This field is required"),
+    }),
+  });
 
   const initialValues = {
     mahanagar: {
       zila_sam_mahanagar_bhag_sankhya:
-        getFormData?.mahanagar?.zila_sam_mahanagar_bhag_sankhya || "",
-      sewa_basti_sankhya: getFormData?.mahanagar?.sewa_basti_sankhya || "",
+        formData?.mahanagar?.zila_sam_mahanagar_bhag_sankhya || "",
+      sewa_basti_sankhya: formData?.mahanagar?.sewa_basti_sankhya || "",
       sewa_kary_yukt_sewa_basti:
-        getFormData?.mahanagar?.sewa_kary_yukt_sewa_basti || "",
+        formData?.mahanagar?.sewa_kary_yukt_sewa_basti || "",
       vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya:
-        getFormData?.mahanagar
+        formData?.mahanagar
           ?.vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya || "",
       sewa_basti_palak_shakha_w_milan_sankhya:
-        getFormData?.mahanagar?.sewa_basti_palak_shakha_w_milan_sankhya || "",
+        formData?.mahanagar?.sewa_basti_palak_shakha_w_milan_sankhya || "",
       sewa_karyakarta_yukt_shakha_w_milan_sankhya:
-        getFormData?.mahanagar?.sewa_karyakarta_yukt_shakha_w_milan_sankhya ||
+        formData?.mahanagar?.sewa_karyakarta_yukt_shakha_w_milan_sankhya ||
         "",
-      kul_sewa_karyakarta: getFormData?.mahanagar?.kul_sewa_karyakarta || "",
+      kul_sewa_karyakarta: formData?.mahanagar?.kul_sewa_karyakarta || "",
       mahanagar_mein_kul_sewa_kary:
-        getFormData?.mahanagar?.mahanagar_mein_kul_sewa_kary || "",
+        formData?.mahanagar?.mahanagar_mein_kul_sewa_kary || "",
       masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya:
-        getFormData?.mahanagar
+        formData?.mahanagar
           ?.masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya || "",
     },
     jilaKendra: {
       zila_sam_mahanagar_bhag_sankhya:
-        getFormData?.mahanagar?.zila_sam_mahanagar_bhag_sankhya || "",
-      sewa_basti_sankhya: getFormData?.mahanagar?.sewa_basti_sankhya || "",
+        formData?.mahanagar?.zila_sam_mahanagar_bhag_sankhya || "",
+      sewa_basti_sankhya: formData?.mahanagar?.sewa_basti_sankhya || "",
       sewa_kary_yukt_sewa_basti:
-        getFormData?.mahanagar?.sewa_kary_yukt_sewa_basti || "",
+        formData?.mahanagar?.sewa_kary_yukt_sewa_basti || "",
       vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya:
-        getFormData?.mahanagar
+        formData?.mahanagar
           ?.vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya || "",
       sewa_basti_palak_shakha_w_milan_sankhya:
-        getFormData?.mahanagar?.sewa_basti_palak_shakha_w_milan_sankhya || "",
+        formData?.mahanagar?.sewa_basti_palak_shakha_w_milan_sankhya || "",
       sewa_karyakarta_yukt_shakha_w_milan_sankhya:
-        getFormData?.mahanagar?.sewa_karyakarta_yukt_shakha_w_milan_sankhya ||
+        formData?.mahanagar?.sewa_karyakarta_yukt_shakha_w_milan_sankhya ||
         "",
-      kul_sewa_karyakarta: getFormData?.mahanagar?.kul_sewa_karyakarta || "",
+      kul_sewa_karyakarta: formData?.mahanagar?.kul_sewa_karyakarta || "",
       mahanagar_mein_kul_sewa_kary:
-        getFormData?.mahanagar?.mahanagar_mein_kul_sewa_kary || "",
+        formData?.mahanagar?.mahanagar_mein_kul_sewa_kary || "",
       masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya:
-        getFormData?.mahanagar
+        formData?.mahanagar
           ?.masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya || "",
     },
     anyaNagar: {
       zila_sam_mahanagar_bhag_sankhya:
-        getFormData?.anyaNagar?.zila_sam_anya_nagar_bhag_sankhya || "",
+        formData?.anyaNagar?.zila_sam_anya_nagar_bhag_sankhya || "",
       sewa_basti_sankhya:
-        getFormData?.anyaNagar?.inmein_sewa_basti_sankhya || "",
+        formData?.anyaNagar?.inmein_sewa_basti_sankhya || "",
       sewa_kary_yukt_sewa_basti:
-        getFormData?.anyaNagar?.sewa_kary_yukt_sewa_basti || "",
+        formData?.anyaNagar?.sewa_kary_yukt_sewa_basti || "",
       vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya:
-        getFormData?.anyaNagar
+        formData?.anyaNagar
           ?.vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya || "",
       sewa_basti_palak_shakha_w_milan_sankhya:
-        getFormData?.anyaNagar?.sewa_basti_palak_shakha_w_milan_sankhya || "",
+        formData?.anyaNagar?.sewa_basti_palak_shakha_w_milan_sankhya || "",
       sewa_karyakarta_yukt_shakha_w_milan_sankhya:
-        getFormData?.anyaNagar?.sewa_karyakarta_yukt_shakha_w_milan_sankhya ||
+        formData?.anyaNagar?.sewa_karyakarta_yukt_shakha_w_milan_sankhya ||
         "",
-      kul_sewa_karyakarta: getFormData?.anyaNagar?.kul_sewa_karyakarta || "",
+      kul_sewa_karyakarta: formData?.anyaNagar?.kul_sewa_karyakarta || "",
       mahanagar_mein_kul_sewa_kary:
-        getFormData?.anyaNagar?.anya_nagar_mein_kul_sewa_kary || "",
+        formData?.anyaNagar?.anya_nagar_mein_kul_sewa_kary || "",
       masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya:
-        getFormData?.anyaNagar
+        formData?.anyaNagar
           ?.masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya || "",
     },
     villagesOver5000: {
-      total_villages: getFormData?.villagesOver5000?.total_villages || "",
+      total_villages: formData?.villagesOver5000?.total_villages || "",
       business_and_farming_villages:
-        getFormData?.villagesOver5000?.business_and_farming_villages || "",
+        formData?.villagesOver5000?.business_and_farming_villages || "",
       service_work_villages:
-        getFormData?.villagesOver5000?.service_work_villages || "",
+        formData?.villagesOver5000?.service_work_villages || "",
       total_service_work:
-        getFormData?.villagesOver5000?.total_service_work || "",
+        formData?.villagesOver5000?.total_service_work || "",
     },
     villagesUnder5000: {
       service_work_villages:
-        getFormData?.villagesUnder5000?.service_work_villages || "",
+        formData?.villagesUnder5000?.service_work_villages || "",
       total_service_work:
-        getFormData?.villagesUnder5000?.total_service_work || "",
+        formData?.villagesUnder5000?.total_service_work || "",
     },
   };
 
   const onSubmit = async (values, { resetForm }) => {
     try {
-      let response;
-      if (userType === "prant" || userType === "vibhag") {
-        response = await axios.patch(
-          `${BASE_URL}/api/v1/reporting-forms/update?jila_id=${selectedJila}`,
-          values,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-      } else {
-        response = await axios.post(
-          `${BASE_URL}/api/v1/reporting-forms`,
-          values,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-      }
-      if (response?.data) {
-        toast.success(`${response?.data?.message}`);
-        resetForm();
-      }
+      await dispatch(updateReportingForm({ jila_id: selectedJila, values }));
+      toast.success("Data submitted successfully!");
+      resetForm();
     } catch (error) {
-      console.error("Error:", error.message);
       toast.error("Failed to submit. Please try again.");
     }
   };
@@ -839,13 +795,11 @@ const Jilareport = () => {
                             type="number"
                             placeholder="Enter number"
                             name="jilaKendra.mahanagar_mein_kul_sewa_kary"
-                            value={
-                              values.jilaKendra.mahanagar_mein_kul_sewa_kary
-                            }
+                            
+                            value={values.jilaKendra.mahanagar_mein_kul_sewa_kary}
                             onChange={handleChange}
                             isInvalid={
-                              touched.jilaKendra
-                                ?.mahanagar_mein_kul_sewa_kary &&
+                              touched.jilaKendra?.mahanagar_mein_kul_sewa_kary &&
                               !!errors.jilaKendra?.mahanagar_mein_kul_sewa_kary
                             }
                             disabled={
@@ -963,10 +917,12 @@ const Jilareport = () => {
                             name="anyaNagar.sewa_kary_yukt_sewa_basti"
                             value={values.anyaNagar.sewa_kary_yukt_sewa_basti}
                             onChange={handleChange}
-                            isInvalid={
-                              touched.anyaNagar?.sewa_kary_yukt_sewa_basti &&
-                              !!errors.anyaNagar?.sewa_kary_yukt_sewa_basti
-                            }
+                           isInvalid={
+                          touched.mahanagar
+                            ?.zila_sam_mahanagar_bhag_sankhya &&
+                          !!errors.mahanagar
+                            ?.zila_sam_mahanagar_bhag_sankhya
+                        }
                             disabled={
                               userType === "kshetra" || userType === "kendra"
                             }
@@ -1105,9 +1061,7 @@ const Jilareport = () => {
                             type="number"
                             placeholder="Enter number"
                             name="anyaNagar.mahanagar_mein_kul_sewa_kary"
-                            value={
-                              values.anyaNagar.mahanagar_mein_kul_sewa_kary
-                            }
+                            value={values.anyaNagar.mahanagar_mein_kul_sewa_kary}
                             onChange={handleChange}
                             isInvalid={
                               touched.anyaNagar?.mahanagar_mein_kul_sewa_kary &&
@@ -1341,6 +1295,7 @@ const Jilareport = () => {
                   <Col className="text-center">
                     <Button
                       type="submit"
+                      className="submit_buttons"
                       disabled={userType === "kshetra" || userType === "kendra"}
                     >
                       {userType === "vibhag" || userType === "prant"
