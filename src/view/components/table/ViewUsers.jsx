@@ -51,7 +51,7 @@ const UserTable = () => {
       <h2>उपयोगकर्ता सूची </h2>
 
       {status === 'loading' && (<PropagateLoader className="text-center" />)}
-      {status === 'failed' && <p>Error: {error}</p>}
+      {status === 'failed' && <p>Error: {error?.message}</p>}
 
       {status === 'succeeded' && (
         <Table striped bordered hover responsive>

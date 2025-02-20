@@ -9,6 +9,9 @@ const CollapsibleTable = () => {
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector((state) => state.hierarchy);
 
+
+  const user = useSelector((state) => state.auth.user);
+
   const [openKshettra, setOpenKshettra] = useState({});
   const [openPrant, setOpenPrant] = useState({});
   const [openVibhag, setOpenVibhag] = useState({});
@@ -67,6 +70,15 @@ const CollapsibleTable = () => {
     }
     return total;
   };
+
+  // console.log("userTypeeeee",user.user_type_id);
+ 
+
+  // console.log("datatatatta",data[0]?.kshetras[9]?.prants[0]?.vibhags[0]?.jilas[0]._id)
+  
+
+  
+  
 
   const fieldNames = [
     "जिला सम महानगर/भाग संख्या",
@@ -211,9 +223,16 @@ const CollapsibleTable = () => {
       return updated;
     });
   };
+  
+  const filteredData = data
+  .flatMap(kendra => kendra.kshetras)
+  .flatMap(kshettra => kshettra.prants)
+  .flatMap(prant => prant.vibhags)
+  .flatMap(vibhag => vibhag.jilas)
+  .filter(jila => jila._id === user.user_type_id);
 
   if (loading) return <PropagateLoader className="text-center" />;
-  if (error) return <Alert variant="danger">{error}</Alert>;
+  if (error) return <p>Error: {error?.message}</p>;
 
   return (
     <Container fluid className="mt-3">
@@ -264,6 +283,18 @@ const CollapsibleTable = () => {
             })}
           </tr>
         </thead>
+        {user.user_type === 'jila' ? (
+          <tbody>
+    {filteredData.map((jila) => (
+      <tr key={jila._id} className="jila-row">
+        <td>{jila.jila_name}</td>
+        {fieldNames.map((fieldName, index) => (
+          <td key={index}>{getNestedData(jila, fieldName)}</td>
+        ))}
+      </tr>
+    ))}
+  </tbody>
+) : (
         <tbody>
           {data.map((kendra) =>
             kendra.kshetras.map((kshettra, index) => (
@@ -470,6 +501,7 @@ const CollapsibleTable = () => {
             ))
           )}
           {/* Grand Total Row */}
+
           <tr>
             <td className="fixed-header">Grand Total</td>
             {fieldNames.map((fieldName, index) => (
@@ -477,6 +509,8 @@ const CollapsibleTable = () => {
             ))}
           </tr>
         </tbody>
+)}
+
       </Table>
     </Container>
   );

@@ -1,117 +1,115 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-const initialState = {
-  vibhagList: [],
-  jilaList: [],
-  formData: null,
-  status: 'idle',
-  error: null,
-  message: '',
-  formSubmissionStatus: 'idle',
-  formSubmissionError: null,
-};
-
+// Async thunk to fetch Vibhag list
 export const fetchVibhagList = createAsyncThunk(
-  'report/fetchVibhagList',
-  async (userType, { rejectWithValue }) => {
+  "jilareport/fetchVibhagList",
+  async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token");
       const response = await axios.get(`${BASE_URL}/api/v1/prantAndVibhag`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Something went wrong");
+      return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
 
-export const fetchFormData = createAsyncThunk(
-  'report/fetchFormData',
-  async (jilaId, { rejectWithValue }) => {
+
+export const fetchFormDataByJila = createAsyncThunk(
+  "jilareport/fetchFormDataByJila",
+  async (jila_id, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token");
       const response = await axios.get(
-        `${BASE_URL}/api/v1/reportingFormByJila?jila_id=${jilaId}`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        `${BASE_URL}/api/v1/reportingFormByJila?jila_id=${jila_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
-      return response.data.data;
+      return response.data.data || null;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Error fetching form data");
+      return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
 
-export const submitFormData = createAsyncThunk(
-  'report/submitFormData',
-  async (values, { getState, rejectWithValue }) => {
+
+export const updateReportingForm = createAsyncThunk(
+  "jilareport/updateReportingForm",
+  async ({ jila_id, values }, { rejectWithValue }) => {
     try {
-      const userType = getState().auth.user.user_type;
-      const token = localStorage.getItem("token");
-      let response;
-      if (userType === 'prant' || userType === 'vibhag') {
-        response = await axios.patch(
-          `${BASE_URL}/api/v1/reporting-forms/update?jila_id=${values.jila_id}`,
-          values,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-      } else {
-        response = await axios.post(`${BASE_URL}/api/v1/reporting-forms`, values, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-      }
+      const response = await axios.patch(
+        `${BASE_URL}/api/v1/reporting-forms/update?jila_id=${jila_id}`,
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || 'Error submitting form');
+      return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
 
-const reportSlice = createSlice({
-  name: 'report',
-  initialState,
-  reducers: {},
+const jilareportSlice = createSlice({
+  name: "jilareport",
+  initialState: {
+    vibhagList: [],
+    formData: null,
+    status: "idle",
+    error: null,
+  },
+  reducers: {
+    clearFormData: (state) => {
+      state.formData = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchVibhagList.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(fetchVibhagList.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.status = "succeeded";
         state.vibhagList = action.payload;
       })
       .addCase(fetchVibhagList.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = "failed";
         state.error = action.payload;
       })
-
-      .addCase(fetchFormData.pending, (state) => {
-        state.status = 'loading';
+      .addCase(fetchFormDataByJila.pending, (state) => {
+        state.status = "loading";
       })
-      .addCase(fetchFormData.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+      .addCase(fetchFormDataByJila.fulfilled, (state, action) => {
+        state.status = "succeeded";
         state.formData = action.payload;
       })
-      .addCase(fetchFormData.rejected, (state, action) => {
-        state.status = 'failed';
+      .addCase(fetchFormDataByJila.rejected, (state, action) => {
+        state.status = "failed";
         state.error = action.payload;
       })
-     
-      .addCase(submitFormData.pending, (state) => {
-        state.formSubmissionStatus = 'loading';
+      .addCase(updateReportingForm.pending, (state) => {
+        state.status = "loading";
       })
-      .addCase(submitFormData.fulfilled, (state, action) => {
-        state.formSubmissionStatus = 'succeeded';
-        state.message = action.payload.message;
+      .addCase(updateReportingForm.fulfilled, (state) => {
+        state.status = "succeeded";
       })
-      .addCase(submitFormData.rejected, (state, action) => {
-        state.formSubmissionStatus = 'failed';
-        state.formSubmissionError = action.payload;
+      .addCase(updateReportingForm.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
       });
   },
 });
 
-export default reportSlice.reducer;
+export const { clearFormData } = jilareportSlice.actions;
+export default jilareportSlice.reducer;

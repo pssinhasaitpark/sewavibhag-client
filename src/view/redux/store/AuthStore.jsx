@@ -6,7 +6,8 @@ import HeaderSlice from "../slice/HeaderSlice";
 import ViewUserSliceReducer from "../slice/ViewUsersSlice"; 
 import reportReducer from "../slice/JilaReportSlice"
 import viewActivitiesReducer from "../slice/ViewActivity";
-
+import languageReducer from "../slice/LanguageSlice"
+import jilareportReducer from "../slice/JilaReportSlice";
 
 export const store = configureStore({
   reducer: {
@@ -17,5 +18,7 @@ export const store = configureStore({
     report: reportReducer,
     ViewUserSlice: ViewUserSliceReducer,
     viewActivities: viewActivitiesReducer,
+    jilareport:jilareportReducer,
+    language: languageReducer,
   },
 });

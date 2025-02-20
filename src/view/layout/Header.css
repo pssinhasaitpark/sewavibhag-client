@@ -112,6 +112,17 @@ button#dropdown-user {
   z-index: 1; /* Lower than navbar and toggle button */
 }
 
+.language_option::before{
+  content: "Select Langauge:";
+}
+
+.form-select:focus {
+  border-color:none !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background-color: none;
+}
+
 /* Mobile View Fix */
 @media only screen and (max-width: 600px) {
   .profile-container {
