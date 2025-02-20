@@ -22,7 +22,7 @@ const UserTable = () => {
  
   const filteredUsers = Array?.isArray(users)
   ? users?.filter((user) => {
-      console.log("User Type in filter:", user?.user_type);
+      // console.log("User Type in filter:", user?.user_type);
       if (loggedInUserType === 'kendra') {
         return ['khetra', 'prant', 'vibhag', 'jila'].includes(user.user_type);
       }

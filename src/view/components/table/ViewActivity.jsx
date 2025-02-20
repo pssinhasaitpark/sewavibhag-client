@@ -28,7 +28,6 @@ const ActivityTable = () => {
     const filteredActivities = actionFilter ? activities.filter((log) => log.message?.action === actionFilter) : activities;
 
 
-    console.log('status>>>>>>>>>>>>>', status);
 
 
     return (
