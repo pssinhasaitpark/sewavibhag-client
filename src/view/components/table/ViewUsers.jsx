@@ -48,7 +48,7 @@ const UserTable = () => {
 
   return (
     <div className="container mt-4">
-      <h2>उपयोगकर्ता सूची </h2>
+      <h2>User List</h2>
 
       {status === 'loading' && (<PropagateLoader className="text-center" />)}
       {status === 'failed' && <p>Error: {error?.message}</p>}
