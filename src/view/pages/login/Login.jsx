@@ -97,7 +97,7 @@ const Login = () => {
                     </InputGroup>
                   </BootstrapForm.Group>
 
-                  <Button variant="success" type="submit" className="w-100" disabled={loading}>
+                  <Button variant="success" type="submit" className="w-100 custom-btn" disabled={loading}>
                     {loading ? "Logging in..." : "Login"}
                   </Button>
                 </BootstrapForm>

@@ -22,7 +22,6 @@ export const viewActivities = createAsyncThunk('users/viewActivities', async (_,
             },
         });
 
-        console.log("resss",response);
         
         return response.data.logs;
     } catch (error) {

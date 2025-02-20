@@ -199,6 +199,7 @@
 
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -255,7 +256,6 @@ function CreateUser () {
                 headers: { Authorization: `Bearer ${token}` },
             })
             .then((response) => {
-                console.log("API Response:", response.data); // Debug the response
                 if (Array.isArray(response.data)) {
                     setJilaList(response.data);
                 } else if (response.data?.data && Array.isArray(response.data.data)) {
@@ -288,7 +288,44 @@ function CreateUser () {
     user_type_id: selectedVibhag[0]?._id || "",
     level: selectedLevel,
   };
-
+const validationSchema = Yup.object().shape({
+    user_name: Yup.string()
+      .min(3, "User name must be at least 3 characters")
+      .max(20, "User name cannot exceed 20 characters")
+      .required("User name is required"),
+    
+    full_name: Yup.string()
+      .min(3, "Full name must be at least 3 characters")
+      .max(50, "Full name cannot exceed 50 characters")
+      .required("Full name is required"),
+    
+    email: Yup.string()
+      .email("Invalid email format")
+      .required("Email is required"),
+    
+    mobile: Yup.string()
+      .matches(/^[0-9]{10}$/, "Mobile number must be exactly 10 digits")
+      .required("Mobile number is required"),
+  
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+  
+    user_type: Yup.string()
+      .required("User type is required"),
+  
+    user_type_id: Yup.string()
+      .required("User type ID is required"),
+  
+    level: Yup.number()
+      .required("Level is required")
+      .oneOf([1, 2, 3, 4], "Invalid level selected"),
+    
+    jila: Yup.string().when("user_type", {
+      is: (val) => val === "jila",
+      then: Yup.string().required("Jila selection is required"),
+    }),
+  });
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       setLoading(true);
@@ -325,7 +362,6 @@ function CreateUser () {
   };
 
 
-  console.log("jilassssssssssss",jilaList);
   
 
   return (
@@ -335,7 +371,7 @@ function CreateUser () {
           <Card className="shadow p-4 w-100">
             <h3 className="text-center mb-4">Create The User</h3>
 
-            <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+            <Formik initialValues={initialValues}  validationSchema={validationSchema} onSubmit={handleSubmit}>
               {({ isSubmitting, setFieldValue }) => (
                 <Form>
                   <div className="mb-3">
@@ -465,8 +501,8 @@ function CreateUser () {
                     <ErrorMessage name="password" component="div" className="text-danger mt-1" />
                   </div>
 
-                  <div className="d-flex justify-content-center">
-                    <Button type="submit" className="btn btn-primary" disabled={loading || isSubmitting}>
+                  <div className="d-flex justify-content-center ">
+                    <Button type="submit" className="btn btn-primary custom-btn" disabled={loading || isSubmitting}>
                       {loading ? <Spinner animation="border" size="sm" /> : "Create User"}
                     </Button>
                   </div>
