@@ -618,6 +618,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Container, Card, Button, Spinner, Form as BootstrapForm, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import "./CreateUser.css"
+import fieldLabels from "../components/FiledLabels";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -635,6 +636,9 @@ function CreateUser () {
   const [selectedJila, setSelectedJila] = useState("");
   const [vibhagList, setVibhagList] = useState([]);
   const [jilaList, setJilaList] = useState([]);
+
+  const language = useSelector((state) => state.language.language);
+  const labels = fieldLabels[language];
 
   // Fetch hierarchy data for Kendra user type
   useEffect(() => {
@@ -786,13 +790,13 @@ function CreateUser () {
       <Row className="w-100">
         <Col md={10} lg={8} xl={6} className="mx-auto">
           <Card className="shadow p-4 w-100">
-            <h3 className="text-center mb-4">Create The User</h3>
+            <h3 className="text-center mb-4">{fieldLabels[language]?.CreateUser}</h3>
 
             <Formik initialValues={initialValues}   validationSchema={validationSchema}  onSubmit={handleSubmit}>
               {({ isSubmitting, setFieldValue }) => (
                 <Form>
                   <div className="mb-3">
-                    <label className="form-label">User  Type</label>
+                    <label className="form-label">{fieldLabels[language]?.UserType}</label>
                     <Field as="select" name="user_type" className="form-control"
                       onChange={(e) => {
                         setSelectedUserType(e.target.value);
@@ -801,32 +805,32 @@ function CreateUser () {
                         setSelectedJila(""); // Reset Jila when user type changes
                       }}
                     >
-                      <option value="">Select User Type</option>
+                      <option value="">{fieldLabels[language]?.SelectUserType}</option>
                       {user_type === "kendra" &&  (
                         <>
-                          <option value="kshetra">kshetra</option>
-                          <option value="prant">PRANT</option>
-                          <option value="vibhag">VIBHAG</option>
-                          <option value="jila">JILA</option>
+                          <option value="kshetra">{fieldLabels[language]?.Kshetra}</option>
+                          <option value="prant">{fieldLabels[language]?.Prant}</option>
+                          <option value="vibhag">{fieldLabels[language]?.Vibhag}</option>
+                          <option value="jila">{fieldLabels[language]?.Jila}</option>
                         </>
                       )}
                       {user_type === "kshetra" &&  (
                         <>
                       
-                          <option value="prant">PRANT</option>
-                          <option value="vibhag">VIBHAG</option>
-                          <option value="jila">JILA</option>
+                          <option value="prant">{fieldLabels[language]?.Prant}</option>
+                          <option value="vibhag">{fieldLabels[language]?.Vibhag}</option>
+                          <option value="jila">{fieldLabels[language]?.Jila}</option>
                         </>
                       )}
                       {user_type === "prant" && (
                         <>
-                          <option value="vibhag">VIBHAG</option>
-                          <option value="jila">JILA</option>
+                          <option value="vibhag">{fieldLabels[language]?.Vibhag}</option>
+                          <option value="jila">{fieldLabels[language]?.Jila}</option>
                         </>
                       )}
                       {user_type === "vibhag" && (
                         <>
-                          <option value="jila">JILA</option>
+                          <option value="jila">{fieldLabels[language]?.Jila}</option>
                         </>
                       )}
                     </Field>
@@ -834,31 +838,31 @@ function CreateUser () {
                   </div>
 
                   <div className="mb-3">
-                    <label className="form-label">User  Name</label>
+                    <label className="form-label">{fieldLabels[language]?.Username}</label>
                     <Field type="text" name="user_name" className="form-control" placeholder="Your User Name" />
                     <ErrorMessage name="user_name" component="div" className="text-danger mt-1" />
                   </div>
 
                   <div className="mb-3">
-                    <label className="form-label">Full Name</label>
+                    <label className="form-label">{fieldLabels[language]?.FULLNAME}</label>
                     <Field type="text" name="full_name" className="form-control" placeholder="Your Full Name" />
                     <ErrorMessage name="full_name" component="div" className="text-danger mt-1" />
                   </div>
 
                   <div className="mb-3">
-                    <label className="form-label">Email</label>
+                    <label className="form-label">{fieldLabels[language]?.EMAIL}</label>
                     <Field type="email" name="email" className="form-control" placeholder="Your email" />
                     <ErrorMessage name="email" component="div" className="text-danger mt-1" />
                   </div>
 
                   <div className="mb-3">
-                    <label className="form-label">Phone</label>
+                    <label className="form-label">{fieldLabels[language]?.Phone}</label>
                     <Field type="mobile" name="mobile" className="form-control" placeholder="Your Phone" />
                     <ErrorMessage name="mobile" component="div" className="text-danger mt-1" />
                   </div>
 
                   <div className="mb-3">
-                    <label className="form-label">Level</label>
+                    <label className="form-label">{fieldLabels[language]?.Level}</label>
                     <BootstrapForm.Select
                       value={selectedLevel}
                       onChange={(e) => {
@@ -866,7 +870,7 @@ function CreateUser () {
                         setFieldValue("level", Number(e.target.value));
                       }}
                     >
-                      <option value="">Select Level</option>
+                      <option value="">{fieldLabels[language]?.SelectLevel}</option>
                       {levelList?.map((level) => (
                         <option key={level} value={level}>
                           Level {level}
@@ -880,7 +884,7 @@ function CreateUser () {
                     <>
                       {(selectedUserType === "kshetra" || selectedUserType === "prant" || selectedUserType === "vibhag" || selectedUserType === "jila") && (
                         <div className="mb-3">
-                          <label className="form-label">Select Kshetra</label>
+                          <label className="form-label">{fieldLabels[language]?.SelectKshetra}</label>
                           <BootstrapForm.Select
                             value={selectedKshetra}
                             onChange={(e) => {
@@ -888,7 +892,7 @@ function CreateUser () {
                               setFieldValue("user_type_id", e.target.value);
                             }}
                           >
-                            <option value="">Select Kshetra</option>
+                            <option value="">{fieldLabels[language]?.SelectKshetra}</option>
                             {hierarchyData?.[0]?.kshetras?.map((kshetra) => (
                               <option key={kshetra._id} value={kshetra._id}>
                                 {kshetra.kshetra_name}
@@ -900,7 +904,7 @@ function CreateUser () {
 
                       {selectedKshetra && (
                         <div className="mb-3">
-                          <label className="form-label">Select Prant</label>
+                          <label className="form-label">{fieldLabels[language]?. SelectPrant}</label>
                           <BootstrapForm.Select
                             value={selectedPrant}
                             onChange={(e) => {
@@ -908,7 +912,7 @@ function CreateUser () {
                               setFieldValue("user_type_id", e.target.value);
                             }}
                           >
-                            <option value="">Select Prant</option>
+                            <option value="">{fieldLabels[language]?. SelectPrant}</option>
                             {hierarchyData?.[0]?.kshetras[0]?.prants?.map((prant) => (
                               <option key={prant._id} value={prant._id}>
                                 {prant.prant_name}
@@ -920,7 +924,7 @@ function CreateUser () {
 
                       {selectedPrant && (
                         <div className="mb-3">
-                          <label className="form-label">Select Vibhag</label>
+                          <label className="form-label">{fieldLabels[language]?. SelectVibhag}</label>
                           <BootstrapForm.Select
                             value={selectedVibhag}
                             onChange={(e) => {
@@ -928,7 +932,7 @@ function CreateUser () {
                               setFieldValue("user_type_id", e.target.value);
                             }}
                           >
-                            <option value="">Select Vibhag</option>
+                            <option value="">{fieldLabels[language]?. SelectVibhag}</option>
                             {hierarchyData?.[0]?.kshetras[0]?.prants[0]?.vibhags?.map((vibhag) => (
                               <option key={vibhag._id} value={vibhag._id}>
                                 {vibhag.vibhag_name}
@@ -940,7 +944,7 @@ function CreateUser () {
 
                       {selectedVibhag && (
                         <div className="mb-3">
-                          <label className="form-label">Select Jila</label>
+                          <label className="form-label">{fieldLabels[language]?. SelectJila}</label>
                           <BootstrapForm.Select
                             value={selectedJila}
                             onChange={(e) => {
@@ -948,7 +952,7 @@ function CreateUser () {
                               setFieldValue("jila", e.target.value);
                             }}
                           >
-                            <option value="">Select Jila</option>
+                            <option value="">{fieldLabels[language]?. SelectJila}</option>
                             {hierarchyData?.[0]?.kshetras[0]?.prants[0]?.vibhags[0]?.jilas?.map((jila) => (
                               <option key={jila._id} value={jila._id}>
                                 {jila.jila_name}
@@ -963,7 +967,7 @@ function CreateUser () {
                     <>
                       {( selectedUserType === "prant" || selectedUserType === "vibhag" || selectedUserType === "jila") && (
                         <div className="mb-3">
-                          <label className="form-label">Select Kshetra</label>
+                          <label className="form-label">{fieldLabels[language]?. SelectKshetra}</label>
                           <BootstrapForm.Select
                             value={selectedKshetra}
                             onChange={(e) => {
@@ -971,7 +975,7 @@ function CreateUser () {
                               setFieldValue("user_type_id", e.target.value);
                             }}
                           >
-                            <option value="">Select Kshetra</option>
+                            <option value="">{fieldLabels[language]?. SelectKshetra}</option>
                             {hierarchyData?.[0]?.kshetras?.map((kshetra) => (
                               <option key={kshetra._id} value={kshetra._id}>
                                 {kshetra.kshetra_name}
@@ -983,7 +987,7 @@ function CreateUser () {
 
                       {selectedKshetra && (
                         <div className="mb-3">
-                          <label className="form-label">Select Prant</label>
+                          <label className="form-label">{fieldLabels[language]?. SelectPrant}</label>
                           <BootstrapForm.Select
                             value={selectedPrant}
                             onChange={(e) => {
@@ -991,7 +995,7 @@ function CreateUser () {
                               setFieldValue("user_type_id", e.target.value);
                             }}
                           >
-                            <option value="">Select Prant</option>
+                            <option value="">{fieldLabels[language]?. SelectPrant}</option>
                             {hierarchyData?.[0]?.kshetras[0]?.prants?.map((prant) => (
                               <option key={prant._id} value={prant._id}>
                                 {prant.prant_name}
@@ -1003,7 +1007,7 @@ function CreateUser () {
 
                       {selectedPrant && (
                         <div className="mb-3">
-                          <label className="form-label">Select Vibhag</label>
+                          <label className="form-label">{fieldLabels[language]?. SelectVibhag}</label>
                           <BootstrapForm.Select
                             value={selectedVibhag}
                             onChange={(e) => {
@@ -1011,7 +1015,7 @@ function CreateUser () {
                               setFieldValue("user_type_id", e.target.value);
                             }}
                           >
-                            <option value="">Select Vibhag</option>
+                            <option value="">{fieldLabels[language]?. SelectVibhag}</option>
                             {hierarchyData?.[0]?.kshetras[0]?.prants[0]?.vibhags?.map((vibhag) => (
                               <option key={vibhag._id} value={vibhag._id}>
                                 {vibhag.vibhag_name}
@@ -1023,7 +1027,7 @@ function CreateUser () {
 
                       {selectedVibhag && (
                         <div className="mb-3">
-                          <label className="form-label">Select Jila</label>
+                          <label className="form-label">{fieldLabels[language]?. SelectJila}</label>
                           <BootstrapForm.Select
                             value={selectedJila}
                             onChange={(e) => {
@@ -1031,7 +1035,7 @@ function CreateUser () {
                               setFieldValue("jila", e.target.value);
                             }}
                           >
-                            <option value="">Select Jila</option>
+                            <option value="">{fieldLabels[language]?. SelectJila}</option>
                             {hierarchyData?.[0]?.kshetras[0]?.prants[0]?.vibhags[0]?.jilas?.map((jila) => (
                               <option key={jila._id} value={jila._id}>
                                 {jila.jila_name}
@@ -1044,7 +1048,7 @@ function CreateUser () {
                   )}
 
                   <div className="mb-3">
-                    <label className="form-label">Password</label>
+                    <label className="form-label">{fieldLabels[language]?. Password}</label>
                     <Field type="password" name="password" className="form-control" placeholder="Password" />
                     <ErrorMessage name="password" component="div" className="text-danger mt-1" />
                   </div>

@@ -7,10 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Form, Toast } from "react-bootstrap";
 import { fetchUser, updateUser } from "../../redux/slice/profileSlice"; 
 import { FaPencilAlt, FaUserCircle } from "react-icons/fa";
+import fieldLabels from "../../components/FiledLabels";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const language = useSelector((state) => state.language.language);
+  const labels = fieldLabels[language];
 
   const userData = useSelector((state) => state.profile.user);
   const token = useSelector((state) => state.profile.token) || localStorage.getItem("token");
@@ -112,7 +116,7 @@ export default function ProfilePage() {
           <Col lg={7} md={6} sm={12}>
             <Card className="shadow-sm p-3 h-100 profile-card">
               <Card.Body className="d-flex flex-column justify-content-between">
-                {["full_name", "email", "mobile"].map((field) => (
+                {[`${fieldLabels[language]?.FULLNAME}`, `${fieldLabels[language]?.EMAIL}`,`${fieldLabels[language]?.MOBILE}`].map((field) => (
                   <div key={field}>
                     <Row className="mb-2">
                       <Col sm={4}><strong>{field.replace("_", " ").toUpperCase()}</strong></Col>

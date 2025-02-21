@@ -328,11 +328,15 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./Sidebar.css";
 import BrandLogo from "../../assests/brandlogo.png";
+import fieldLabels from "../components/FiledLabels";
 
 const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation(); // Get current route
   const navigate = useNavigate();
+
+  const language = useSelector((state) => state.language.language);
+  const labels = fieldLabels[language];
 
   // Get user_type from Redux store
   const user_type = useSelector((state) => state.auth.user?.user_type?.trim().toLowerCase() || "");
@@ -360,41 +364,41 @@ const Sidebar = () => {
           <li>
             <Link to="/dashboard" className={`sidebar-link ${location.pathname === "/dashboard" ? "active" : ""}`} onClick={toggleSidebar}>
               <FaTv className="icon text-primary" />
-              <span>Dashboard</span>
+              <span>{fieldLabels[language]?.Dashboard}</span>
             </Link>
           </li>
 
           {/* Reporting Section */}
-          <div className="sidebar-section">📊 Reporting</div>
+          <div className="sidebar-section">📊 {fieldLabels[language]?.Reporting}</div>
           <li>
             <Link to="/dashboard/jilareport" className={`sidebar-link ${location.pathname === "/dashboard/jilareport" ? "active" : ""}`} onClick={toggleSidebar}>
               <FaClipboardList className="icon text-success" />
-              <span>View Form</span>
+              <span>{fieldLabels[language]?.ViewForm}</span>
             </Link>
           </li>
           <li>
             <Link to="/dashboard/viewkendratable" className={`sidebar-link ${location.pathname === "/dashboard/viewkendratable" ? "active" : ""}`} onClick={toggleSidebar}>
               <FaChartBar className="icon text-info" />
-              <span>View Reporting</span>
+              <span>{fieldLabels[language]?.ViewReporting}</span>
             </Link>
           </li>
 
           {/* User Management (Hidden for Jila) */}
           {!isJilaUser && (
             <>
-              <div className="sidebar-section">👤 User Management</div>
+              <div className="sidebar-section">👤 {fieldLabels[language]?.UserManagement}</div>
               <li>
                 <Link to={["prant", "vibhag", "jila"].includes(user_type) ? "/dashboard/create-user2" : "/dashboard/create-user"} 
                       className={`sidebar-link ${location.pathname.includes("create-user") ? "active" : ""}`} 
                       onClick={toggleSidebar}>
                   <FaUserShield className="icon text-warning" />
-                  <span>Create User</span>
+                  <span>{fieldLabels[language]?.CreateUser}</span>
                 </Link>
               </li>
               <li>
                 <Link to="/dashboard/view-user" className={`sidebar-link ${location.pathname === "/dashboard/view-user" ? "active" : ""}`} onClick={toggleSidebar}>
                   <FaUserCheck className="icon text-success" />
-                  <span>View Users</span>
+                  <span>{fieldLabels[language]?.ViewUsers}</span>
                 </Link>
               </li>
               <li>

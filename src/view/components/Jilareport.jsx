@@ -32,7 +32,10 @@ const Jilareport = () => {
   }, [dispatch, userType]);
 
   useEffect(() => {
+    dispatch(clearFormData());
     if (selectedJila) {
+      console.log("selectedJila",fetchFormDataByJila);
+      
       dispatch(fetchFormDataByJila(selectedJila));
     } else {
       dispatch(clearFormData());
@@ -217,6 +220,10 @@ const Jilareport = () => {
     }
   };
 
+
+
+
+
   return (
     <>
       <ToastContainer />
@@ -246,6 +253,7 @@ const Jilareport = () => {
                     </option>
                     {vibhagList?.map((vibhag) => {
                       return (
+                        
                         <optgroup label={vibhag.vibhag_name} key={vibhag.id}>
                           {vibhag?.vibhags?.map((item) => {
                             return (
@@ -1299,8 +1307,9 @@ const Jilareport = () => {
                       disabled={userType === "kshetra" || userType === "kendra"}
                     >
                       {userType === "vibhag" || userType === "prant"
-                        ? "Save As Submit"
-                        : "Submit"}
+                        ? `${fieldLabels[language]?.SaveAsSubmit}`
+                        : `${fieldLabels[language]?.Submit}`
+                      }
                     </Button>
                   </Col>
                 </Row>
