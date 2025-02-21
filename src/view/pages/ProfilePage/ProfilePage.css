@@ -1,8 +1,8 @@
-.profile-card {
-  transition: none !important;  /* Disable any hover effect */
-  transform: none !important;   /* Prevent movement */
-  box-shadow: none !important;  /* Remove any shadow effect */
-  z-index: auto !important;      /* Disable z-index */
+/* .profile-card {
+  transition: none !important;  
+  transform: none !important;   
+  box-shadow: none !important;  
+  z-index: auto !important;      
 }
 
 .profile-card:hover,
@@ -43,4 +43,25 @@
   .profile-card {
     max-width: 600px;
   }
+} */
+
+.edit-icon {
+  fill: #007bff; 
+  cursor: pointer;
+  transition: fill 0.3s ease-in-out;
+}
+
+/* .edit-icon:hover {
+  fill: #0056b3; 
+} */
+
+
+
+
+
+.custom-input:focus {
+  background-color: white !important; /* Force white background */
+  box-shadow: none !important; /* Remove blue glow */
+  outline: none !important; /* Remove default focus border */
+  border: 1px solid #ced4da !important; /* Keep original border */
 }

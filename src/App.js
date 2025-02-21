@@ -1,4 +1,5 @@
-// import React, { useState, useEffect } from "react";
+
+// import React, { useEffect, useState } from "react";
 // import {
 //   BrowserRouter,
 //   Routes,
@@ -15,17 +16,13 @@
 // import Login from "./view/pages/login/Login";
 // import Sidebar from "./view/layout/Sidebar";
 // import Header from "./view/layout/Header";
-// // import HierarchyBox from "./view/components/HierarchyBox";
 // import ProfilePage from "./view/pages/ProfilePage/ProfilePage";
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import "./App.css";
 // import CreateUser2 from "./view/pages/CreateUser2";
-// import CreateUser from "./view/pages/CreateUser";
-// // import CreateUser2 from "./view/pages/CreateUser2";
+// import CreateUser  from "./view/pages/CreateUser";
 // import ViewUsers from "./view/components/table/ViewUsers";
 // import ActivityTable from "./view/components/table/ViewActivity";
-
-
 
 // function Layout() {
 //   const location = useLocation();
@@ -67,10 +64,9 @@
 //                 <Route path="viewkendratable" element={<ViewKendraTable />} />
 //                 <Route path="profile" element={<ProfilePage />} />
 //                 <Route path="view-user" element={<ViewUsers />} />
+//                 <Route path="create-user" element={<CreateUser  />} />
 //                 <Route path="create-user2" element={<CreateUser2 />} />
-//                 <Route path="create-user" element={<CreateUser />} />
-//                 <Route path="activity" element={<ActivityTable/>} />
-//                 {/* <Route path="/dashboard/revieved" element={<HierarchyBox />} /> */}
+//                 <Route path="activity" element={<ActivityTable />} />
 //               </Route>
 //             </Route>
 //           </Routes>
@@ -91,16 +87,14 @@
 // }
 
 // export default App;
-  
+
+
+
+
 
 import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
-import { Provider } from "react-redux";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { Provider, useSelector } from "react-redux";
 import { store } from "./view/redux/store/AuthStore";
 import PrivateRoute from "./view/routes/privateRoutes/PrivateRoutes";
 import Dashboard from "./view/layout/Dashboard";
@@ -114,13 +108,15 @@ import ProfilePage from "./view/pages/ProfilePage/ProfilePage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import CreateUser2 from "./view/pages/CreateUser2";
-import CreateUser  from "./view/pages/CreateUser";
+import CreateUser from "./view/pages/CreateUser";
 import ViewUsers from "./view/components/table/ViewUsers";
 import ActivityTable from "./view/components/table/ViewActivity";
 
 function Layout() {
   const location = useLocation();
-  const isLoginPage = location.pathname === "/"; 
+  const { user } = useSelector((state) => state.auth); // ✅ Move useSelector outside of condition
+
+  const isLoginPage = location.pathname === "/";
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 768);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -128,16 +124,17 @@ function Layout() {
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth >= 768) {
-        setIsSidebarOpen(true);
-      } else {
-        setIsSidebarOpen(false);
-      }
+      setIsSidebarOpen(window.innerWidth >= 768);
     };
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // ✅ Handle redirection inside the return statement
+  if (isLoginPage && user) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   return (
     <div className="d-flex">
@@ -158,7 +155,7 @@ function Layout() {
                 <Route path="viewkendratable" element={<ViewKendraTable />} />
                 <Route path="profile" element={<ProfilePage />} />
                 <Route path="view-user" element={<ViewUsers />} />
-                <Route path="create-user" element={<CreateUser  />} />
+                <Route path="create-user" element={<CreateUser />} />
                 <Route path="create-user2" element={<CreateUser2 />} />
                 <Route path="activity" element={<ActivityTable />} />
               </Route>

@@ -14,7 +14,24 @@ margin-right: 240px;
 }
 
 
+/* Remove blue background and border on focus */
+.form-control:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #ccc !important;
+}
 
+/* Remove the default Bootstrap invalid border color */
+.is-invalid {
+  border-color: #dc3545 !important; /* Keeps the error border */
+}
+
+.is-invalid:focus {
+  border-color: #dc3545 !important;
+}
+input#password {
+  border-right: none;
+}
 /* Disable horizontal scrolling */
 
 
@@ -64,4 +81,23 @@ margin-right: 240px;
   .login_form_style {
     max-width: 450px;
   }
+}
+
+.custom-button{
+  background-color: #ff6600 !important; /* Deep Saffron */
+  background-image: linear-gradient(315deg, #ff9933 0%, #ff6600 50%, #cc3300 100%) !important;
+}
+.custom-button:active,
+.custom-button:focus,
+.custom-button:focus-visible {
+  background-color: #ff6600 !important; /* Deep Saffron */
+  background-image: linear-gradient(315deg, #ff9933 0%, #ff6600 50%, #cc3300 100%) !important;
+  
+  box-shadow: none !important; /* Remove any unwanted focus outline */
+}
+
+.custom-button:active:focus {
+  background-color: #ff6600 !important; /* Deep Saffron */
+  background-image: linear-gradient(315deg, #ff9933 0%, #ff6600 50%, #cc3300 100%) !important;
+  box-shadow: none !important;
 }

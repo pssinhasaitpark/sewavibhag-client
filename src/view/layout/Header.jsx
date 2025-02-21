@@ -88,14 +88,14 @@ const Header = () => {
 
         {/* Display user type and hierarchical names */}
         <div className="d-flex align-items-center user-container">
-          <h6 className="m-0 me-1">
+          {/* <h6 className="m-0 me-1">
             {user?.user_type
               ? user.user_type.charAt(0).toUpperCase() +
                 user.user_type.slice(1).toLowerCase()
               : "Loading..."}
-          </h6>
+          </h6> */}
 
-          <h6 className="m-0 me-2">: {getDisplayName()}</h6>
+          <h6 className="m-0 me-2">{getDisplayName()}</h6>
           <Dropdown
             show={showDropdown}
             onToggle={() => setShowDropdown(!showDropdown)}

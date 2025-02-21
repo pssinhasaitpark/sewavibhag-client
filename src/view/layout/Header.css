@@ -1,74 +1,10 @@
-/* .header {
-  padding: 10px 20px;
 
-}
-
-.navbar-nav {
-  display: flex;
-  align-items: center;
-}
-
-
-
-.navbar {
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
-  position: sticky;
-  top: 0;
-  background: white; 
-  
-}
-
-.user-container {
-  display: flex;
-  align-items: center;
-}
-
-#dropdown-user {
-  border: none;
-  background: none;
-}
-
-#dropdown-user:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-
-.navbar-nav .nav-link {
-  color: #555;
-  margin-right: 10px;
-}
-
-.navbar-nav .nav-link:hover {
-  color: #000;
-}
-
-.user-container {
-  display: flex;
-  align-items: center;
-  gap: 14px; 
-}
-
-
-
-
-@media (max-width: 250px) {
-  .user-container h6 {
-    display: none; 
-  }
-}
-
-button#dropdown-user {
-  margin-top: 1px;
-} */
-
-/* Header Styling */
-/* Header Styling */
+/* ======== Base Styles ======== */
 .header {
   padding: 10px 20px;
   position: sticky !important;
   top: 0;
-  z-index: 1050; /* Ensures it stays on top */
+  z-index: 1050;
   background: white;
 }
 
@@ -79,11 +15,12 @@ button#dropdown-user {
   top: 0;
   background: white;
   z-index: 1050;
+  padding: 10px 15px;
 }
 
-/* Ensure the hamburger menu is visible */
+/* Navbar Toggler (Hamburger) */
 .navbar-toggler {
-  z-index: 1100; /* Higher than navbar */
+  z-index: 1100;
   border: none;
   background: transparent;
 }
@@ -93,48 +30,157 @@ button#dropdown-user {
   box-shadow: none;
 }
 
-/* Ensure dropdowns and menu appear above everything */
-.navbar-collapse {
-  z-index: 1100;
-  background: white; /* Ensures visibility */
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
+/* Language Selector */
+.language_option::before {
+  content: "Select Language:";
+  font-size: 14px;
+  margin-right: 5px;
+  color: #333;
 }
 
-/* Profile Card - Lower z-index */
-.profile-card {
-  position: relative;
-  transition: none !important;
-  transform: none !important;
-  box-shadow: none !important;
-  z-index: 1; /* Lower than navbar and toggle button */
-}
-
-.language_option::before{
-  content: "Select Langauge:";
+/* Language Dropdown */
+.form-select {
+  width: auto;
+  padding: 5px 10px;
+  font-size: 14px;
 }
 
 .form-select:focus {
-  border-color:none !important;
-  outline: 0 !important;
+  outline: none !important;
   box-shadow: none !important;
-  background-color: none;
+  border-color: none !important;
 }
 
-/* Mobile View Fix */
+/* User Container */
+.user-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-container h6 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+/* Profile Dropdown */
+.dropdown-toggle {
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.dropdown-menu {
+  min-width: 150px;
+  font-size: 14px;
+}
+
+.language_option {
+  margin-left: 44px; /* Adjust the value as needed */
+}
+/* Remove background and text color changes on hover, focus, and active states */
+.dropdown-item:hover,
+.dropdown-item:focus,
+.dropdown-item:active,
+.dropdown-item.active {
+  background-color: transparent !important;
+  color: inherit !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Override Bootstrap dropdown active styles */
+
+
+/* ======== Responsive Styles ======== */
+
+/* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  .profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* margin-top: 60px; */
-    padding-top: 0;
+  .navbar {
+    padding: 8px;
   }
-  .profile-card {
-    width: 100%;
-    z-index: 1;
+
+  .language_option::before {
+    display: block;
+    font-size: 12px;
+  }
+
+  .form-select {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .user-container {
+    gap: 5px;
+  }
+
+  .user-container h6 {
+    font-size: 6px;
+  }
+
+  .dropdown-menu {
+    font-size: 12px;
+    min-width: 130px;
   }
 }
 
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) and (max-width: 767px) {
+  .navbar {
+    padding: 10px;
+  }
+
+  .form-select {
+    font-size: 13px;
+  }
+
+  .user-container h6 {
+    font-size: 10px;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .navbar {
+    padding: 12px 15px;
+  }
+
+  .form-select {
+    font-size: 14px;
+  }
+
+  .user-container h6 {
+    font-size: 14px;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .navbar {
+    padding: 15px 20px;
+  }
+
+  .form-select {
+    font-size: 15px;
+  }
+
+  .user-container h6 {
+    font-size: 15px;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .navbar {
+    padding: 15px 25px;
+  }
+
+  .form-select {
+    font-size: 16px;
+  }
+
+  .user-container h6 {
+    font-size: 16px;
+  }
+}
