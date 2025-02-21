@@ -473,9 +473,9 @@ const Sidebar = () => {
             </Link>
           </li>
 
-          <div className={`sidebar-section ${isViewReportingActive ? "active" : ""}`}> 📊 Reporting</div>
+          {/* <div className={`sidebar-section ${isViewReportingActive ? "active" : ""}`}> 📊 Reporting</div> */}
           {/* Reporting Section */}
-          <div className="sidebar-section">📊 {fieldLabels[language]?.Reporting}</div>
+          <div className={`sidebar-section ${isViewReportingActive ? "active" : ""}`}>📊 {fieldLabels[language]?.Reporting}</div>
           <li>
             <Link to="/dashboard/jilareport" className={`sidebar-link ${location.pathname === "/dashboard/jilareport" ? "active" : ""}`} onClick={toggleSidebar}>
               <FaClipboardList className="icon text-success" />
@@ -493,9 +493,9 @@ const Sidebar = () => {
           {!isJilaUser && (
             <>
             
-              <div className={`sidebar-section ${isUserManagementActive ? "active" : ""}`}>👤 User Management</div>
+              {/* <div className={`sidebar-section ${isUserManagementActive ? "active" : ""}`}>👤 User Management</div> */}
 
-              <div className="sidebar-section">👤 {fieldLabels[language]?.UserManagement}</div>
+              <div className={`sidebar-section ${isUserManagementActive ? "active" : ""}`}>👤 {fieldLabels[language]?.UserManagement}</div>
               <li>
                 <Link
                   to={["prant", "vibhag", "jila"].includes(user_type) ? "/dashboard/create-user2" : "/dashboard/create-user"}
