@@ -3,9 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../../redux/slice/ViewUsersSlice';
 import { Table, Spinner } from 'react-bootstrap';
 import { PropagateLoader } from 'react-spinners';
+import fieldLabels from '../FiledLabels';
 
 const UserTable = () => {
   const dispatch = useDispatch();
+
+  const language = useSelector((state) => state.language.language);
+  const labels = fieldLabels[language];
 
  
   const user = useSelector((state) => state.auth.user);
@@ -48,7 +52,7 @@ const UserTable = () => {
 
   return (
     <div className="container mt-4">
-      <h2>User List</h2>
+      <h2>{fieldLabels[language]?.UserList}</h2>
 
       {status === 'loading' && (<PropagateLoader className="text-center" />)}
       {status === 'failed' && <p>Error: {error?.message}</p>}

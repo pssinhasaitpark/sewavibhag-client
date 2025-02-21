@@ -16,6 +16,8 @@ const Header = () => {
 
   const language = useSelector((state) => state.language.language);
 
+
+
   // Fetch user details from Redux store
   const user = useSelector((state) => state.auth.user);
   const userType = user?.user_type;
@@ -78,8 +80,8 @@ const Header = () => {
               value={language}
               onChange={handleLanguageChange}
             >
-              <option value="english">English</option>
-              <option value="hindi">Hindi</option>
+              <option value="english">{fieldLabels[language]?.English}</option>
+              <option value="hindi">{fieldLabels[language]?.Hindi}</option>
             </Form.Control>
           </Col>
         </div>
@@ -108,9 +110,9 @@ const Header = () => {
 
             <Dropdown.Menu align="end">
               <Dropdown.Item as={Link} to="/dashboard/profile">
-                Profile
+              {fieldLabels[language]?.profile}
               </Dropdown.Item>
-              <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+              <Dropdown.Item onClick={handleLogout}>{fieldLabels[language]?.logout}</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
