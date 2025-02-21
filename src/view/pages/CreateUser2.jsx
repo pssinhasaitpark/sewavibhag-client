@@ -407,31 +407,6 @@ const validationSchema = Yup.object().shape({
                     </Field>
                     <ErrorMessage name="user_type" component="div" className="text-danger mt-1" />
                   </div>
-
-                  <div className="mb-3">
-                    <label className="form-label">User  Name</label>
-                    <Field type="text" name="user_name" className="form-control" placeholder="Your User Name" />
-                    <ErrorMessage name="user_name" component="div" className="text-danger mt-1" />
-                  </div>
-
-                  <div className="mb-3">
-                    <label className="form-label">Full Name</label>
-                    <Field type="text" name="full_name" className="form-control" placeholder="Your Full Name" />
-                    <ErrorMessage name="full_name" component="div" className="text-danger mt-1" />
-                  </div>
-
-                  <div className="mb-3">
-                    <label className="form-label">Email</label>
-                    <Field type="email" name="email" className="form-control" placeholder="Your email" />
-                    <ErrorMessage name="email" component="div" className="text-danger mt-1" />
-                  </div>
-
-                  <div className="mb-3">
-                    <label className="form-label">Phone</label>
-                    <Field type="mobile" name="mobile" className="form-control" placeholder="Your Phone" />
-                    <ErrorMessage name="mobile" component="div" className="text-danger mt-1" />
-                  </div>
-
                   <div className="mb-3">
                     <label className="form-label">Level</label>
                     <BootstrapForm.Select
@@ -494,6 +469,31 @@ const validationSchema = Yup.object().shape({
                       </BootstrapForm.Select>
                     </div>
                   )}
+                  <div className="mb-3">
+                    <label className="form-label">User  Name</label>
+                    <Field type="text" name="user_name" className="form-control" placeholder="Your User Name" />
+                    <ErrorMessage name="user_name" component="div" className="text-danger mt-1" />
+                  </div>
+
+                  <div className="mb-3">
+                    <label className="form-label">Full Name</label>
+                    <Field type="text" name="full_name" className="form-control" placeholder="Your Full Name" />
+                    <ErrorMessage name="full_name" component="div" className="text-danger mt-1" />
+                  </div>
+
+                  <div className="mb-3">
+                    <label className="form-label">Email</label>
+                    <Field type="email" name="email" className="form-control" placeholder="Your email" />
+                    <ErrorMessage name="email" component="div" className="text-danger mt-1" />
+                  </div>
+
+                  <div className="mb-3">
+                    <label className="form-label">Phone</label>
+                    <Field type="mobile" name="mobile" className="form-control" placeholder="Your Phone" />
+                    <ErrorMessage name="mobile" component="div" className="text-danger mt-1" />
+                  </div>
+
+               
 
                   <div className="mb-3">
                     <label className="form-label">Password</label>

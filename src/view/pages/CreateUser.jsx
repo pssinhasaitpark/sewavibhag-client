@@ -666,8 +666,10 @@ function CreateUser () {
 
   // Set level list based on user type
   useEffect(() => {
-    if (user_type === "kendra" || "kshetra") {
+    if (user_type === "kendra") {
       setLevelList([1, 2, 3, 4]);
+    } else if (user_type === "kshetra") {
+      setLevelList(["Viewer", "Admin"]); // ✅ Set custom names for 'kshetra'
     } else if (user_type === "prant") {
       setLevelList([1, 2, 3]);
     } else if (user_type === "vibhag") {
@@ -836,31 +838,6 @@ function CreateUser () {
                     </Field>
                     <ErrorMessage name="user_type" component="div" className="text-danger mt-1" />
                   </div>
-
-                  <div className="mb-3">
-                    <label className="form-label">{fieldLabels[language]?.Username}</label>
-                    <Field type="text" name="user_name" className="form-control" placeholder="Your User Name" />
-                    <ErrorMessage name="user_name" component="div" className="text-danger mt-1" />
-                  </div>
-
-                  <div className="mb-3">
-                    <label className="form-label">{fieldLabels[language]?.FULLNAME}</label>
-                    <Field type="text" name="full_name" className="form-control" placeholder="Your Full Name" />
-                    <ErrorMessage name="full_name" component="div" className="text-danger mt-1" />
-                  </div>
-
-                  <div className="mb-3">
-                    <label className="form-label">{fieldLabels[language]?.EMAIL}</label>
-                    <Field type="email" name="email" className="form-control" placeholder="Your email" />
-                    <ErrorMessage name="email" component="div" className="text-danger mt-1" />
-                  </div>
-
-                  <div className="mb-3">
-                    <label className="form-label">{fieldLabels[language]?.Phone}</label>
-                    <Field type="mobile" name="mobile" className="form-control" placeholder="Your Phone" />
-                    <ErrorMessage name="mobile" component="div" className="text-danger mt-1" />
-                  </div>
-
                   <div className="mb-3">
                     <label className="form-label">{fieldLabels[language]?.Level}</label>
                     <BootstrapForm.Select
@@ -1046,6 +1023,32 @@ function CreateUser () {
                       )}
                     </>
                   )}
+
+                  <div className="mb-3">
+                    <label className="form-label">{fieldLabels[language]?.Username}</label>
+                    <Field type="text" name="user_name" className="form-control" placeholder="Your User Name" />
+                    <ErrorMessage name="user_name" component="div" className="text-danger mt-1" />
+                  </div>
+
+                  <div className="mb-3">
+                    <label className="form-label">{fieldLabels[language]?.FULLNAME}</label>
+                    <Field type="text" name="full_name" className="form-control" placeholder="Your Full Name" />
+                    <ErrorMessage name="full_name" component="div" className="text-danger mt-1" />
+                  </div>
+
+                  <div className="mb-3">
+                    <label className="form-label">{fieldLabels[language]?.EMAIL}</label>
+                    <Field type="email" name="email" className="form-control" placeholder="Your email" />
+                    <ErrorMessage name="email" component="div" className="text-danger mt-1" />
+                  </div>
+
+                  <div className="mb-3">
+                    <label className="form-label">{fieldLabels[language]?.Phone}</label>
+                    <Field type="mobile" name="mobile" className="form-control" placeholder="Your Phone" />
+                    <ErrorMessage name="mobile" component="div" className="text-danger mt-1" />
+                  </div>
+
+                 
 
                   <div className="mb-3">
                     <label className="form-label">{fieldLabels[language]?. Password}</label>
