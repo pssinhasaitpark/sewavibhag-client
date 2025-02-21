@@ -321,9 +321,104 @@
 // export default Sidebar;
 
 
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
+// import { useLocation, useNavigate } from "react-router-dom";
+// import { FaTv, FaClipboardList, FaChartBar, FaUserShield, FaUserCheck, FaUserCog, FaTimes, FaBars } from "react-icons/fa";
+// import { Link } from "react-router-dom";
+// import { useSelector } from "react-redux";
+// import "./Sidebar.css";
+// import BrandLogo from "../../assests/brandlogo.png";
+
+// const Sidebar = () => {
+//   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+//   const location = useLocation(); // Get current route
+//   const navigate = useNavigate();
+
+//   // Get user_type from Redux store
+//   const user_type = useSelector((state) => state.auth.user?.user_type?.trim().toLowerCase() || "");
+//   const isJilaUser = user_type === "jila";
+
+//   const toggleSidebar = () => {
+//     setIsSidebarOpen(!isSidebarOpen);
+//   };
+
+//   return (
+//     <>
+//       {/* Hamburger Icon for Mobile View */}
+//       <div className="hamburger" onClick={toggleSidebar}>
+//         {isSidebarOpen ? <FaTimes className="svg1" size={20} /> : <FaBars size={20} />}
+//       </div>
+
+//       {/* Sidebar */}
+//       <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
+//         <div className="sidebar-header" onClick={() => navigate("/dashboard")}>
+//           <img src={BrandLogo} alt="Sewa Vibhag Logo" className="sidebar-logo" style={{ cursor: "pointer" }} />
+//         </div>
+
+//         <ul className="sidebar-menu">
+//           {/* Dashboard */}
+//           <li>
+//             <Link to="/dashboard" className={`sidebar-link ${location.pathname === "/dashboard" ? "active" : ""}`} onClick={toggleSidebar}>
+//               <FaTv className="icon text-primary" />
+//               <span>Dashboard</span>
+//             </Link>
+//           </li>
+
+//           {/* Reporting Section */}
+//           <div className="sidebar-section">📊 Reporting</div>
+//           <li>
+//             <Link to="/dashboard/jilareport" className={`sidebar-link ${location.pathname === "/dashboard/jilareport" ? "active" : ""}`} onClick={toggleSidebar}>
+//               <FaClipboardList className="icon text-success" />
+//               <span>View Form</span>
+//             </Link>
+//           </li>
+//           <li>
+//             <Link to="/dashboard/viewkendratable" className={`sidebar-link ${location.pathname === "/dashboard/viewkendratable" ? "active" : ""}`} onClick={toggleSidebar}>
+//               <FaChartBar className="icon text-info" />
+//               <span>View Reporting</span>
+//             </Link>
+//           </li>
+
+//           {/* User Management (Hidden for Jila) */}
+//           {!isJilaUser && (
+//             <>
+//               <div className="sidebar-section">👤 User Management</div>
+//               <li>
+//                 <Link to={["prant", "vibhag", "jila"].includes(user_type) ? "/dashboard/create-user2" : "/dashboard/create-user"} 
+//                       className={`sidebar-link ${location.pathname.includes("create-user") ? "active" : ""}`} 
+//                       onClick={toggleSidebar}>
+//                   <FaUserShield className="icon text-warning" />
+//                   <span>Create User</span>
+//                 </Link>
+//               </li>
+//               <li>
+//                 <Link to="/dashboard/view-user" className={`sidebar-link ${location.pathname === "/dashboard/view-user" ? "active" : ""}`} onClick={toggleSidebar}>
+//                   <FaUserCheck className="icon text-success" />
+//                   <span>View Users</span>
+//                 </Link>
+//               </li>
+//               {/* <li>
+//                 <Link to="/dashboard/activity" className={`sidebar-link ${location.pathname === "/dashboard/activity" ? "active" : ""}`} onClick={toggleSidebar}>
+//                   <FaUserCog className="icon text-danger" />
+//                   <span>View Activity</span>
+//                 </Link>
+//               </li> */}
+//             </>
+//           )}
+//         </ul>
+//       </div>
+
+//       {/* Overlay when sidebar is open */}
+//       {isSidebarOpen && <div className="overlay" onClick={toggleSidebar} />}
+//     </>
+//   );
+// };
+
+// export default Sidebar;
+
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FaTv, FaClipboardList, FaChartBar, FaUserShield, FaUserCheck, FaUserCog, FaTimes, FaBars } from "react-icons/fa";
+import { FaTv, FaClipboardList, FaChartBar, FaUserShield, FaUserCheck, FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./Sidebar.css";
@@ -331,12 +426,22 @@ import BrandLogo from "../../assests/brandlogo.png";
 
 const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const location = useLocation(); // Get current route
+  const location = useLocation();
   const navigate = useNavigate();
 
   // Get user_type from Redux store
   const user_type = useSelector((state) => state.auth.user?.user_type?.trim().toLowerCase() || "");
   const isJilaUser = user_type === "jila";
+
+  // Check if any User Management route is active
+  const isUserManagementActive = ["/dashboard/create-user", "/dashboard/create-user2", "/dashboard/view-user"].some((path) =>
+    location.pathname.includes(path)
+  );
+
+  // Check if any View Reporting route is active
+  const isViewReportingActive = ["/dashboard/jilareport", "/dashboard/viewkendratable"].some((path) =>
+    location.pathname.includes(path)
+  );
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -364,8 +469,7 @@ const Sidebar = () => {
             </Link>
           </li>
 
-          {/* Reporting Section */}
-          <div className="sidebar-section">📊 Reporting</div>
+          <div className={`sidebar-section ${isViewReportingActive ? "active" : ""}`}> 📊 Reporting</div>
           <li>
             <Link to="/dashboard/jilareport" className={`sidebar-link ${location.pathname === "/dashboard/jilareport" ? "active" : ""}`} onClick={toggleSidebar}>
               <FaClipboardList className="icon text-success" />
@@ -379,28 +483,30 @@ const Sidebar = () => {
             </Link>
           </li>
 
-          {/* User Management (Hidden for Jila) */}
+       
           {!isJilaUser && (
             <>
-              <div className="sidebar-section">👤 User Management</div>
+            
+              <div className={`sidebar-section ${isUserManagementActive ? "active" : ""}`}>👤 User Management</div>
+
               <li>
-                <Link to={["prant", "vibhag", "jila"].includes(user_type) ? "/dashboard/create-user2" : "/dashboard/create-user"} 
-                      className={`sidebar-link ${location.pathname.includes("create-user") ? "active" : ""}`} 
-                      onClick={toggleSidebar}>
+                <Link
+                  to={["prant", "vibhag", "jila"].includes(user_type) ? "/dashboard/create-user2" : "/dashboard/create-user"}
+                  className={`sidebar-link ${location.pathname.includes("create-user") ? "active" : ""}`}
+                  onClick={toggleSidebar}
+                >
                   <FaUserShield className="icon text-warning" />
                   <span>Create User</span>
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard/view-user" className={`sidebar-link ${location.pathname === "/dashboard/view-user" ? "active" : ""}`} onClick={toggleSidebar}>
+                <Link
+                  to="/dashboard/view-user"
+                  className={`sidebar-link ${location.pathname === "/dashboard/view-user" ? "active" : ""}`}
+                  onClick={toggleSidebar}
+                >
                   <FaUserCheck className="icon text-success" />
                   <span>View Users</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard/activity" className={`sidebar-link ${location.pathname === "/dashboard/activity" ? "active" : ""}`} onClick={toggleSidebar}>
-                  <FaUserCog className="icon text-danger" />
-                  <span>View Activity</span>
                 </Link>
               </li>
             </>
