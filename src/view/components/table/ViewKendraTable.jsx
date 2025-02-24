@@ -6,6 +6,8 @@ import { PropagateLoader } from "react-spinners";
 import "./ViewKendraTable.css";
 import fieldLabels from "../FiledLabels";
 
+import Loader from "../Loader/Loader"
+
 const CollapsibleTable = () => {
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector((state) => state.hierarchy);
@@ -266,8 +268,9 @@ const CollapsibleTable = () => {
     return [];
   })();
 
-  if (loading) return <PropagateLoader className="text-center" />;
-  if (error) return <p>Error: {error?.message}</p>;
+  if (loading || error) {
+    return <Loader loading={loading} error={error} />;
+  }
 
   return (
     <Container fluid className="mt-3">

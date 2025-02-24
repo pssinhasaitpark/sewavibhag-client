@@ -1,201 +1,4 @@
-// import React, { useEffect, useState } from "react";
-// import { Formik, Form, Field, ErrorMessage } from "formik";
-// import { useDispatch, useSelector } from "react-redux";
-// import { fetchHierarchy } from "../redux/slice/hierarchySlice";
-// import { Button, Spinner, Form as BootstrapForm } from "react-bootstrap";
 
-// const CreateUser = () => {
-//   const dispatch = useDispatch();
-//   const { data: hierarchyData, loading } = useSelector((state) => state.hierarchy);
-  
-//   const [selectedUserType, setSelectedUserType] = useState("");
-//   const [selectedKshetra, setSelectedKshetra] = useState("");
-//   const [selectedPrant, setSelectedPrant] = useState("");
-//   const [selectedVibhag, setSelectedVibhag] = useState("");
-
-//   useEffect(() => {
-//     dispatch(fetchHierarchy());
-//   }, [dispatch]);
-
-//   return (
-//     <Formik
-//       initialValues={{
-//         user_type: "",
-//         user_name: "",
-//         full_name: "",
-//         email: "",
-//         mobile: "",
-//         password: "",
-//         kshetra: "",
-//         prant: "",
-//         vibhag: "",
-//         jila: "",
-//       }}
-//       onSubmit={(values) => {
-//       }}
-//     >
-//       {({ isSubmitting, setFieldValue }) => (
-//         <Form>
-//           {/* User Type Dropdown */}
-//           <div className="mb-3">
-//             <label className="form-label">User Type</label>
-//             <Field
-//               as="select"
-//               name="user_type"
-//               className="form-control"
-//               onChange={(e) => {
-//                 setSelectedUserType(e.target.value);
-//                 setFieldValue("user_type", e.target.value);
-//               }}
-//             >
-//               <option value="">Select User Type</option>
-//               <option value="kshetra">Kshetra</option>
-//               <option value="prant">Prant</option>
-//               <option value="vibhag">Vibhag</option>
-//               <option value="jila">Jila</option>
-//             </Field>
-//             <ErrorMessage name="user_type" component="div" className="text-danger mt-1" />
-//           </div>
-
-//           {/* Kshetra Dropdown */}
-//           {(selectedUserType === "kshetra" || selectedUserType === "prant" || selectedUserType === "vibhag" || selectedUserType === "jila") && (
-//             <div className="mb-3">
-//               <label className="form-label">Kshetra</label>
-//               <BootstrapForm.Select
-//                 value={selectedKshetra}
-//                 onChange={(e) => {
-//                   setSelectedKshetra(e.target.value);
-//                   setFieldValue("kshetra", e.target.value);
-//                 }}
-//               >
-//                 <option value="">Select Kshetra</option>
-//                {hierarchyData?.[0]?.kshetras?.map((kshetra) => (
-                
-//                   <option key={kshetra._id} value={kshetra.kshetra_name}>
-//                     {kshetra.kshetra_name} dfsdfsdfsfdsf
-//                   </option>
-//                 ))}
-//               </BootstrapForm.Select>
-//             </div>
-//           )}
-
-//           {/* Prant Dropdown */}
-//           {(selectedUserType === "prant" || selectedUserType === "vibhag" || selectedUserType === "jila") && (
-//             <div className="mb-3">
-//               <label className="form-label">Prant</label>
-//               <BootstrapForm.Select
-//                 value={selectedPrant}
-//                 onChange={(e) => {
-//                   setSelectedPrant(e.target.value);
-//                   setFieldValue("prant", e.target.value);
-//                 }}
-//               >
-//                 <option value="">Select Prant</option>
-//                 {hierarchyData?.[0]?.kshetras[0]?.prants?.map((prant) => (
-//                     <option key={prant._id} value={prant.prant_name}>
-//                       {prant.prant_name}
-//                     </option>
-//                   ))}
-//               </BootstrapForm.Select>
-//             </div>
-//           )}
-
-//           {/* Vibhag Dropdown */}
-//           {(selectedUserType === "vibhag" || selectedUserType === "jila") && (
-//             <div className="mb-3">
-//               <label className="form-label">Vibhag</label>
-//               <BootstrapForm.Select
-//                 value={selectedVibhag}
-//                 onChange={(e) => {
-//                   setSelectedVibhag(e.target.value);
-//                   setFieldValue("vibhag", e.target.value);
-//                 }}
-//               >
-//                 <option value="">Select Vibhag</option>
-//                 {hierarchyData?.[0]?.kshetras[0]?.prants[0]?.vibhags?.map((vibhag) => (
-//                     <option key={vibhag._id} value={vibhag.vibhag_name}>
-//                       {vibhag.vibhag_name}
-//                     </option>
-//                   ))}
-//               </BootstrapForm.Select>
-//             </div>
-//           )}
-
-//           {/* Jila Dropdown */}
-//           {selectedUserType === "jila" && (
-//             <div className="mb-3">
-//               <label className="form-label">Jila</label>
-//               <BootstrapForm.Select
-//                 name="jila"
-//                 onChange={(e) => setFieldValue("jila", e.target.value)}
-//               >
-//                 <option value="">Select Jila</option>
-//                 {hierarchyData?.[0]?.kshetras[0]?.prants[0]?.vibhags[0]?.jilas?.map((jila) => (
-//                     <option key={jila._id} value={jila.jila_name}>
-//                       {jila.jila_name}
-//                     </option>
-//                   ))}
-//               </BootstrapForm.Select>
-//             </div>
-//           )}
-
-//           {/* Other Fields */}
-//           <div className="mb-3">
-//             <label className="form-label">User Name</label>
-//             <Field type="text" name="user_name" className="form-control" />
-//             <ErrorMessage name="user_name" component="div" className="text-danger mt-1" />
-//           </div>
-
-//           <div className="mb-3">
-//             <label className="form-label">Full Name</label>
-//             <Field type="text" name="full_name" className="form-control" />
-//             <ErrorMessage name="full_name" component="div" className="text-danger mt-1" />
-//           </div>
-
-//           <div className="mb-3">
-//             <label className="form-label">Email</label>
-//             <Field type="email" name="email" className="form-control" />
-//             <ErrorMessage name="email" component="div" className="text-danger mt-1" />
-//           </div>
-
-//           <div className="mb-3">
-//             <label className="form-label">Phone</label>
-//             <Field type="text" name="mobile" className="form-control" />
-//             <ErrorMessage name="mobile" component="div" className="text-danger mt-1" />
-//           </div>
-
-//           <div className="mb-3">
-//             <label className="form-label">Password</label>
-//             <Field type="password" name="password" className="form-control" />
-//             <ErrorMessage name="password" component="div" className="text-danger mt-1" />
-//           </div>
-
-//           {/* Submit Button */}
-//           <div className="d-flex justify-content-center">
-//             <Button type="submit" className="btn btn-primary" disabled={loading || isSubmitting}>
-//               {loading ? <Spinner animation="border" size="sm" /> : "Create User"}
-//             </Button>
-//           </div>
-//         </Form>
-//       )}
-//     </Formik>
-//   );
-// };
-
-// export default CreateUser;
-
-
-
-
-
-
-
-
-
-
-
-
-// second
 
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -215,23 +18,33 @@ function CreateUser () {
   const [loading, setLoading] = useState(false);
   const { user_type } = useSelector((state) => state?.auth?.user);
   const [selectedUserType, setSelectedUserType] = useState('');
-
   const [levelList, setLevelList] = useState([]);
   const [selectedLevel, setSelectedLevel] = useState();
-  const [vibhagList, setVibhagList] = useState([]); // Initialize as an empty array
+  const [vibhagList, setVibhagList] = useState([]);
   const [selectedVibhag, setSelectedVibhag] = useState("");
   const [jilaList, setJilaList] = useState([]);
   const [selectedJila, setSelectedJila] = useState("");
-   const { user } = useSelector((state) => state.auth); 
-     const token = localStorage.getItem("token");
+  const { user } = useSelector((state) => state.auth);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     if (user_type === "kendra") {
-      setLevelList([1, 2]);
-    } else if (user_type === "prant") {
-      setLevelList([1, 2, 3]);
+      setLevelList([1, 2]); // Assuming 1 for Viewer and 2 for Admin
+    } 
+    
+    else if (user_type === "prant") {
+      setLevelList([
+        { label: "Viewer", value: 1 },
+        { label: "Editor", value: 2 },
+        { label: "Admin", value: 3 },
+      ]);
     } else if (user_type === "vibhag") {
-      setLevelList([1, 2, 3]);
+      setLevelList([
+        { label: "Viewer", value: 1 },
+        { label: "Editor", value: 2 },
+        { label: "Admin", value: 3 },
+      ]);
+      setSelectedLevel(1); // Default to Viewer
     } else if (user_type === "jila") {
       setLevelList([1, 2]);
     }
@@ -243,30 +56,30 @@ function CreateUser () {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
       })
         .then((response) => {
-          // Ensure response.data is an array
           setVibhagList(Array.isArray(response.data) ? response.data : []);
         })
         .catch((error) => console.error("Error fetching Vibhag data:", error));
     }
   }, [user_type]);
+
   useEffect(() => {
     if (user?.user_type === "vibhag") {
-        axios
-            .get(`${BASE_URL}/api/v1/prantAndVibhag`, {
-                headers: { Authorization: `Bearer ${token}` },
-            })
-            .then((response) => {
-                if (Array.isArray(response.data)) {
-                    setJilaList(response.data);
-                } else if (response.data?.data && Array.isArray(response.data.data)) {
-                    setJilaList(response.data.data); // Adjust if nested inside 'data'
-                } else {
-                    console.error("Unexpected API response structure", response.data);
-                }
-            })
-            .catch((error) => console.error("Error fetching Jila data:", error));
+      axios
+        .get(`${BASE_URL}/api/v1/prantAndVibhag`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          if (Array.isArray(response.data)) {
+            setJilaList(response.data);
+          } else if (response.data?.data && Array.isArray(response.data.data)) {
+            setJilaList(response.data.data);
+          } else {
+            console.error("Unexpected API response structure", response.data);
+          }
+        })
+        .catch((error) => console.error("Error fetching Jila data:", error));
     }
-}, [user, token]);
+  }, [user, token]);
 
   // Fetch Jila data when a Vibhag is selected
   useEffect(() => {
@@ -288,11 +101,12 @@ function CreateUser () {
     user_type_id: selectedVibhag[0]?._id || "",
     level: selectedLevel,
   };
-const validationSchema = Yup.object().shape({
+
+  const validationSchema = Yup.object().shape({
     user_name: Yup.string()
-      .min(3, "User name must be at least 3 characters")
-      .max(20, "User name cannot exceed 20 characters")
-      .required("User name is required"),
+      .min(3, "User  name must be at least 3 characters")
+      .max(20, "User  name cannot exceed 20 characters")
+      .required("User  name is required"),
     
     full_name: Yup.string()
       .min(3, "Full name must be at least 3 characters")
@@ -312,20 +126,21 @@ const validationSchema = Yup.object().shape({
       .required("Password is required"),
   
     user_type: Yup.string()
-      .required("User type is required"),
+      .required("User  type is required"),
   
     user_type_id: Yup.string()
-      .required("User type ID is required"),
+      .required("User  type ID is required"),
   
     level: Yup.number()
       .required("Level is required")
-      .oneOf([1, 2, 3, 4], "Invalid level selected"),
+      .oneOf([1, 2, 3], "Invalid level selected"), // Adjusted to match the new levels
     
     jila: Yup.string().when("user_type", {
       is: (val) => val === "jila",
       then: Yup.string().required("Jila selection is required"),
     }),
   });
+
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       setLoading(true);
@@ -336,7 +151,7 @@ const validationSchema = Yup.object().shape({
         return;
       }
 
-      // Assign user_type_id correctly based on user_type
+      // Set user_type_id based on selected values
       if (values.user_type === "jila" && selectedJila) {
         values.user_type_id = selectedJila; // Set user_type_id to Jila ID
       } else if (values.user_type === "vibhag" && selectedVibhag) {
@@ -361,9 +176,6 @@ const validationSchema = Yup.object().shape({
     }
   };
 
-
-  
-
   return (
     <Container fluid className="d-flex justify-content-center align-items-center ">
       <Row className="w-100">
@@ -371,7 +183,7 @@ const validationSchema = Yup.object().shape({
           <Card className="shadow p-4 w-100">
             <h3 className="text-center mb-4">Create The User</h3>
 
-            <Formik initialValues={initialValues}  validationSchema={validationSchema} onSubmit={handleSubmit}>
+            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
               {({ isSubmitting, setFieldValue }) => (
                 <Form>
                   <div className="mb-3">
@@ -412,14 +224,15 @@ const validationSchema = Yup.object().shape({
                     <BootstrapForm.Select
                       value={selectedLevel}
                       onChange={(e) => {
-                        setSelectedLevel(e.target.value);
-                        setFieldValue("level", Number(e.target.value));
+                        const selectedValue = Number(e.target.value);
+                        setSelectedLevel(selectedValue);
+                        setFieldValue("level", selectedValue);
                       }}
                     >
                       <option value="">Select Level</option>
                       {levelList?.map((level) => (
-                        <option key={level} value={level}>
-                          Level {level}
+                        <option key={level.value} value={level.value}>
+                          {level.label}
                         </option>
                       ))}
                     </BootstrapForm.Select>
@@ -457,7 +270,7 @@ const validationSchema = Yup.object().shape({
                         value={selectedJila}
                         onChange={(e) => {
                           setSelectedJila(e.target.value);
- setFieldValue("jila", e.target.value);
+                          setFieldValue("jila", e.target.value);
                         }}
                       >
                         <option value="">Select Jila</option>
@@ -493,8 +306,6 @@ const validationSchema = Yup.object().shape({
                     <ErrorMessage name="mobile" component="div" className="text-danger mt-1" />
                   </div>
 
-               
-
                   <div className="mb-3">
                     <label className="form-label">Password</label>
                     <Field type="password" name="password" className="form-control" placeholder="Password" />
@@ -502,7 +313,7 @@ const validationSchema = Yup.object().shape({
                   </div>
 
                   <div className="d-flex justify-content-center ">
-                    <Button type="submit" className="btn btn-primary custom-btn" disabled={loading || isSubmitting}>
+                    <Button type="submit" className="btn btn-primary custom-button" disabled={loading || isSubmitting}>
                       {loading ? <Spinner animation="border" size="sm" /> : "Create User"}
                     </Button>
                   </div>
@@ -517,8 +328,9 @@ const validationSchema = Yup.object().shape({
   );
 }
 
-export default CreateUser ; 
+export default CreateUser ;
 
 
 
-  
+
+

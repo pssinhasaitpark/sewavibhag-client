@@ -8,11 +8,13 @@ import { logout } from "../redux/slice/AuthSlice";
 import "./Header.css";
 import fieldLabels from "../components/FiledLabels";
 import { setLanguage } from "../redux/slice/LanguageSlice";
-
+import Loader from "../components/Loader/Loader";
 const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
   const language = useSelector((state) => state.language.language);
 
@@ -64,6 +66,9 @@ const Header = () => {
         return "No Name Available";
     }
   };
+ if (loading || error) {
+    return <Loader loading={loading} error={error} />;
+  }
 
   return (
     <Navbar bg="light" className="border-bottom">
