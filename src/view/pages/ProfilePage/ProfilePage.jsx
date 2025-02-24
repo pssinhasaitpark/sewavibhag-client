@@ -1,6 +1,3 @@
-
-
-
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +6,7 @@ import { fetchUser, updateUser } from "../../redux/slice/profileSlice";
 import { FaUserCircle } from "react-icons/fa";
 import "./ProfilePage.css"
 
-import { FaPencilAlt } from "react-icons/fa";
+
 import fieldLabels from "../../components/FiledLabels";
 
 export default function ProfilePage() {
@@ -40,7 +37,7 @@ export default function ProfilePage() {
   useEffect(() => {
     if (!token) {
       console.error("No token found! Redirecting to login...");
-      navigate("/login");
+      navigate("/");
       return;
     }
 
@@ -110,30 +107,34 @@ export default function ProfilePage() {
           </Col>
 
           <Col lg={7} md={6} sm={12}>
-            <Card className="shadow-sm p-3 h-100 ">
+            <Card className="shadow-sm p-3 h-100">
               <Card.Body className="d-flex flex-column justify-content-between">
-                {[`${fieldLabels[language]?.FULLNAME}`, `${fieldLabels[language]?.EMAIL}`,`${fieldLabels[language]?.MOBILE}`].map((field) => (
-                  <div key={field}>
+                {[
+                  { label: fieldLabels[language]?.FULLNAME, key: "full_name" },
+                  { label: fieldLabels[language]?.EMAIL, key: "email" },
+                  { label: fieldLabels[language]?.MOBILE, key: "mobile" },
+                ].map(({ label, key }) => (
+                  <div key={key}>
                     <Row className="mb-2">
-                      <Col sm={4}><strong>{field.replace("_", " ").toUpperCase()}</strong></Col>
+                      <Col sm={4}>
+                        <strong>{label}</strong>
+                      </Col>
                       <Col sm={7}>
-                        {editField === field ? (
+                        {editField === key ? (
                           <Form.Control
                             type="text"
-                            value={profile?.user?.[field] || ""}
-                            onChange={(e) => handleUpdate(field, e.target.value)}
+                            value={profile?.user?.[key] || ""}
+                            onChange={(e) => handleUpdate(key, e.target.value)}
                             onBlur={() => setEditField(null)}
-
                             style={{
-                              backgroundColor: "white", // Keep background white
+                              backgroundColor: "white",
                               color: "black",
                               border: "1px solid #ced4da",
                             }}
                             className="custom-input"
                           />
-
                         ) : (
-                          <span className="text-muted">{profile?.user?.[field] || "Not provided"}</span>
+                          <span className="text-muted">{profile?.user?.[key] || "Not provided"}</span>
                         )}
                       </Col>
                       <Col sm={1} className="text-end">
@@ -143,20 +144,21 @@ export default function ProfilePage() {
                           height="16"
                           viewBox="0 0 16 16"
                           xmlns="http://www.w3.org/2000/svg"
-                          onClick={() => setEditField(field)}
+                          onClick={() => setEditField(key)}
+                          style={{ cursor: "pointer" }}
                         >
                           <path
                             d="M12.146 0.146a.5.5 0 0 1 .708 0l2.5 2.5a.5.5 0 0 1 0 .708l-9.792 9.792a.5.5 0 0 1-.168.11l-4 1.5a.5.5 0 0 1-.65-.65l1.5-4a.5.5 0 0 1 .11-.168l9.792-9.792zM11.5 3l1.5-1.5 1.5 1.5-1.5 1.5L11.5 3zm-1 1l1.5 1.5-7.646 7.646a.5.5 0 0 1-.168.11l-1.646.617.617-1.646a.5.5 0 0 1 .11-.168L10.5 4z"
                           />
                         </svg>
                       </Col>
-
                     </Row>
                     <hr />
                   </div>
                 ))}
               </Card.Body>
             </Card>
+
           </Col>
         </Row>
       </Container>
