@@ -230,7 +230,7 @@ const Jilareport = () => {
       <div className="gradient-background">
         <Container>
           <Row className="mt-3 d-flex justify-content-between align-items-center">
-            <Col xs="auto" className="mt-3">
+            <Col xs="auto" className="mt-3 d-flex">
               {userType === "prant" && (
                 <Col xs="auto" className="mt-3">
                   <Form.Control
@@ -251,10 +251,10 @@ const Jilareport = () => {
                     <option value="" className="bg-dark text-light">
                       Select Vibhag
                     </option>
-                    {vibhagList?.map((vibhag) => {
+                    {/* {vibhagList?.map((vibhag) => {
                       return (
                         
-                        <optgroup label={vibhag.vibhag_name} key={vibhag.id}>
+                        <optgroup  label={vibhag.vibhag_name} key={vibhag.id} >
                           {vibhag?.vibhags?.map((item) => {
                             return (
                               <>
@@ -266,7 +266,14 @@ const Jilareport = () => {
                           })}
                         </optgroup>
                       );
-                    })}
+                    })} */}
+                     {vibhagList?.flatMap((vibhag) =>
+                      vibhag.vibhags?.map((item) => (
+                        <option key={item.id} value={item._id}>
+                          {item.vibhag_name}
+                        </option>
+                      ))
+                    )}
                   </Form.Control>
 
                   {selectedVibhag && (
@@ -312,7 +319,7 @@ const Jilareport = () => {
                     );
                   })}
 
-                  <option value="vibhag2">Indore</option>
+                  {/* <option value="vibhag2">Indore</option> */}
                 </Form.Control>
               )}
             </Col>

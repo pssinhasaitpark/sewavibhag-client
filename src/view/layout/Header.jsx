@@ -8,6 +8,7 @@ import { logout } from "../redux/slice/AuthSlice";
 import "./Header.css";
 import fieldLabels from "../components/FiledLabels";
 import { setLanguage } from "../redux/slice/LanguageSlice";
+import { JilaTranslation, VibhagTranslation, PrantTranslation, kshetraTranslation, KendraTranslation } from "../components/Fileds"; 
 
 const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -15,6 +16,10 @@ const Header = () => {
   const navigate = useNavigate();
 
   const language = useSelector((state) => state.language.language);
+
+
+  console.log("language",language);
+  
 
 
 
@@ -47,19 +52,35 @@ const Header = () => {
     setShowDropdown(false);
   };
 
+
+  const translateName = (name, translationMap) => {
+    if (language.trim() === "hindi" && translationMap[name]) {
+      return translationMap[name];
+    }
+    return name; 
+  };
+
   const getDisplayName = () => {
     if (!user) return "Loading...";
+
+    const translatedKendra = translateName(kendraName, KendraTranslation);
+    const translatedKshetra = translateName(kshetraName, kshetraTranslation);
+    const translatedPrant = translateName(prantName, PrantTranslation);
+    const translatedVibhag = translateName(vibhagName, VibhagTranslation);
+    const translatedJila = translateName(jilaName, JilaTranslation); 
+
+
     switch (userType) {
       case "kshetra":
-        return kshetraName;
+        return translatedKshetra;
       case "prant":
-        return `${kshetraName} / ${prantName}`;
+        return `${translatedKshetra} / ${translatedPrant}`;
       case "vibhag":
-        return `${kshetraName} / ${prantName} / ${vibhagName}`;
+        return `${translatedKshetra} / ${translatedPrant} / ${translatedVibhag}`;
       case "jila":
-        return `${kshetraName} / ${prantName} / ${vibhagName} / ${jilaName}`;
+        return `${translatedKshetra} / ${translatedPrant} / ${translatedVibhag} / ${translatedJila}`;;
       case "kendra":
-        return kendraName;
+        return `${translatedKendra}`;
       default:
         return "No Name Available";
     }
@@ -71,20 +92,23 @@ const Header = () => {
         fluid
         className="d-flex justify-content-between align-items-center"
       >
-        <div className="language_option">
-          <Col xs="auto" className="">
-
-            <Form.Control
-              as="select"
-              className="form-select bg-transparent"
-              value={language}
-              onChange={handleLanguageChange}
-            >
-              <option value="english">{fieldLabels[language]?.English}</option>
-              <option value="hindi">{fieldLabels[language]?.Hindi}</option>
-            </Form.Control>
-          </Col>
-        </div>
+     <div className="language_option">
+  <label htmlFor="language-select">
+    {fieldLabels[language]?.selectLanguage}
+  </label>
+  <Col xs="auto">
+    <Form.Control
+      as="select"
+      id="language-select"
+      className="form-select bg-transparent"
+      value={language}
+      onChange={handleLanguageChange}
+    >
+      <option value="english">{fieldLabels[language]?.English}</option>
+      <option value="hindi">{fieldLabels[language]?.Hindi}</option>
+    </Form.Control>
+  </Col>
+</div>
 
         {/* Display user type and hierarchical names */}
         <div className="d-flex align-items-center user-container">

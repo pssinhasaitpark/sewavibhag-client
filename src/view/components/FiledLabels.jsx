@@ -33,7 +33,7 @@ const fieldLabels = {
       TotalVibhag:"Total Vibhag",
       TotalJila:"Total Jila",
       PrantUsers:"Prant Users",
-      Prant: "Parnt",
+      Prant: "Prant",
       FULLNAME:"FULLNAME",
       EMAIL:"EMAIL",
       MOBILE:"MOBILE",
@@ -95,8 +95,7 @@ const fieldLabels = {
       mahanagar: "महानगर",
       jilaKendra: "जिलाकेंद्र",
       anyaNagar: "अन्य नगर",
-
-      selectLanguage:"भाषा चयन करें",
+      selectLanguage:"भाषा चयन करें :",
       profile:"प्रोफ़ाइल",
       logout:"लॉगआउट",
       saveAsSubmit:"सहेजें और सबमिट करें",
@@ -143,8 +142,9 @@ const fieldLabels = {
       ToatalPrant:"कुल प्रांत",
       NoDataAvailable:"कोई डेटा उपलब्ध नहीं है",
       SaveAsSubmit:"सहेजें और सबमिट करें",
-      Submit:"सबमिट करें"
-    },
-  };
-  
+      Submit:"सबमिट करें",
+      
+   },
+    };
+
   export default fieldLabels;

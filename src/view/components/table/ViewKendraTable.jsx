@@ -5,6 +5,8 @@ import { fetchHierarchy } from "../../redux/slice/hierarchySlice";
 import { PropagateLoader } from "react-spinners";
 import "./ViewKendraTable.css";
 import fieldLabels from "../FiledLabels";
+import { JilaTranslation, VibhagTranslation, PrantTranslation, kshetraTranslation } from "../Fileds"; 
+
 
 const CollapsibleTable = () => {
   const dispatch = useDispatch();
@@ -50,11 +52,11 @@ const CollapsibleTable = () => {
     setOpenVibhag((prev) => ({ ...prev, [name]: !prev[name] }));
 
   const fieldGroups = [
-    { title: "महानगर", count: 9 },
-    { title: "अन्य नगर", count: 9 },
-    { title: "जिला नगर", count: 9 },
-    { title: "5000 या उससे अधिक जनसंख्या के ग्रामों की संख्या", count: 4 },
-    { title: "5000 से कम जनसंख्या के सेवा युक्त ग्राम संख्या", count: 2 },
+    { title: `${fieldLabels[language]?.mahanagar}`, count: 9 },
+    { title: `${fieldLabels[language]?.anyaNagar}`, count: 9 },
+    { title: `${fieldLabels[language]?.jilaKendra}`, count: 9 },
+    { title: `${fieldLabels[language]?.villagesOver5000}`, count: 4 },
+    { title: `${fieldLabels[language]?.villagesUnder5000}`, count: 2 },
   ];
 
   const [openFieldGroups, setOpenFieldGroups] = useState(
@@ -266,6 +268,14 @@ const CollapsibleTable = () => {
     return [];
   })();
 
+
+  const translateName = (name, translationMap) => {
+    if (language.trim() === "hindi" && translationMap[name]) {
+      return translationMap[name];
+    }
+    return name; 
+  };
+
   if (loading) return <PropagateLoader className="text-center" />;
   if (error) return <p>Error: {error?.message}</p>;
 
@@ -291,6 +301,7 @@ const CollapsibleTable = () => {
           </tr>
           <tr>
           {fieldNames.map((name, index) => {
+            
               const groupIndex = fieldGroups.findIndex(
                 (group, i) =>
                   index >=
@@ -320,11 +331,16 @@ const CollapsibleTable = () => {
         </thead>
         <tbody>
   {filteredData.map((item) => {
+
+const translatedKshetra = translateName(item.kshetra_name, kshetraTranslation);
+const translatedPrant = translateName(item.prant_name, PrantTranslation);
+const translatedVibhag = translateName(item.vibhag_name, VibhagTranslation);
+const translatedJila = translateName(item.jila_name, JilaTranslation);
     if (user.user_type === "jila") {
       return (
         <React.Fragment key={item._id}>
           <tr className="jila-row">
-            <td>{item.jila_name}</td>
+            <td>{translatedJila}</td>
             {fieldNames.map((fieldName, index) => (
               <td key={index}>{getNestedData(item, fieldName)}</td>
             ))}
@@ -343,14 +359,18 @@ const CollapsibleTable = () => {
     if (user.user_type === "vibhag") {
       return (
         <React.Fragment key={item._id}>
-          {item.jilas.map((jila) => (
+          
+          {item.jilas.map((jila) => {
+          const translatedJila = translateName(jila.jila_name, JilaTranslation);
+          return (
             <tr key={jila._id} className="jila-row">
-              <td>{jila.jila_name}</td>
+              <td>{translatedJila}</td>
               {fieldNames.map((fieldName, index) => (
                 <td key={index}>{getNestedData(jila, fieldName)}</td>
               ))}
             </tr>
-          ))}
+          );
+        })}
           {/* Grand Total Row */}
           <tr className="grand-total-row">
             <td><strong>{fieldLabels[language]?.GrandTotal}</strong></td>
@@ -365,7 +385,9 @@ const CollapsibleTable = () => {
     if (user.user_type === "prant") {
       return (
         <React.Fragment key={item._id}>
-          {item.vibhags.map((vibhag) => (
+          {item.vibhags.map((vibhag) => {
+             const translatedVibhag = translateName(vibhag.vibhag_name, VibhagTranslation);
+             return (
             <React.Fragment key={vibhag._id}>
               <tr
                 className="vibhag-row"
@@ -377,7 +399,7 @@ const CollapsibleTable = () => {
               >
                 <td>
                   <Button variant="link" onClick={() => toggleVibhag(vibhag.vibhag_name)}>
-                    {vibhag.vibhag_name}
+                  {translatedVibhag}
                   </Button>
                 </td>
                 {fieldNames.map((fieldName, index) => (
@@ -390,14 +412,17 @@ const CollapsibleTable = () => {
                     <div>
                       <Table bordered size="sm" className="custom-table">
                         <tbody>
-                          {vibhag.jilas.map((jila) => (
+                          {vibhag.jilas.map((jila) => {
+                            const translatedJila = translateName(jila.jila_name, JilaTranslation);
+                            return (
                             <tr key={jila._id} className="jila-row">
-                              <td>{jila.jila_name}</td>
+                              <td>{translatedJila}</td>
                               {fieldNames.map((fieldName, index) => (
                                 <td key={index}>{getNestedData(jila, fieldName)}</td>
                               ))}
                             </tr>
-                          ))}
+                           );
+                          })}
                         </tbody>
                       </Table>
                     </div>
@@ -405,7 +430,8 @@ const CollapsibleTable = () => {
                 </td>
               </tr>
             </React.Fragment>
-          ))}
+            );
+          })}
           {/* Grand Total Row */}
           <tr className="grand-total-row">
             <td><strong>{fieldLabels[language]?.GrandTotal}</strong></td>
@@ -420,7 +446,9 @@ const CollapsibleTable = () => {
     if (user.user_type === "kshetra") {
       return (
         <React.Fragment key={item._id}>
-          {item.prants.map((prant) => (
+          {item.prants.map((prant) => {
+            const translatedPrant = translateName(prant.prant_name, PrantTranslation);
+            return (
             <React.Fragment key={prant._id}>
               <tr
                 className="prant-row"
@@ -432,7 +460,7 @@ const CollapsibleTable = () => {
               >
                 <td>
                   <Button variant="link" onClick={() => togglePrant(prant.prant_name)}>
-                    {prant.prant_name}
+                  {translatedPrant}
                   </Button>
                 </td>
                 {fieldNames.map((fieldName, index) => (
@@ -445,7 +473,9 @@ const CollapsibleTable = () => {
                     <div>
                       <Table bordered size="sm" className="custom-table">
                         <tbody>
-                          {prant.vibhags.map((vibhag) => (
+                          {prant.vibhags.map((vibhag) => {
+                              const translatedVibhag = translateName(vibhag.vibhag_name, VibhagTranslation);
+                              return (
                             <React.Fragment key={vibhag._id}>
                               <tr
                                 className="vibhag-row"
@@ -457,7 +487,7 @@ const CollapsibleTable = () => {
                               >
                                 <td>
                                   <Button variant="link" onClick={() => toggleVibhag(vibhag.vibhag_name)}>
-                                    {vibhag.vibhag_name}
+                                  {translatedVibhag}
                                   </Button>
                                 </td>
                                 {fieldNames.map((fieldName, index) => (
@@ -466,8 +496,52 @@ const CollapsibleTable = () => {
                                   </td>
                                 ))}
                               </tr>
+                              {/* jila_row added */}
+                              <tr>
+                            <td colSpan={fieldNames.length + 1}>
+                              <Collapse in={openVibhag[vibhag.vibhag_name]}>
+                                <div>
+                                  <Table bordered size="sm" className="custom-table">
+                                    <tbody>
+                                      {vibhag.jilas && vibhag.jilas.length > 0 ? (
+                                        vibhag.jilas.map((jila) => {
+                                          const translatedJila = translateName(jila.jila_name, JilaTranslation);
+                                          return (
+
+                                          <tr
+                                            key={jila._id}
+                                            className="jila-row"
+                                            style={{
+                                              backgroundColor: jila._id ? "#f4a261" : "transparent",
+                                            }}
+                                            onClick={() => handlePrantRowClick(jila._id, null, "jila")}
+                                          >
+                                            <td>
+                                              <Button variant="link">{translatedJila}</Button>
+                                            </td>
+                                            {fieldNames.map((fieldName, index) => (
+                                              <td key={index}>{getNestedData(jila, fieldName) || "-"}</td>
+                                            ))}
+                                          </tr>
+                                         );
+                                        })
+                                      ) : (
+                                        <tr>
+                                          <td colSpan={fieldNames.length + 1} style={{ textAlign: "center" }}>
+                                            No Jila Available
+                                          </td>
+                                        </tr>
+                                      )}
+                                    </tbody>
+                                  </Table>
+                                </div>
+                              </Collapse>
+                            </td>
+                          </tr>
+                           {/* jila_row end */}
                             </React.Fragment>
-                          ))}
+                    );
+                  })}
                         </tbody>
                       </Table>
                     </div>
@@ -475,7 +549,8 @@ const CollapsibleTable = () => {
                 </td>
               </tr>
             </React.Fragment>
-          ))}
+           );
+        })}
           {/* Grand Total Row */}
           <tr className="grand-total-row">
             <td><strong>{fieldLabels[language]?.GrandTotal}</strong></td>
@@ -524,7 +599,9 @@ const CollapsibleTable = () => {
 {user.user_type === "kendra" && (
   <tbody>
     {data.map((kendra) =>
-      kendra.kshetras.map((kshettra, index) => (
+      kendra.kshetras.map((kshettra, index) => {
+        const translatedKshetra = translateName(kshettra.kshetra_name, kshetraTranslation);
+        return (
         <React.Fragment key={kshettra._id}>
           <tr
             className="kshettra-row"
@@ -539,7 +616,7 @@ const CollapsibleTable = () => {
                 variant="link"
                 onClick={() => toggleKshettra(kshettra.kshetra_name)}
               >
-                {kshettra.kshetra_name}
+                 {translatedKshetra}
               </Button>
             </td>
             {fieldNames.map((fieldName, index) => (
@@ -552,7 +629,9 @@ const CollapsibleTable = () => {
                 <div>
                   <Table bordered size="sm" className="custom-table">
                     <tbody>
-                      {kshettra.prants.map((prant, index) => (
+                      {kshettra.prants.map((prant, index) => {
+                          const translatedPrant = translateName(prant.prant_name, PrantTranslation);
+                          return (
                         <React.Fragment key={prant._id}>
                           <tr
                             className="prant-row"
@@ -569,7 +648,7 @@ const CollapsibleTable = () => {
                                 variant="link"
                                 onClick={() => togglePrant(prant.prant_name)}
                               >
-                                {prant.prant_name}
+                                {translatedPrant}
                               </Button>
                             </td>
                             {fieldNames.map((fieldName, index) => (
@@ -584,7 +663,9 @@ const CollapsibleTable = () => {
                                 <div>
                                   <Table bordered size="sm" className="custom-table">
                                     <tbody>
-                                      {prant.vibhags.map((vibhag, index) => (
+                                      {prant.vibhags.map((vibhag, index) => {
+                                       const translatedVibhag = translateName(vibhag.vibhag_name, VibhagTranslation);
+                                       return (
                                         <React.Fragment key={vibhag._id}>
                                           <tr
                                             className="vibhag-row"
@@ -601,7 +682,7 @@ const CollapsibleTable = () => {
                                                 variant="link"
                                                 onClick={() => toggleVibhag(vibhag.vibhag_name)}
                                               >
-                                                {vibhag.vibhag_name}
+                                                {translatedVibhag}
                                               </Button>
                                             </td>
                                             {fieldNames.map((fieldName, index) => (
@@ -616,16 +697,19 @@ const CollapsibleTable = () => {
                                                 <div>
                                                   <Table bordered size="sm" className="custom-table">
                                                     <tbody>
-                                                      {vibhag.jilas.map((jila) => (
+                                                      {vibhag.jilas.map((jila) => {
+                                                           const translatedJila = translateName(jila.jila_name, JilaTranslation);
+                                                           return (
                                                         <tr key={jila._id} className="jila-row">
-                                                          <td>{jila.jila_name}</td>
+                                                          <td>{translatedJila}</td>
                                                           {fieldNames.map((fieldName, index) => (
                                                             <td key={index}>
                                                               {getNestedData(jila, fieldName)}
                                                             </td>
                                                           ))}
                                                         </tr>
-                                                      ))}
+                                                       );
+                                                      })}
                                                     </tbody>
                                                   </Table>
                                                 </div>
@@ -633,7 +717,8 @@ const CollapsibleTable = () => {
                                             </td>
                                           </tr>
                                         </React.Fragment>
-                                      ))}
+                                      );
+                                    })}
                                     </tbody>
                                   </Table>
                                 </div>
@@ -641,7 +726,8 @@ const CollapsibleTable = () => {
                             </td>
                           </tr>
                         </React.Fragment>
-                      ))}
+                    );
+                  })}
                     </tbody>
                   </Table>
                 </div>
@@ -649,8 +735,9 @@ const CollapsibleTable = () => {
             </td>
           </tr>
         </React.Fragment>
-      ))
-    )}
+      );
+    })
+  )}
     {/* Grand Total Row */}
     <tr>
       <td className="fixed-header">{fieldLabels[language]?.GrandTotal}</td>
@@ -660,6 +747,7 @@ const CollapsibleTable = () => {
     </tr>
   </tbody>
 )}
+
 
 
       </Table>

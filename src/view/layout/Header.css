@@ -31,12 +31,12 @@
 }
 
 /* Language Selector */
-.language_option::before {
+/* .language_option::before {
   content: "Select Language:";
   font-size: 14px;
   margin-right: 5px;
   color: #333;
-}
+} */
 
 /* Language Dropdown */
 .form-select {
