@@ -46,6 +46,7 @@ const CollapsibleTable = () => {
     dispatch(fetchHierarchy());
   }, [dispatch]);
 
+  
   const toggleKshettra = (name) =>
     setOpenKshettra((prev) => ({ ...prev, [name]: !prev[name] }));
   const togglePrant = (name) =>
@@ -57,8 +58,8 @@ const CollapsibleTable = () => {
     { title: `${fieldLabels[language]?.mahanagar}`, count: 9 },
     { title: `${fieldLabels[language]?.anyaNagar}`, count: 9 },
     { title: `${fieldLabels[language]?.jilaKendra}`, count: 9 },
-    { title: `${fieldLabels[language]?.villagesOver5000}`, count: 4 },
-    { title: `${fieldLabels[language]?.villagesUnder5000}`, count: 2 },
+    { title: `${fieldLabels[language]?.TableVillagesOver5000}`, count: 4 },
+    { title: `${fieldLabels[language]?.TableVillagesUnder5000}`, count: 2 },
   ];
 
   const [openFieldGroups, setOpenFieldGroups] = useState(
@@ -82,46 +83,48 @@ const CollapsibleTable = () => {
   // console.log("userTypeeeee",user.user_type_id);
  
 
-  // console.log("datatatatta",data[0]?.kshetras[9]?.prants[0]?.vibhags[0]?.jilas[0]._id)
+  // console.log("datatatatta",data[0]?.kshetras[2]?.prants[0]?.vibhags[0]?.jilas)
+  // console.log("datatatatta",data[0]?.kshetras[3]?.prants[0]?.vibhags[0])
+
   
 
   
   
 
   const fieldNames = [
-    "जिला सम महानगर/भाग संख्या",
-    "इनमें सेवा बस्ती संख्या",
-    "सेवा कार्य युक्त सेवा बस्ती",
-    "व्यवसायी व महाविद्यालय शाखा व मिलन संख्या",
-    "सेवा बस्ती पालक शाखा व मिलन संख्या",
-    "सेवा कार्यकर्ता युक्त शाखा व मिलन संख्या",
-    "कुल सेवा कार्यकर्ता",
-    "महानगर में कुल सेवा कार्य (सेवा संस्थाओं के सेवा कार्य सहित)",
-    "मासिक सेवा बस्ती संपर्क करने वाली शाखा व मिलन संख्या",
-    "जिला सम महानगर/भाग संख्या",
-    "इनमें सेवा बस्ती संख्या",
-    "सेवा कार्य युक्त सेवा बस्ती",
-    "व्यवसायी व महाविद्यालय शाखा व मिलन संख्या",
-    "सेवा बस्ती पालक शाखा व मिलन संख्या",
-    "सेवा कार्यकर्ता युक्त शाखा व मिलन संख्या",
-    "कुल सेवा कार्यकर्ता",
-    "महानगर में कुल सेवा कार्य (सेवा संस्थाओं के सेवा कार्य सहित)",
-    "मासिक सेवा बस्ती संपर्क करने वाली शाखा व मिलन संख्या",
-    "जिला सम महानगर/भाग संख्या",
-    "इनमें सेवा बस्ती संख्या",
-    "सेवा कार्य युक्त सेवा बस्ती",
-    "व्यवसायी व महाविद्यालय शाखा व मिलन संख्या",
-    "सेवा बस्ती पालक शाखा व मिलन संख्या",
-    "सेवा कार्यकर्ता युक्त शाखा व मिलन संख्या",
-    "कुल सेवा कार्यकर्ता",
-    "महानगर में कुल सेवा कार्य (सेवा संस्थाओं के सेवा कार्य सहित)",
-    "मासिक सेवा बस्ती संपर्क करने वाली शाखा व मिलन संख्या",
-    "5000 या उससे अधिक जनसंख्या के ग्रामों की संख्या",
-    "इनमें व्यवसायी या कृषक शाखायुक्त ग्राम",
-    "इनमें सेवा कार्ययुक्त ग्राम",
-    "इनमें कुल सेवा कार्य",
-    "5000 से कम जनसंख्या के सेवा युक्त ग्राम संख्या",
-    "इनमें कुल सेवा कार्य",
+    `${fieldLabels[language]?.districtNumber}`,
+    `${fieldLabels[language]?.settlementNumber}`,
+    `${fieldLabels[language]?.serviceSettlementNumber}`,
+    `${fieldLabels[language]?.businessCollegeNumber}`,
+    `${fieldLabels[language]?.settlementBranchNumber}`,
+    `${fieldLabels[language]?.serviceWorkerBranchNumber}`,
+    `${fieldLabels[language]?.totalServiceWorkers}`,
+    `${fieldLabels[language]?.totalServiceWork}`,
+    `${fieldLabels[language]?.monthlyContactNumber}`,
+    `${fieldLabels[language]?.districtNumber}`,
+    `${fieldLabels[language]?.settlementNumber}`,
+    `${fieldLabels[language]?.serviceSettlementNumber}`,
+    `${fieldLabels[language]?.businessCollegeNumber}`,
+    `${fieldLabels[language]?.settlementBranchNumber}`,
+    `${fieldLabels[language]?.serviceWorkerBranchNumber}`,
+    `${fieldLabels[language]?.totalServiceWorkers}`,
+    `${fieldLabels[language]?.totalServiceWork}`,
+    `${fieldLabels[language]?.monthlyContactNumber}`,
+    `${fieldLabels[language]?.districtNumber}`,
+    `${fieldLabels[language]?.settlementNumber}`,
+    `${fieldLabels[language]?.serviceSettlementNumber}`,
+    `${fieldLabels[language]?.businessCollegeNumber}`,
+    `${fieldLabels[language]?.settlementBranchNumber}`,
+    `${fieldLabels[language]?.serviceWorkerBranchNumber}`,
+    `${fieldLabels[language]?.totalServiceWorkers}`,
+    `${fieldLabels[language]?.totalServiceWork}`,
+    `${fieldLabels[language]?.monthlyContactNumber}`,
+    `${fieldLabels[language]?.villagesAbove5000}`,
+    `${fieldLabels[language]?.businessVillageNumber}`,
+    `${fieldLabels[language]?.serviceVillageNumber}`,
+    `${fieldLabels[language]?.totalServiceInVillages}`,
+    `${fieldLabels[language]?.villagesUnder5000}`,
+    `${fieldLabels[language]?.totalServiceInVillages}`,
   ];
 
   // Helper function to get nested data
@@ -137,40 +140,40 @@ const CollapsibleTable = () => {
     } = jila.reporting_form;
 
     switch (fieldName) {
-      case "जिला सम महानगर/भाग संख्या":
+      case `${fieldLabels[language]?.districtNumber}`:
         return mahanagar?.zila_sam_mahanagar_bhag_sankhya || "-";
-      case "इनमें सेवा बस्ती संख्या":
+      case `${fieldLabels[language]?.settlementNumber}`:
         return mahanagar?.sewa_basti_sankhya || "-";
-      case "सेवा कार्य युक्त सेवा बस्ती":
+      case `${fieldLabels[language]?.serviceSettlementNumber}`  :
         return mahanagar?.sewa_kary_yukt_sewa_basti || "-";
-      case "व्यवसायी व महाविद्यालय शाखा व मिलन संख्या":
+      case `${fieldLabels[language]?.businessCollegeNumber}`:
         return (
           mahanagar?.vyavsayee_w_mahawidyalay_shakha_w_milan_sankhya || "-"
         );
-      case "सेवा बस्ती पालक शाखा व मिलन संख्या":
+      case `${fieldLabels[language]?.settlementBranchNumber}`:
         return mahanagar?.sewa_basti_palak_shakha_w_milan_sankhya || "-";
-      case "सेवा कार्यकर्ता युक्त शाखा व मिलन संख्या":
+      case `${fieldLabels[language]?.serviceWorkerBranchNumber}`:
         return mahanagar?.sewa_karyakarta_yukt_shakha_w_milan_sankhya || "-";
-      case "कुल सेवा कार्यकर्ता":
+      case `${fieldLabels[language]?.totalServiceWorkers}`:
         return mahanagar?.kul_sewa_karyakarta || "-";
-      case "महानगर में कुल सेवा कार्य (सेवा संस्थाओं के सेवा कार्य सहित)":
+      case `${fieldLabels[language]?.totalServiceWork}`:
         return mahanagar?.mahanagar_mein_kul_sewa_kary || "-";
-      case "मासिक सेवा बस्ती संपर्क करने वाली शाखा व मिलन संख्या":
+      case `${fieldLabels[language]?.monthlyContactNumber}`:
         return (
           mahanagar?.masik_sewa_basti_sampark_karne_wali_shakha_w_milan_sankhya ||
           "-"
         );
-      case "5000 या उससे अधिक जनसंख्या के ग्रामों की संख्या":
+      case `${fieldLabels[language]?.villagesAbove5000}`:
         return villagesOver5000?.total_villages || "-";
-      case "इनमें व्यवसायी या कृषक शाखायुक्त ग्राम":
+      case `${fieldLabels[language]?.businessVillageNumber}`:
         return villagesOver5000?.business_and_farming_villages || "-";
-      case "इनमें सेवा कार्ययुक्त ग्राम":
+      case `${fieldLabels[language]?.serviceVillageNumber}`:
         return villagesOver5000?.service_work_villages || "-";
-      case "इनमें कुल सेवा कार्य":
+      case `${fieldLabels[language]?.totalServiceInVillages}`:
         return villagesOver5000?.total_service_work || "-";
-      case "5000 से कम जनसंख्या के सेवा युक्त ग्राम संख्या":
+      case `${fieldLabels[language]?.villagesUnder5000}`:
         return villagesUnder5000?.service_work_villages || "-";
-      case "इनमें कुल सेवा कार्य":
+      case `${fieldLabels[language]?.totalServiceInVillages}`:
         return villagesUnder5000?.total_service_work || "-";
       default:
         return "-";
@@ -278,7 +281,7 @@ const CollapsibleTable = () => {
     return name; 
   };
 
-  if (loading) return <PropagateLoader className="text-center" />;
+  if (loading) return <PropagateLoader className="text-center" color="#ff6600" />;
   if (error) return <p>Error: {error?.message}</p>;
   if (loading || error) {
     return <Loader loading={loading} error={error} />;
@@ -290,7 +293,7 @@ const CollapsibleTable = () => {
         <thead>
           <tr>
             <th rowSpan="2" className="fixed-header table-main-heading">
-              क्षेत्र / प्रांत / विभाग / जिला
+            {fieldLabels[language]?.KshetraPrantVibahgJila}
             </th>
             {fieldGroups.map((group, index) => (
               <th
@@ -298,7 +301,16 @@ const CollapsibleTable = () => {
                 colSpan={group.count}
                 className="fixed-header table-main-heading"
                 onClick={() => toggleFieldGroup(index)}
-                style={{ cursor: "pointer", backgroundColor: "#f0f0f0" }}
+                style={{ 
+                  cursor: "pointer",
+                  backgroundColor: "#f0f0f0",
+                  transition: "width 0.3s ease-in-out",
+                  width: openFieldGroups[index] ? "500px" : "350px",
+                  textAlign: "center", 
+                  whiteSpace: "nowrap", 
+                  overflow: "hidden", 
+                }}
+                
               >
                 {group.title} {openFieldGroups[index] ? "▲" : "▼"}
               </th>

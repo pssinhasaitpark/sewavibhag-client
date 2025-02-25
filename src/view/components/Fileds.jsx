@@ -1768,9 +1768,4 @@ JilaTranslation["hubballi mahanagar"] = JilaTranslation["HUBBALLIMAHANAGAR"];
 
 
 
-
-
-
-
-
 export {JilaTranslation,VibhagTranslation,PrantTranslation,kshetraTranslation,KendraTranslation}
