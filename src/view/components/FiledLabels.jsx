@@ -67,7 +67,10 @@ const fieldLabels = {
       ToatalPrant:"Toatal Prant",
       NoDataAvailable:"No Data Available",
       SaveAsSubmit:"Save As Submit",
-      Submit:"Submit"
+      Submit:"Submit",
+      Viewer:'Viewer',
+      Editor:'Editor',
+      Admin:"Editor",
        },
 
 
@@ -143,6 +146,9 @@ const fieldLabels = {
       NoDataAvailable:"कोई डेटा उपलब्ध नहीं है",
       SaveAsSubmit:"सहेजें और सबमिट करें",
       Submit:"सबमिट करें",
+      Viewer:'दर्शक',
+      Editor:'संपादक',
+      Admin:"प्रशासक",
       
    },
     };

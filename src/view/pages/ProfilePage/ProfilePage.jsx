@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Form, Toast } from "react-bootstrap";
 import { fetchUser, updateUser } from "../../redux/slice/profileSlice";
 import { FaUserCircle } from "react-icons/fa";
-import "./ProfilePage.css"
-
-
+import "./ProfilePage.css";
 import fieldLabels from "../../components/FiledLabels";
 
 export default function ProfilePage() {
@@ -16,7 +14,6 @@ export default function ProfilePage() {
   const language = useSelector((state) => state.language.language);
   const labels = fieldLabels[language];
 
-  const userData = useSelector((state) => state.profile.user);
   const token = useSelector((state) => state.profile.token) || localStorage.getItem("token");
 
   const [profile, setProfile] = useState(null);
@@ -24,12 +21,12 @@ export default function ProfilePage() {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastVariant, setToastVariant] = useState("success");
+
   useEffect(() => {
     if (showToast) {
       const timer = setTimeout(() => {
         setShowToast(false);
-      }, 3000); // Hide toast after 3 seconds
-
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [showToast]);
@@ -41,22 +38,23 @@ export default function ProfilePage() {
       return;
     }
 
-
     dispatch(fetchUser())
       .unwrap()
       .then((res) => {
         if (res?.status === "success" && res?.data) {
-          setProfile(res.data);
+          setProfile(res.data); // ✅ Store actual user data
         }
       })
       .catch((error) => console.error("Failed to fetch user:", error));
   }, [dispatch, token, navigate]);
 
-  const handleUpdate = (field, value) => {
-    if (!profile?.user) return;
+  console.log("profile", profile);
 
-    const updatedUser = { ...profile.user, [field]: value };
-    setProfile((prev) => ({ ...prev, user: updatedUser }));
+  const handleUpdate = (field, value) => {
+    if (!profile) return;
+
+    const updatedUser = { ...profile, [field]: value };
+    setProfile(updatedUser);
 
     dispatch(updateUser({ [field]: value }))
       .unwrap()
@@ -73,7 +71,7 @@ export default function ProfilePage() {
   };
 
   const getUserDesignation = () => {
-    switch (profile?.user?.user_type) {
+    switch (profile?.user_type) {
       case "prant":
         return profile?.prant_name ? `Prant: ${profile.prant_name}` : "Prant Not Available";
       case "vibhag":
@@ -94,13 +92,13 @@ export default function ProfilePage() {
       <Container className="py-5">
         <Row className="g-4">
           <Col lg={5} md={6} sm={12}>
-            <Card className="shadow-sm text-center p-3 h-100 ">
+            <Card className="shadow-sm text-center p-3 h-100">
               <Card.Body className="d-flex flex-column align-items-center">
                 <label htmlFor="avatarInput" style={{ cursor: "pointer" }}>
                   <FaUserCircle size={100} />
                 </label>
 
-                <h5 className="mb-1">{profile?.user?.full_name || "User Name"}</h5>
+                <h5 className="mb-1">{profile?.full_name || "User Name"}</h5>
                 <p className="text-muted">{getUserDesignation()}</p>
               </Card.Body>
             </Card>
@@ -110,9 +108,9 @@ export default function ProfilePage() {
             <Card className="shadow-sm p-3 h-100">
               <Card.Body className="d-flex flex-column justify-content-between">
                 {[
-                  { label: fieldLabels[language]?.FULLNAME, key: "full_name" },
-                  { label: fieldLabels[language]?.EMAIL, key: "email" },
-                  { label: fieldLabels[language]?.MOBILE, key: "mobile" },
+                  { label: labels?.FULLNAME, key: "full_name" },
+                  { label: labels?.EMAIL, key: "email" },
+                  { label: labels?.MOBILE, key: "mobile" },
                 ].map(({ label, key }) => (
                   <div key={key}>
                     <Row className="mb-2">
@@ -123,7 +121,7 @@ export default function ProfilePage() {
                         {editField === key ? (
                           <Form.Control
                             type="text"
-                            value={profile?.user?.[key] || ""}
+                            value={profile?.[key] || ""}
                             onChange={(e) => handleUpdate(key, e.target.value)}
                             onBlur={() => setEditField(null)}
                             style={{
@@ -134,7 +132,7 @@ export default function ProfilePage() {
                             className="custom-input"
                           />
                         ) : (
-                          <span className="text-muted">{profile?.user?.[key] || "Not provided"}</span>
+                          <span className="text-muted">{profile?.[key] || "Not provided"}</span>
                         )}
                       </Col>
                       <Col sm={1} className="text-end">
@@ -158,10 +156,26 @@ export default function ProfilePage() {
                 ))}
               </Card.Body>
             </Card>
-
           </Col>
         </Row>
       </Container>
+
+      {/* Toast Notification */}
+      <Toast
+        show={showToast}
+        onClose={() => setShowToast(false)}
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          right: "20px",
+          backgroundColor: toastVariant === "success" ? "#28a745" : "#dc3545",
+          color: "white",
+          padding: "10px",
+          borderRadius: "5px",
+        }}
+      >
+        <Toast.Body>{toastMessage}</Toast.Body>
+      </Toast>
     </section>
   );
 }
