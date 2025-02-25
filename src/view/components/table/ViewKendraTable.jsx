@@ -305,14 +305,21 @@ const CollapsibleTable = () => {
                   cursor: "pointer",
                   backgroundColor: "#f0f0f0",
                   transition: "width 0.3s ease-in-out",
-                  width: openFieldGroups[index] ? "500px" : "350px",
+                  width: openFieldGroups[index] ? "500px" : "1000px",
                   textAlign: "center", 
                   whiteSpace: "nowrap", 
                   overflow: "hidden", 
+                  display: "table-cell",
+                  minWidth: "300px",
+                  maxWidth: "800px",
+                  verticalAlign: "middle"
                 }}
                 
               >
-                {group.title} {openFieldGroups[index] ? "▲" : "▼"}
+              <span style={{ display: "inline-block", width: "100%" }}>
+              {group.title} {openFieldGroups[index] ? "▲" : "▼"}
+            </span>
+                {/* {group.title} {openFieldGroups[index] ? "▲" : "▼"} */}
               </th>
             ))}
           </tr>
