@@ -4,7 +4,7 @@ import { PropagateLoader } from "react-spinners";
 const Loader = ({ loading, error }) => {
   if (loading)
     return (
-      <div className="d-flex justify-content-center align-items-center">
+      <div className="d-flex justify-content-center vh-100 align-items-center">
         <PropagateLoader color="#ff6600" />
       </div>
     );

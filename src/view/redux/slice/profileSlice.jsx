@@ -10,6 +10,7 @@ export const fetchUser = createAsyncThunk("profile/fetchUser", async (_, { rejec
     const response = await axios.get(`${BASE_URL}/api/v1/me`, {
       headers: { Authorization: `Bearer ${token}` },
     });
+    
     return response?.data;
   } catch (error) {
     return rejectWithValue(
@@ -19,32 +20,17 @@ export const fetchUser = createAsyncThunk("profile/fetchUser", async (_, { rejec
 }
 );
 
-export const updateUser = createAsyncThunk(
-  "profile/updateUser",
-  async (updatedData, { rejectWithValue, getState }) => {
-    try {
-      const token = localStorage.getItem("token");
-      const userTypeId = getState().profile.user?.user_type_id;
-
-      if (!userTypeId) {
-        return rejectWithValue("User Type ID not found");
-      }
-
-      const response = await axios.patch(
-        `${BASE_URL}/api/v1/update`,
-        { user_id: userTypeId, ...updatedData },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(
-        error.response?.data || "Failed to update user data"
-      );
-    }
+export const updateUser = createAsyncThunk("profile/updateUser", async (updatedData, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await axios.patch(`${BASE_URL}/api/v1/update`, updatedData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response?.data || "Failed to update user data");
   }
-);
+});
 
 const profileSlice = createSlice({
   name: "profile",
@@ -86,3 +72,4 @@ const profileSlice = createSlice({
 });
 
 export default profileSlice.reducer;
+
