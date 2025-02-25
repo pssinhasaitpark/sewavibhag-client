@@ -1,15 +1,38 @@
+/* html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; 
+} */
+
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  text-align: center;
+  overflow: hidden; 
+}
+
+.not-found-content {
+  max-width: 600px;
+  padding: 20px;
+}
 .custom-404-btn {
-    background-color: #ff6600 !important; /* Deep Saffron */
-    background-image: linear-gradient(315deg, #ff9933 0%, #ff6600 50%, #cc3300 100%) !important;
-    border: none !important;
-    color: white !important;
-    font-size: 1.2rem;
-    border-radius: 8px;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .custom-404-btn:hover {
-    background-image: linear-gradient(315deg, #cc3300 0%, #ff6600 50%, #ff9933 100%) !important;
-    transform: scale(1.05);
-  }
-  
+  background-color: #ff6600 !important;
+  background-image: linear-gradient(315deg, #ff9933 0%, #ff6600 50%, #cc3300 100%) !important;
+  border: none !important;
+  color: white !important;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  padding: 10px 20px;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.custom-404-btn:hover {
+  background-image: linear-gradient(315deg, #cc3300 0%, #ff6600 50%, #ff9933 100%) !important;
+  transform: scale(1.05);
+}

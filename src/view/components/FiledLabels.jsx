@@ -74,7 +74,10 @@ const fieldLabels = {
       NoUsersAvailable:"No Users Available",
       TableVillagesOver5000:"More than 5000",
       TableVillagesUnder5000:"Less than 5000",
-      AreaType:"Area Type"
+      AreaType:"Area Type",
+      Viewer:'Viewer',
+      Editor:'Editor',
+      Admin:"Editor",
        },
 
 
@@ -159,7 +162,11 @@ const fieldLabels = {
       AreaType:"क्षेत्र प्रकार",
       NoUsersAvailable:"कोई उपयोगकर्ता उपलब्ध नहीं है",
       TableVillagesOver5000:"5000 से अधिक",
-      TableVillagesUnder5000:"5000 से कम"
+      TableVillagesUnder5000:"5000 से कम",
+      Viewer:'दर्शक',
+      Editor:'संपादक',
+      Admin:"प्रशासक",
+      
    },
     };
 
