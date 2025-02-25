@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import fieldLabels from "./FiledLabels";
 import { fetchVibhagList, fetchFormDataByJila, updateReportingForm, clearFormData } from "../redux/slice/JilaReportSlice"; 
+import { JilaTranslation, kshetraTranslation, PrantTranslation, VibhagTranslation } from "./Fileds";
 
 const Jilareport = () => {
   const dispatch = useDispatch();
@@ -221,6 +222,13 @@ const Jilareport = () => {
   };
 
 
+  const translateName = (name, translationMap) => {
+    if (language.trim() === "hindi" && translationMap[name]) {
+      return translationMap[name];
+    }
+    return name; 
+  };
+
 
 
 
@@ -249,7 +257,7 @@ const Jilareport = () => {
                     }}
                   >
                     <option value="" className="bg-dark text-light">
-                      Select Vibhag
+                    {fieldLabels[language]?.selectVibhag}
                     </option>
                     {/* {vibhagList?.map((vibhag) => {
                       return (
@@ -268,11 +276,13 @@ const Jilareport = () => {
                       );
                     })} */}
                      {vibhagList?.flatMap((vibhag) =>
-                      vibhag.vibhags?.map((item) => (
+                      vibhag.vibhags?.map((item) => {
+                      const translatedVibhag = translateName(item.vibhag_name, VibhagTranslation);
+                      return (
                         <option key={item.id} value={item._id}>
-                          {item.vibhag_name}
+                          {translatedVibhag}
                         </option>
-                      ))
+                      )})
                     )}
                   </Form.Control>
 
@@ -284,13 +294,14 @@ const Jilareport = () => {
                       onChange={(e) => setSelectedJila(e.target.value)}
                     >
                       <option value="" className="bg-dark text-light">
-                        Select Jila
+                      {fieldLabels[language]?.selectJila}
                       </option>
                       {jilaList[0].jilas?.map((jila) => {
+                        const translatedJila = translateName(jila.jila_name, JilaTranslation);
                         return (
                           <>
                             <option key={jila._id} value={jila._id}>
-                              {jila.jila_name}
+                              {translatedJila}
                             </option>
                           </>
                         );
