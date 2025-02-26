@@ -45,10 +45,11 @@ function Layout() {
   }, []);
 
   useEffect(() => {
-    if (isLoginPage) {
+    if (isLoginPage && localStorage.getItem("token")) {
       localStorage.removeItem("token");
     }
   }, [isLoginPage]);
+  
 
   return (
     <div className="d-flex">
