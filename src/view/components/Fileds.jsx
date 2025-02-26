@@ -1520,7 +1520,27 @@ const JilaTranslation = {
    THIRUVANANTHAPURAMGRAMAM: "तिरुवनंतपुरम ग्रामम",
    THIRUVANANTHAPURAMMAHANAGAR: "तिरुवनंतपुरम महानगर",
    Kumari_E: "कुमारी ईस्ट",
-   Kumari_W:"कुमारी वेस्ट"
+   Kumari_W:"कुमारी वेस्ट",
+   Chengalpattu: "चेंगलपट्टू",
+Kanchipuram: "कांचीपुरम",
+Ranipettai: "रानीपेट्टई",
+Thiruvallur: "तिरुवल्लूर",
+Namakkal: "नमक्कल",
+Erode: "इरोड",
+Gobichettipalayam: "गोबिचेट्टिपालयम",
+Krishnagiri: "कृष्णगिरि",
+Attur: "अट्टूर",
+Dharmapuri: "धर्मपुरी",
+Salem: "सेलम",
+Thiruppattur: "तिरुप्पत्तूर",
+Vandavasi: "वंदावासी",
+Vellore: "वेल्लोर",
+Tiruvannamalai: "तिरुवन्नामलाई",
+Pondy: "पॉन्डी",
+Cuddalore: "कुड्डालोर",
+Kallakurichi: "कल्लकुरिची",
+Villupuram: "विल्लुपुरम",
+
 
 
     
@@ -1843,7 +1863,7 @@ JilaTranslation["Chota Uadipur"] = JilaTranslation["ChotaUadipur"];
 JilaTranslation["Ashok Nagar"] = JilaTranslation["AshokNagar"];
 JilaTranslation["Ambagadh Chowki"] = JilaTranslation["AmbagadhChowki"];
 JilaTranslation["Lavkush nagar"] = JilaTranslation["Lavkushnagar"];
-JilaTranslation["Kalla kurichi"] = JilaTranslation["KallaKurichi"];
+JilaTranslation["Kalla kurichi"] = JilaTranslation["Kallakurichi"];
 JilaTranslation["Haora Gramin"] = JilaTranslation["HaoraGramin"];
 JilaTranslation["Kolakata uttar poorw"] = JilaTranslation["KolakataUttarPoorw"];
 JilaTranslation["Maddhya Howrah"] = JilaTranslation["MaddhyaHowrah"];
