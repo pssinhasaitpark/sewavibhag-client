@@ -239,7 +239,7 @@ const VibhagTranslation = {
     Gurugram: "गुरुग्राम",
     Bhivani: "भिवानी",
     Hissar: "हिसार",
-    Kathua: "Kathua",
+    Kathua: "कटुआ",
     Jammu: "जम्मू",
     Rajouri: "राजौरी",
     Udhampur: "उधमपुर",
@@ -347,6 +347,10 @@ const VibhagTranslation = {
     KolakataPurv: "कोलकाता पूर्व",
     Kolakatadakshinpoorw: "कोलकाता दक्षिण पूर्व",
     Kolakatadakshinpashchim: "कोलकाता दक्षिण पश्चिम",
+    KolkataUttar: "कोलकाता उत्तर",
+    KolkataDakshinPashchim: "कोलकाता दक्षिण पश्चिम",
+    KolkataDakshinPoorw: "कोलकाता दक्षिण पूर्व",
+    Mandi: "मंडी",
     Nadiya: "नदिया",
     Birbhum: "बीरभूम",
     Vardhaman: "वर्धमान",
@@ -382,7 +386,7 @@ const VibhagTranslation = {
     Kameng: "कामेंग",
     DharmNagar: "धर्मनगर",
     Agartala: "अगरतला",
-    
+    KolkataPurv: "कोलकाता पूर्व",
 }
 
 
@@ -426,33 +430,33 @@ const JilaTranslation = {
    PAYYANNUR: "पय्यन्नूर",
    KUMARI_W: "कुमारी (पश्चिम)",
    KUMARI_E: "कुमारी (पूर्व)",
-   TENKASI: "तेनकासी",
-   TIRUNELVELI: "तिरुनेलवेली",
-   TIRUCHENDUR: "तिरुचेंदुर",
-   THOOTHUKKUDI: "थूथुकुडी",
-   VIRUDUNAGAR: "विरुधुनगर",
-   MADURAI: "मदुरै",
-   THENI: "थेनी",
-   DINDUKKAL: "दिंडुक्कल",
+   Tenkasi: "तेनकासी",
+   Tirunelveli: "तिरुनेलवेली",
+   Tiruchendur: "तिरुचेंदुर",
+   Thoothukkudi: "थूथुकुडी",
+   Virudunagar: "विरुधुनगर",
+   Madurai: "मदुरै",
+   Theni: "थेनी",
+   Dindukkal: "दिंडुक्कल",
    MADURAI_MAHANAGAR: "मदुरै महानगर",
    RAMANATHAPURAM: "रामनाथपुरम",
-   SIVAGANGAI: "सिवगंगाई",
-   ARANTHANGI: "अरंथंगी",
-   PUDUKKOTTAI: "पुडुकोट्टाई",
+   Sivagangai: "सिवगंगाई",
+   Aranthangi: "अरंथंगी",
+   Pudukkottai: "पुडुकोट्टाई",
    NAGAPATTINAM: "नागपट्टिनम",
    TIRUVARUR: "तिरुवरूर",
    PATTUKKOTTAI: "पट्टुकोट्टाई",
    TANJAVUR: "तंजावुर",
-   ARIYALUR: "आरीयालुर",
-   PERAMBALUR: "पेरम्बलुर",
-   TIRUCHY: "तिरुचि",
-   KARUR: "करूर",
-   DHARAPURAM: "धारापुरम",
-   TIRUPPUR: "तिरुप्पुर",
-   NILAGIRI: "निलगिरी",
-   MET_PALAYAM: "मेट-पलयम",
-   POLLACHI: "पोलाची",
-   KOVAI: "कोवई",
+   Ariyalur: "आरीयालुर",
+   Perambalur: "पेरम्बलुर",
+   Tiruchy: "तिरुचि",
+   Karur: "करूर",
+   Dharapuram: "धारापुरम",
+   Tiruppur: "तिरुप्पुर",
+   Nilagiri: "निलगिरी",
+   METPALAYAM: "मेट-पलयम",
+   Pollachi: "पोलाची",
+   Kovai: "कोवई",
    GOBICHETTIPALAYAM: "गोबिचेट्टिपलयम",
    ERODE: "एरोड",
    NAMAKKAL: "नमक्कल",
@@ -898,7 +902,7 @@ const JilaTranslation = {
    Vidyadhar: "विद्याधर",
    Pali: "पाली",
    Bali: "बाली",
-   Sojat: "सोjat",
+   Sojat: "सोजत",
    Jalaur: "जालौर",
    Bheenman: "भीनमण",
    Sirohi: "सिरोही",
@@ -1010,7 +1014,7 @@ const JilaTranslation = {
    Jagadhari: "जगाधरी",
    Kurukshetra: "कुरुक्षेत्र",
    Kaidhal: "कैथल",
-   Karnal: "करनाल",
+   karnal: "करनाल",
    Panipat: "पानीपत",
    Rohtak: "रोहतक",
    Jeed: "जीद",
@@ -1056,7 +1060,6 @@ const JilaTranslation = {
    Bilaspur: "बिलासपुर",   
    Hamirpur: "हमीरपुर",
    Una: "ऊना",
-   Mandi: "मंडी",
    Sarkaghat: "सरकाघाट",
    Sundarnagar: "सुंदरनगर",
    Banjar: "बांजार",
@@ -1067,7 +1070,7 @@ const JilaTranslation = {
    Shimla: "शिमला",
    Mhasu: "महासू",
    Rohdu: "रोहडू",
-   Dadlaghat: "ददलगाट",
+   dadlaghat: "ददलगाट",
    Solen: "सोलन",
    Nalagadh: "नलगढ़",
    Haripudhar: "हरीपुरधार",
@@ -1098,8 +1101,8 @@ const JilaTranslation = {
    Halvaani: "हल्द्वानी",
    UdhamsinhNagar: "उधमसिंह नगर",
    Kashipur: "काशीपुर",
-   Bijnor: "बिजनोर",
-   Dhampur: "धामपुर",
+   BIJNOR: "बिजनोर",
+   DHAMPUR: "धामपुर",
    Bulandshahar: "बुलंदशहर",
    Khurja: "खुर्जा",
    AnuppurShahar: "अनुपपुर शहर",
@@ -1107,24 +1110,24 @@ const JilaTranslation = {
    VaishaliMahanagar: "वैशाली महानगर",
    HarnandiMahanagar: "हर्नांडी महानगर",
    GaziabadJila: "गाजियाबाद जिला",
-   Bagpat: "बागपत",
-   Laxminagar: "लक्ष्मी नगर",
-   Shamli: "शामली",
-   Hapur: "हापुड़",
-   Mawana: "मवाना",
-   Meerut: "मेरठ",
-   Sardhana: "सढ़ाना",
-   Moradabad: "मुरादाबाद",
-   Rampur: "रामपुर",
-   Thakurdwara: "ठाकुरद्वारा",
+   BAGPAT: "बागपत",
+   LAXMINAGAR: "लक्ष्मी नगर",
+   SHAMLI: "शामली",
+   HAPUR: "हापुड़",
+   MAWANA: "मवाना",
+   MEERUT: "मेरठ",
+   SARDHANA: "सढ़ाना",
+   MORADABAD: "मुरादाबाद",
+   RAMPUR: "रामपुर",
+   THAKURDWARA: "ठाकुरद्वारा",
    NoidaMahanagar: "नोएडा महानगर",
    GoutambuddhNagar: "गौतमबुद्ध नगर",
-   Behat: "बेहट",
-   DevVrind: "देववृन्द",
-   Saharanpur: "सहारनपुर",
-   Amroha: "अमरोहा",
-   Babarala: "बबराला",
-   Sambhal: "साम्भाल",
+   BEHAT: "बेहट",
+   DEVVRIND: "देववृन्द",
+   SAHARANPUR: "सहारनपुर",
+   AMROHA: "अमरोहा",
+   BABARALA: "बबराला",
+   SAMBHAL: "साम्भाल",
    AgraPaschimMahanagar: "आगरा पश्चिम महानगर",
    AgraPurvMahanagar: "आगरा पूर्व महानगर",
    AgraChawaniMahanagar: "आगरा छावनी महानगर",
@@ -1181,7 +1184,7 @@ const JilaTranslation = {
    Raibareli: "रायबरेली",
    Lalganj: "लालगंज",
    Ulaw: "उलाव",
-   LavKushNagar: "लव-कुश नगर",
+   Lav_KushNagar: "लव-कुश नगर",
    Haradoi: "हरदोई",
    Sandila: "संडीला",
    Sitapur: "सीतापुर",
@@ -1376,11 +1379,11 @@ const JilaTranslation = {
    MaddhyaHowrah: "मध्य हावड़ा",
    UttarHowrah: "उत्तर हावड़ा",
    UttarPaschimHowrah: "उत्तर पश्चिम हावड़ा",
-   Kolakatauttar: "कोलकाता उत्तर",
+   KolakataUttar: "कोलकाता उत्तर",
    KolakataMaddhya: "कोलकाता मध्य",
    KolakataPashchim: "कोलकाता पश्चिम",
    KolakataPoorw: "कोलकाता पूर्व",
-   Kolakatauttarpoorw: "कोलकाता उत्तर पूर्व",
+   KolakataUttarPoorw: "कोलकाता उत्तर पूर्व",
    Baghajatin: "बाघाजातिन",
    Deshpriya: "देशप्रिय",
    Thakurpukur: "ठाकुरपुकुर",
@@ -1396,7 +1399,7 @@ const JilaTranslation = {
    Katoya: "कटोया",
    Vardhaman: "वर्धमान",
    Asansol: "आसनसोल",
-   Uttarbankukra: "उत्तर बैंकुका",
+   UttarBankukra: "उत्तर बैंकुका",
    DakshinBankura: "दक्षिण बांकुरा",
    Purulia: "पुरुलिया",
    Hugali: "हुगली",
@@ -1409,7 +1412,7 @@ const JilaTranslation = {
    Darjiling: "दार्जिलिंग",
    Kalimpong: "कालिम्पोंग",
    SikkimUttarPoorwa: "सिक्किम उत्तर पूर्व",
-   SikkimDaxinpashchim: "सिक्किम दक्षिण पश्चिम",
+   SikkimDaxinPashchim: "सिक्किम दक्षिण पश्चिम",
    Eswarpur: "ईश्वरपुर",
    UttarDinajpur: "उत्तर दिनाजपुर",
    DaxinDinajpur: "दक्षिण दिनाजपुर",
@@ -1498,6 +1501,28 @@ const JilaTranslation = {
    DakshinTripura: "दक्षिण त्रिपुरा",   
    MangluruMahanagar: "मंगलुरू महानगर",
    MangluruGramantar: "मंगलुरू ग्रामंतर",
+   GorakhapurMahanagarUttar: "गोरखपुर महानगर उत्तर",
+   GorakhapurMahanagarGramin: "गोरखपुर महानगर ग्रामीण",
+   GorakhapurMahanagarDakshin: "गोरखपुर महानगर दक्षिण",
+   kotaMahaanagar: "कोटा महानगर",
+   NaviMumbai: "नवी मुंबई",
+   NashikMananagar: "नाशिक महानगर",
+   THIRUVOTTIYURBHAG: "थिरुवोट्टियूर भाग",
+   KOZHIKODEMAHANAGAR: "कोझिकोडे महानगर",
+   MaduariMahanagar: "मदुरै महानगर",
+   Triuvarur: "तिरुवरूर",
+   Nagapattanam: "नागपट्टिनम",
+   Pattukkottai: "पट्टुकोट्टई",
+   Tanjavur: "तंजावुर",
+   Ramanathpuram: "रामनाथपुरम",
+   KOLLAMMAHANAGAR: "कोल्लम महानगर",
+   KOLLAMGRAMAM: "कोल्लम ग्रामम",
+   THIRUVANANTHAPURAMGRAMAM: "तिरुवनंतपुरम ग्रामम",
+   THIRUVANANTHAPURAMMAHANAGAR: "तिरुवनंतपुरम महानगर",
+   Kumari_E: "कुमारी ईस्ट",
+   Kumari_W:"कुमारी वेस्ट"
+
+
     
 }
 
@@ -1524,7 +1549,7 @@ PrantTranslation["Karnatak Uttar"] = PrantTranslation["KarnatakUttar"];
 PrantTranslation["Karnataka Dakshin"] = PrantTranslation["KarnatakaDakshin"];
 PrantTranslation["Paschim Maharashtra"] = PrantTranslation["PaschimMaharashtra"];
 PrantTranslation["Madhya Bharat"] = PrantTranslation["MadhyaBharat"];
-PrantTranslation["Jammu Kashmir"] = PrantTranslation["JammuKashimir"];
+PrantTranslation["Jammu Kashimir"] = PrantTranslation["JammuKashimir"];
 PrantTranslation["Uttar Bihar"] = PrantTranslation["UttarBihar"];
 PrantTranslation["Dakshin Bihar"] = PrantTranslation["DakshinBihar"];
 PrantTranslation["Odisa Paschim"] = PrantTranslation["OdisaPaschim"];
@@ -1624,6 +1649,38 @@ VibhagTranslation["Central West Bengal"] = VibhagTranslation["CentralWestBengal"
 VibhagTranslation["East West Bengal"] = VibhagTranslation["EastWestBengal"]
 VibhagTranslation["West West Bengal"] = VibhagTranslation["WestWestBengal"]
 
+VibhagTranslation["Siddharth Nagar"] = VibhagTranslation["SiddharthNagar"];
+VibhagTranslation["Chitrakoot Dham"] = VibhagTranslation["ChitrakootDham"];
+VibhagTranslation["Dharm Nagar"] = VibhagTranslation["DharmNagar"];
+VibhagTranslation["jaipur"] = VibhagTranslation["Jaipur"];
+VibhagTranslation["Sawai Madhopur"] = VibhagTranslation["SawaiMadhopur"];
+VibhagTranslation["Shree Ganganagar"] = VibhagTranslation["ShreeGanganagar"];
+VibhagTranslation["Kathua"] = VibhagTranslation["Kathua"];
+VibhagTranslation["Yamunavihar"] = VibhagTranslation["Yamunavihar"];
+VibhagTranslation["Uttari vibhag"] = VibhagTranslation["UttariVibhag"];
+VibhagTranslation["Ramkrushnapuram"] = VibhagTranslation["Ramkrushnapuram"];
+VibhagTranslation["Pashchimi"] = VibhagTranslation["Pashchimi"];
+VibhagTranslation["Jhandewala"] = VibhagTranslation["Jhandewala"];
+VibhagTranslation["Mandi"] = VibhagTranslation["Mandi"];
+VibhagTranslation["Pune Mahanagar"] = VibhagTranslation["PuneMahanagar"];
+VibhagTranslation["Karnawati Purva"] = VibhagTranslation["KarnawatiPurva"];
+VibhagTranslation["Karnawati Paschim"] = VibhagTranslation["KarnawatiPaschim"];
+VibhagTranslation["Uttar Bastar"] = VibhagTranslation["UttarBastar"];
+VibhagTranslation["Madhya Bastar"] = VibhagTranslation["MadhyaBastar"];
+VibhagTranslation["Dakshin Bastar"] = VibhagTranslation["DakshinBastar"];
+VibhagTranslation["Uttar 24 Paragana"] = VibhagTranslation["Uttar24Paragana"];
+VibhagTranslation["Andaman & Nicobar"] = VibhagTranslation["AndamanandNicobar"];
+VibhagTranslation["Kolakata Purv"] = VibhagTranslation["KolkataPurv"];
+VibhagTranslation["Kolakata Uttar"] = VibhagTranslation["KolkataUttar"];
+VibhagTranslation["Kolakata dakshin pashchim"] = VibhagTranslation["KolkataDakshinPashchim"];
+VibhagTranslation["Kolakata dakshin poorw"] = VibhagTranslation["KolkataDakshinPoorw"];
+VibhagTranslation["Howrah Mahanagar"] = VibhagTranslation["HowrahMahanagar"];
+VibhagTranslation["Dakshin 24 Paragana"] = VibhagTranslation["Dakshin24Paragana"];
+VibhagTranslation["Cooch Bihar"] = VibhagTranslation["CoochBihar"];
+VibhagTranslation["Uttari vibhag"] = VibhagTranslation["Uttarivibhag"];
+
+
+
 
 
 
@@ -1636,8 +1693,189 @@ JilaTranslation["Pune Gramin"] = JilaTranslation["PuneGramin"];
 JilaTranslation["Nashik Gramin"] = JilaTranslation["NashikGramin"];
 JilaTranslation["Nashik Mahanagar"] = JilaTranslation["NashikMahanagar"];
 JilaTranslation["Sambhajinagar Shahar"] = JilaTranslation["SambhajinagarShahar"];
-JilaTranslation["Mangluru Mahanagar"] = JilaTranslation["Mangluru Gramantar"];
-JilaTranslation["Mangluru Gramantar"] = JilaTranslation["Mangluru Mahanagar"];
+JilaTranslation["Mangluru Mahanagar"] = JilaTranslation["MangluruMahanagar"];
+JilaTranslation["Mangluru Gramantar"] = JilaTranslation["MangluruGramantar"];
+JilaTranslation["Golkonda Bhag"] = JilaTranslation["GolkondaBhag"];
+JilaTranslation["Barkatpura Bhag"] = JilaTranslation["BarkatpuraBhag"];
+JilaTranslation["Mmaheshwaram JIla"] = JilaTranslation["MmaheshwaramJIla"];
+JilaTranslation["Dilkhushnagar Bhag"] = JilaTranslation["DilkhushnagarBhag"];
+JilaTranslation["Charminar Bhag"] = JilaTranslation["CharminarBhag"];
+JilaTranslation["Bhadradi kottagudem"] = JilaTranslation["Bhadradikottagudem"];
+JilaTranslation["Nagar Karnool"] = JilaTranslation["NagarKarnool"];
+JilaTranslation["Boeinpalli Bhag"] = JilaTranslation["BoeinpalliBhag"];
+JilaTranslation["Kuktpalli Bhag"] = JilaTranslation["KuktpalliBhag"];
+JilaTranslation["Uppal Bhag"] = JilaTranslation["UppalBhag"];
+JilaTranslation["Malkajigiri Bhag"] = JilaTranslation["MalkajigiriBhag"];
+JilaTranslation["Secunderabad Bhag"] = JilaTranslation["SecunderabadBhag"];
+JilaTranslation["Lav - Kush Nagar"] = JilaTranslation["Lav_KushNagar"];
+
+
+
+JilaTranslation["MORADABAD"] = JilaTranslation["MORADABAD"];
+JilaTranslation["RAMPUR"] = JilaTranslation["RAMPUR"];
+JilaTranslation["THAKURDWARA"] = JilaTranslation["THAKURDWARA"];
+JilaTranslation["karnal"] = JilaTranslation["karnal"];
+JilaTranslation["dadlaghat"] = JilaTranslation["dadlaghat"];
+JilaTranslation["HAPUR"] = JilaTranslation["HAPUR"];
+JilaTranslation["MEERUT"] = JilaTranslation["MEERUT"];
+JilaTranslation["MAWANA"] = JilaTranslation["MAWANA"];
+JilaTranslation["SARDHANA"] = JilaTranslation["SARDHANA"];
+JilaTranslation["SAMBHAL"] = JilaTranslation["SAMBHAL"];
+JilaTranslation["BABARALA"] = JilaTranslation["BABARALA"];
+JilaTranslation["AMROHA"] = JilaTranslation["AMROHA"];
+JilaTranslation["DHAMPUR"] = JilaTranslation["DHAMPUR"];
+JilaTranslation["BIJNOR"] = JilaTranslation["BIJNOR"];
+JilaTranslation["BEHAT"] = JilaTranslation["BEHAT"];
+JilaTranslation["DEV VRIND"] = JilaTranslation["DEVVRIND"];
+JilaTranslation["SAHARANPUR"] = JilaTranslation["SAHARANPUR"];
+JilaTranslation["BAGPAT"] = JilaTranslation["BAGPAT"];
+JilaTranslation["LAXMINAGAR"] = JilaTranslation["LAXMINAGAR"];
+JilaTranslation["SHAMLI"] = JilaTranslation["SHAMLI"];
+JilaTranslation["Kanchipuram"] = JilaTranslation["Kanchipuram"];
+JilaTranslation["Ranipettai"] = JilaTranslation["Ranipettai"];
+JilaTranslation["Chengalpattu"] = JilaTranslation["Chengalpattu"];
+JilaTranslation["Thiruvallur"] = JilaTranslation["Thiruvallur"];
+JilaTranslation["Namakkal"] = JilaTranslation["Namakkal"];
+JilaTranslation["Erode"] = JilaTranslation["Erode"];
+JilaTranslation["Gobichettipalayam"] = JilaTranslation["Gobichettipalayam"];
+JilaTranslation["Krishnagiri"] = JilaTranslation["Krishnagiri"];
+JilaTranslation["Attur"] = JilaTranslation["Attur"];
+JilaTranslation["Dharmapuri"] = JilaTranslation["Dharmapuri"];
+JilaTranslation["Salem"] = JilaTranslation["Salem"];
+JilaTranslation["Thiruppattur"] = JilaTranslation["Thiruppattur"];
+JilaTranslation["Vandavasi"] = JilaTranslation["Vandavasi"];
+JilaTranslation["Vellore"] = JilaTranslation["Vellore"];
+JilaTranslation["Tiruvannamalai"] = JilaTranslation["Tiruvannamalai"];
+JilaTranslation["Pondy"] = JilaTranslation["Pondy"];
+JilaTranslation["Cuddalore"] = JilaTranslation["Cuddalore"];
+JilaTranslation["Villupuram"] = JilaTranslation["Villupuram"];
+JilaTranslation["Virudunagar"] = JilaTranslation["Virudunagar"];
+JilaTranslation["Theni"] = JilaTranslation["Theni"];
+JilaTranslation["Madurai"] = JilaTranslation["Madurai"];
+JilaTranslation["Dindukkal"] = JilaTranslation["Dindukkal"];
+JilaTranslation["Pollachi"] = JilaTranslation["Pollachi"];
+JilaTranslation["Nilagiri"] = JilaTranslation["Nilagiri"];
+JilaTranslation["Kovai"] = JilaTranslation["Kovai"];
+JilaTranslation["Triuvarur"] = JilaTranslation["Triuvarur"];
+JilaTranslation["Nagapattanam"] = JilaTranslation["Nagapattanam"];
+JilaTranslation["Pattukkottai"] = JilaTranslation["Pattukkottai"];
+JilaTranslation["Tanjavur"] = JilaTranslation["Tanjavur"];
+JilaTranslation["Sivagangai"] = JilaTranslation["Sivagangai"];
+JilaTranslation["Ramanathpuram"] = JilaTranslation["Ramanathpuram"];
+JilaTranslation["Aranthangi"] = JilaTranslation["Aranthangi"];
+JilaTranslation["Pudukkottai"] = JilaTranslation["Pudukkottai"];
+JilaTranslation["Tenkasi"] = JilaTranslation["Tenkasi"];
+JilaTranslation["Tirunelveli"] = JilaTranslation["Tirunelveli"];
+JilaTranslation["Thoothukkudi"] = JilaTranslation["Thoothukkudi"];
+JilaTranslation["Tiruchendur"] = JilaTranslation["Tiruchendur"];
+JilaTranslation["Perambalur"] = JilaTranslation["Perambalur"];
+JilaTranslation["Tiruchy"] = JilaTranslation["Tiruchy"];
+JilaTranslation["Ariyalur"] = JilaTranslation["Ariyalur"];
+JilaTranslation["Dharapuram"] = JilaTranslation["Dharapuram"];
+JilaTranslation["Karur"] = JilaTranslation["Karur"];
+JilaTranslation["Tiruppur"] = JilaTranslation["Tiruppur"];
+JilaTranslation["Sanga Reddy"] = JilaTranslation["SangaReddy"];
+JilaTranslation["Sant Kabir Nagar"] = JilaTranslation["SantKabirNagar"];
+JilaTranslation["Gorakhapur Mahanagar Uttar"] = JilaTranslation["GorakhapurMahanagarUttar"];
+JilaTranslation["Gorakhapur Mahanagar Gramin"] = JilaTranslation["GorakhapurMahanagarGramin"];
+JilaTranslation["Gorakhapur Mahanagar Dakshin"] = JilaTranslation["GorakhapurMahanagarDakshin"];
+JilaTranslation["Siddharth Nagar"] = JilaTranslation["SiddharthNagar"];
+JilaTranslation["Kushi Nagar"] = JilaTranslation["KushiNagar"];
+JilaTranslation["Nandini Nagar"] = JilaTranslation["NandiniNagar"];
+JilaTranslation["Ram Sanehi Ghat"] = JilaTranslation["RamSanehiGhat"];
+JilaTranslation["Ayodhya Mahanagar"] = JilaTranslation["AyodhyaMahanagar"];
+JilaTranslation["Ambedakar Nagar"] = JilaTranslation["AmbedakarNagar"];
+JilaTranslation["Machli Shahar"] = JilaTranslation["MachliShahar"];
+JilaTranslation["Sonbhadra Jila"] = JilaTranslation["SonbhadraJila"];
+JilaTranslation["Kashi Dakshin Bhag"] = JilaTranslation["KashiDakshinBhag"];
+JilaTranslation["Kashi Madhya Bhag"] = JilaTranslation["KashiMadhyaBhag"];
+JilaTranslation["Kashi Uttar Bhag"] = JilaTranslation["KashiUttarBhag"];
+JilaTranslation["Kashi Jila"] = JilaTranslation["KashiJila"];
+JilaTranslation["Shree Bhoomi"] = JilaTranslation["ShreeBhoomi"];
+JilaTranslation["Ramkrishna Nagar"] = JilaTranslation["RamkrishnaNagar"];
+JilaTranslation["North west Garo Pahad"] = JilaTranslation["NorthWestGaroPahad"];
+JilaTranslation["South west Garo Pahad"] = JilaTranslation["SouthWestGaroPahad"];
+JilaTranslation["Madhya Karbianglong"] = JilaTranslation["MadhyaKarbianglong"];
+JilaTranslation["Purv Karbianglong"] = JilaTranslation["PurvKarbianglong"];
+JilaTranslation["Paschim Karbianglong"] = JilaTranslation["PaschimKarbianglong"];
+JilaTranslation["Dakshin Kamarup"] = JilaTranslation["DakshinKamarup"];
+JilaTranslation["Chhipa Baroda"] = JilaTranslation["ChhipaBaroda"];
+JilaTranslation["Bhawani Mandi"] = JilaTranslation["BhawaniMandi"];
+JilaTranslation["kota mahaanagar"] = JilaTranslation["kotaMahaanagar"];
+JilaTranslation["Sanganer mahanagar"] = JilaTranslation["SanganerMahanagar"];
+JilaTranslation["Sawai Madhopur"] = JilaTranslation["SawaiMadhopur"];
+JilaTranslation["Bikaner mahanagar"] = JilaTranslation["BikanerMahanagar"];
+JilaTranslation["shaheed Bhagat Singh nagar"] = JilaTranslation["ShaheedBhagatSinghNagar"];
+JilaTranslation["Jammu Mahanagar"] = JilaTranslation["JammuMahanagar"];
+JilaTranslation["Ranveersingh Pura"] = JilaTranslation["RanveersinghPura"];
+JilaTranslation["Mukhrjee nagar"] = JilaTranslation["MukhrjeeNagar"];
+JilaTranslation["Bareli Mahanagar"] = JilaTranslation["BareliMahanagar"];
+JilaTranslation["Chandra Nagar"] = JilaTranslation["ChandraNagar"];
+JilaTranslation["Fatehpur Sikri"] = JilaTranslation["FatehpurSikri"];
+JilaTranslation["Shajipur Mahanagar"] = JilaTranslation["ShajipurMahanagar"];
+JilaTranslation["Mathura Mahanagar"] = JilaTranslation["MathuraMahanagar"];
+JilaTranslation["Harigarh Mahanagar"] = JilaTranslation["HarigarhMahanagar"];
+JilaTranslation["Udhamsinh Nagar"] = JilaTranslation["UdhamsinhNagar"];
+JilaTranslation["Uttar Kashi"] = JilaTranslation["UttarKashi"];
+JilaTranslation["Dew prayag"] = JilaTranslation["DewPrayag"];
+JilaTranslation["Deharadun Dakshin"] = JilaTranslation["DeharadunDakshin"];
+JilaTranslation["Deharadun Uttar"] = JilaTranslation["DeharadunUttar"];
+JilaTranslation["Vikas Nagar"] = JilaTranslation["VikasNagar"];
+JilaTranslation["Rudra Prayag"] = JilaTranslation["RudraPrayag"];
+JilaTranslation["Gaziabad Mahanagar"] = JilaTranslation["GaziabadMahanagar"];
+JilaTranslation["NOIDA Mahanagar"] = JilaTranslation["NOIDAMahanagar"];
+JilaTranslation["Goutambuddh Nagar"] = JilaTranslation["GoutambuddhNagar"];
+JilaTranslation["Anuppur Shahar"] = JilaTranslation["AnuppurShahar"];
+JilaTranslation["Navi Mumbai"] = JilaTranslation["NaviMumbai"];
+JilaTranslation["Dakshin Ratnagiri"] = JilaTranslation["DakshinRatnagiri"];
+JilaTranslation["Uttar Ratnagiri"] = JilaTranslation["UttarRatnagiri"];
+JilaTranslation["Dakshin Goa"] = JilaTranslation["DakshinGoa"];
+JilaTranslation["Uttar Goa"] = JilaTranslation["UttarGoa"];
+JilaTranslation["Kachha Purva"] = JilaTranslation["KachhaPurva"];
+JilaTranslation["Kachha Pashim"] = JilaTranslation["KachhaPashim"];
+JilaTranslation["Poorva Beed"] = JilaTranslation["PoorvaBeed"];
+JilaTranslation["Pashchim Beed"] = JilaTranslation["PashchimBeed"];
+JilaTranslation["Uttar Nagar"] = JilaTranslation["UttarNagar"];
+JilaTranslation["Nashik Mananagar"] = JilaTranslation["NashikMananagar"];
+JilaTranslation["Dakshin Nagar"] = JilaTranslation["DakshinNagar"];
+JilaTranslation["Pimpri Chinchawad"] = JilaTranslation["PimpriChinchawad"];
+JilaTranslation["Chota Uadipur"] = JilaTranslation["ChotaUadipur"];
+JilaTranslation["Ashok Nagar"] = JilaTranslation["AshokNagar"];
+JilaTranslation["Ambagadh Chowki"] = JilaTranslation["AmbagadhChowki"];
+JilaTranslation["Lavkush nagar"] = JilaTranslation["Lavkushnagar"];
+JilaTranslation["Kalla kurichi"] = JilaTranslation["KallaKurichi"];
+JilaTranslation["Haora Gramin"] = JilaTranslation["HaoraGramin"];
+JilaTranslation["Kolakata uttar poorw"] = JilaTranslation["KolakataUttarPoorw"];
+JilaTranslation["Maddhya Howrah"] = JilaTranslation["MaddhyaHowrah"];
+JilaTranslation["Kolakata uttar"] = JilaTranslation["KolakataUttar"];
+JilaTranslation["Kolakata Pashchim"] = JilaTranslation["KolakataPashchim"];
+JilaTranslation["Sikkim Daxin pashchim"] = JilaTranslation["SikkimDaxinPashchim"];
+JilaTranslation["Sikkim Uttar Poorwa"] = JilaTranslation["SikkimUttarPoorwa"];
+JilaTranslation["Pashchim Cooch Bihar"] = JilaTranslation["PashchimCoochBihar"];
+JilaTranslation["Cooch Bihar"] = JilaTranslation["CoochBihar"];
+JilaTranslation["Daxin Dinajpur"] = JilaTranslation["DaxinDinajpur"];
+JilaTranslation["Dakshin Bankura"] = JilaTranslation["DakshinBankura"];
+JilaTranslation["Uttar bankukra"] = JilaTranslation["UttarBankukra"];
+JilaTranslation["Dokhin Nadiya"] = JilaTranslation["DokhinNadiya"];
+JilaTranslation["KOZHIKODE MAHANAGAR"] = JilaTranslation["KOZHIKODEMAHANAGAR"];
+JilaTranslation["KOZHIKODE GRAMAM"] = JilaTranslation["KOZHIKODEGRAMAM"];
+JilaTranslation["Maduari Mahanagar"] = JilaTranslation["MaduariMahanagar"];
+JilaTranslation["KOLLAM MAHANAGAR"] = JilaTranslation["KOLLAMMAHANAGAR"];
+JilaTranslation["THIRUVOTTIYUR BHAG"] = JilaTranslation["THIRUVOTTIYURBHAG"];
+JilaTranslation["KOLLAM GRAMAM"] = JilaTranslation["KOLLAMGRAMAM"];
+JilaTranslation["KOCHI MAHANAGAR"] = JilaTranslation["KOCHIMAHANAGAR"];
+JilaTranslation["THIRUVANANTHAPURAM GRAMAM"] = JilaTranslation["THIRUVANANTHAPURAMGRAMAM"];
+JilaTranslation["THIRUVANANTHAPURAM MAHANAGAR"] = JilaTranslation["THIRUVANANTHAPURAMMAHANAGAR"];
+JilaTranslation["U. Kohlapur"] = JilaTranslation["UKohlapur"];
+JilaTranslation["D. Kolhapur"] = JilaTranslation["DKolhapur"];
+JilaTranslation["Met-Palayam"] = JilaTranslation["METPALAYAM"];
+JilaTranslation["Puvanyun (Shahjipur Gramin"] = JilaTranslation["Puvanyun"];
+JilaTranslation["Parshurampuri (Jalalabad)"] = JilaTranslation["Parshurampuri"];
+JilaTranslation["Kumari(E)"] = JilaTranslation["Kumari_E"];
+JilaTranslation["Kumari(W)"] = JilaTranslation["Kumari_W"];
+
+
+
 
 
 
@@ -1649,13 +1887,13 @@ JilaTranslation["Mysuru Gramantar"] = JilaTranslation["MysuruGramantar"];
 JilaTranslation["Bengaluru Gramantar"] = JilaTranslation["BengaluruGramantar"];
 JilaTranslation["Warangal Gramin"] = JilaTranslation["WarangalGramin"];
 JilaTranslation["Warangal Mahanagar"] = JilaTranslation["WarangalMahanagar"];
-JilaTranslation["Visakhapatnam Mahanagar"] = JilaTranslation["VISHAKAMAHANAGAR"];
-JilaTranslation["Vijayawada Mahanagar"] = JilaTranslation["VIJAYAWADAMAHANAGAR"];
+JilaTranslation["VISHAKA MAHANAGAR"] = JilaTranslation["VISHAKAMAHANAGAR"];
+JilaTranslation["VIJAYAWADA MAHANAGAR"] = JilaTranslation["VIJAYAWADAMAHANAGAR"];
 JilaTranslation["Thiruvananthapuram Gramam"] = JilaTranslation["THIRUVANANTHAPURAM_GRAMAM"];
 JilaTranslation["Thiruvananthapuram Mahanagar"] = JilaTranslation["THIRUVANANTHAPURAM_MAHANAGAR"];
-JilaTranslation["Kozhikode Gramam"] = JilaTranslation["KOZHIKODE_GRAMAM"];
+JilaTranslation["KOZHIKODE GRAMAM"] = JilaTranslation["KOZHIKODE_GRAMAM"];
 JilaTranslation["Kozhikode Mahanagar"] = JilaTranslation["KOZHIKODE_MAHANAGAR"];
-JilaTranslation["Kochi Mahanagar"] = JilaTranslation["KOCHI_MAHANAGAR"];
+JilaTranslation["KOCHI MAHANAGAR"] = JilaTranslation["KOCHI_MAHANAGAR"];
 JilaTranslation["Kollam Gramam"] = JilaTranslation["KOLLAM_GRAMAM"];
 JilaTranslation["Kollam Mahanagar"] = JilaTranslation["KOLLAM_MAHANAGAR"];
 JilaTranslation["Madurai Mahanagar"] = JilaTranslation["MADURAI_MAHANAGAR"];
@@ -1690,15 +1928,15 @@ JilaTranslation["Fatehgarh Sahib"] = JilaTranslation["FatehgarhSahib"];
 JilaTranslation["Roop Nagar"] = JilaTranslation["RoopNagar"];
 JilaTranslation["Faridabad Purva"]=JilaTranslation["FaridabadPurva"];
 JilaTranslation["Faridabad Paschim"]=JilaTranslation["FaridabadPaschim"];
-JilaTranslation["Noida Mahanagar"]=JilaTranslation["NoidaMahanagar"];
+JilaTranslation["NOIDA Mahanagar"]=JilaTranslation["NoidaMahanagar"];
 JilaTranslation["Vaishali Mahanagar"]=JilaTranslation["VaishaliMahanagar"];
 JilaTranslation["Harnandi Mahanagar"]=JilaTranslation["HarnandiMahanagar"];
 JilaTranslation["Gaziabad Jila"]=JilaTranslation["GaziabadJila"];
-JilaTranslation["Lucknow Poorva"]=JilaTranslation["LucknowPoorva"];
-JilaTranslation["Lucknow Pashchim"]=JilaTranslation["LucknowPashchim"];
-JilaTranslation["Lucknow Uttar"]=JilaTranslation["LucknowUttar"];
-JilaTranslation["Lucknow Dakshin"]=JilaTranslation["LucknowDakshin"];
-JilaTranslation["Lucknow Gramin"]=JilaTranslation["LucknowGramin"];
+JilaTranslation["Lucknow - Poorva"]=JilaTranslation["LucknowPoorva"];
+JilaTranslation["Lucknow - Pashchim"]=JilaTranslation["LucknowPashchim"];
+JilaTranslation["Lucknow - Uttar"]=JilaTranslation["LucknowUttar"];
+JilaTranslation["Lucknow - Dakshin"]=JilaTranslation["LucknowDakshin"];
+JilaTranslation["Lucknow - Gramin"]=JilaTranslation["LucknowGramin"];
 JilaTranslation["Kanpur Uttar"]=JilaTranslation["KanpurUttar"];
 JilaTranslation["Kanpur Poorva"]=JilaTranslation["KanpurPoorva"];
 JilaTranslation["Kanpur Dakshin"]=JilaTranslation["KanpurDakshin"];
@@ -1757,14 +1995,22 @@ JilaTranslation["Paschim Kachad"] = JilaTranslation["PaschimKachad"];
 JilaTranslation["East Khasi Hills"] = JilaTranslation["EastKhasiHills"];
 JilaTranslation["West Khasi Hills"] = JilaTranslation["WestKhasiHills"];
 JilaTranslation["East Garo Pahad"] = JilaTranslation["EastGaroPahad"];
-JilaTranslation["Southwest Garo Pahad"] = JilaTranslation["SouthwestGaroPahad"];
-JilaTranslation["Northwest Garo Pahad"] = JilaTranslation["NorthwestGaroPahad"];
+JilaTranslation["South west Garo Pahad"] = JilaTranslation["SouthwestGaroPahad"];
+JilaTranslation["North west Garo Pahad"] = JilaTranslation["NorthwestGaroPahad"];
 JilaTranslation["Uttar Nagbhumi"] = JilaTranslation["UttarNagbhumi"];
 JilaTranslation["Dakshin Nagbhumi"] = JilaTranslation["DakshinNagbhumi"];
 JilaTranslation["Uttar Tripura"] = JilaTranslation["UttarTripura"];
 JilaTranslation["Paschim Tripura"] = JilaTranslation["PaschimTripura"];
 JilaTranslation["Dakshin Tripura"] = JilaTranslation["DakshinTripura"];
 JilaTranslation["hubballi mahanagar"] = JilaTranslation["HUBBALLIMAHANAGAR"];
+JilaTranslation["SRI SATYASAI"] = JilaTranslation["SRISATYASAI"];
+JilaTranslation["EAST GODAVARI"] = JilaTranslation["EASTGODAVARI"];
+JilaTranslation["WEST GODAVARI"] = JilaTranslation["WESTGODAVARI"];
+JilaTranslation["WEST GODAVARI"] = JilaTranslation["WESTGODAVARI"];
+
+
+
+
 
 
 

@@ -26,6 +26,13 @@ const UserTable = () => {
     dispatch(setSearchQuery(e.target.value));
   };
 
+  const toTitleCase = (str) => {
+    if (!str) return ""; 
+    return str
+      .toLowerCase()
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
   const filteredUsers = users
     ?.filter((user) => {
       if (loggedInUserType === "kendra") {
@@ -99,12 +106,12 @@ const UserTable = () => {
                 const lastKeyValue = user[lastKey];
                   return (
                     <tr key={user._id}>
-                      <td>{user.full_name}</td>
+                      <td>{toTitleCase(user.full_name)}</td>
                       <td>{user.user_name}</td>
                       <td>{user.email}</td>
                       <td>{user.mobile}</td>
-                      <td>{user.user_type}</td>
-                      <td>{lastKeyValue}</td>
+                      <td>{toTitleCase(user.user_type)}</td>
+                      <td>{toTitleCase(lastKeyValue)}</td>
                       <td style={{color:"#7b50ab"}}>{user.level || "N/A"}</td>
                     </tr>
                   );

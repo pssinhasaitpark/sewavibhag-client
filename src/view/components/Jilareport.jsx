@@ -617,7 +617,7 @@ const Jilareport = () => {
                       <Col md={6}>
                         <Form.Group>
                           <Form.Label>
-                            {fieldLabels[language]?.districtNumber}
+                            {fieldLabels[language]?.districtNumberJilaKendra}
                           </Form.Label>
                           <Form.Control
                             type="number"
@@ -815,7 +815,7 @@ const Jilareport = () => {
                       <Col md={6} className="mt-2">
                         <Form.Group>
                           <Form.Label>
-                            {fieldLabels[language]?.totalServiceWork}
+                            {fieldLabels[language]?.totalServiceWorkJilaKendra}
                           </Form.Label>
                           <Form.Control
                             type="number"
@@ -881,7 +881,7 @@ const Jilareport = () => {
                       <Col md={6}>
                         <Form.Group>
                           <Form.Label>
-                            {fieldLabels[language]?.districtNumber}
+                            {fieldLabels[language]?.districtNumberAnyaNagar}
                           </Form.Label>
                           <Form.Control
                             type="number"
@@ -1081,7 +1081,7 @@ const Jilareport = () => {
                       <Col md={6} className="mt-2">
                         <Form.Group>
                           <Form.Label>
-                            {fieldLabels[language]?.totalServiceWork}
+                            {fieldLabels[language]?.totalServiceWorkAnyaNagar}
                           </Form.Label>
                           <Form.Control
                             type="number"
@@ -1264,7 +1264,7 @@ const Jilareport = () => {
                       <Col md={6}>
                         <Form.Group>
                           <Form.Label>
-                            {fieldLabels[language]?.villagesUnder5000}
+                            {fieldLabels[language]?.villagesUnderess5000}
                           </Form.Label>
                           <Form.Control
                             type="number"
