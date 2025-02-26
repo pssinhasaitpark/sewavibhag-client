@@ -65,29 +65,18 @@ const Header = () => {
 
   const getDisplayName = () => {
     if (!user) return "Loading...";
-
-    const translatedKendra = translateName(kendraName, KendraTranslation);
-    const translatedKshetra = translateName(kshetraName, kshetraTranslation);
-    const translatedPrant = translateName(prantName, PrantTranslation);
-    const translatedVibhag = translateName(vibhagName, VibhagTranslation);
-    const translatedJila = translateName(jilaName, JilaTranslation); 
-
-
-    switch (userType) {
-      case "kshetra":
-        return translatedKshetra;
-      case "prant":
-        return `${translatedKshetra} / ${translatedPrant}`;
-      case "vibhag":
-        return `${translatedKshetra} / ${translatedPrant} / ${translatedVibhag}`;
-      case "jila":
-        return `${translatedKshetra} / ${translatedPrant} / ${translatedVibhag} / ${translatedJila}`;;
-      case "kendra":
-        return `${translatedKendra}`;
-      default:
-        return "No Name Available";
-    }
+  
+    const names = [
+      translateName(kendraName, KendraTranslation),
+      translateName(kshetraName, kshetraTranslation),
+      translateName(prantName, PrantTranslation),
+      translateName(vibhagName, VibhagTranslation),
+      translateName(jilaName, JilaTranslation),
+    ].filter(Boolean); // Remove empty or undefined values
+  
+    return names.length ? names.join(" / ") : "No Name Available";
   };
+  
  if (loading || error) {
     return <Loader loading={loading} error={error} />;
   }

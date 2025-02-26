@@ -33,22 +33,52 @@ function CreateUser() {
   const language = useSelector((state) => state.language.language);
   const labels = fieldLabels[language];
 
+  // useEffect(() => {
+  //   if (user_type === "kendra" || user_type === "kshetra") {
+  //     setLevelList([
+  //       { label: `${labels?.Viewer}`, value: 1 },
+  //       { label: `${labels?.Admin}`, value: 2 },
+  //     ]);
+  //   } else if (user_type === "prant" || user_type === "vibhag") {
+  //     setLevelList([
+  //       { label: `${labels?.Viewer}`, value: 1 },
+  //       { label: `${labels?.Editor}`, value: 2 },  
+  //       { label: `${labels?.Admin}`, value: 3 },
+  //     ]);
+  //   } else if (user_type === "jila") {
+  //     setLevelList([
+  //       { label: `${labels?.Viewer}`, value: 1 },
+  //       { label: `${labels?.Admin}`, value: 2 },
+  //     ]);
+  //   }
+  // }, [user_type, labels]);
+
+  console.log("userYupeid",user.user_type_id);
+  
+
   useEffect(() => {
-    if (user_type === "kendra" || user_type === "kshetra") {
+    if (selectedUserType === "kendra" || selectedUserType === "kshetra") {
       setLevelList([
         { label: `${labels?.Viewer}`, value: 1 },
         { label: `${labels?.Admin}`, value: 2 },
       ]);
-    } else if (user_type === "prant" || user_type === "vibhag") {
+    } else if (selectedUserType === "prant" || selectedUserType === "vibhag") {
       setLevelList([
         { label: `${labels?.Viewer}`, value: 1 },
         { label: `${labels?.Editor}`, value: 2 },
         { label: `${labels?.Admin}`, value: 3 },
       ]);
-    } else if (user_type === "jila") {
-      setLevelList([1, 2]);
+    } else if (selectedUserType === "jila") {
+      setLevelList([
+        { label: `${labels?.Viewer}`, value: 1 },
+        { label: `${labels?.Admin}`, value: 2 },
+      ]);
+    } else {
+      setLevelList([]); // Reset if no valid user type is selected
     }
-  }, [user_type]);
+  }, [selectedUserType, labels]);
+
+
 
   useEffect(() => {
     if (user_type === "prant" || user_type === "vibhag") {
@@ -85,9 +115,11 @@ function CreateUser() {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
       })
         .then((response) => {
-          console.log("resssssssssssssss>>>>>>>>>>>>>>>>>>>", response.data);
+
 
           setHierarchyData(response.data || []);
+          console.log("response", response);
+
         })
         .catch((error) => console.error("Error fetching hierarchy data:", error));
     }
@@ -182,7 +214,7 @@ function CreateUser() {
     if (language.trim() === "hindi" && translationMap[name]) {
       return translationMap[name];
     }
-    return name; 
+    return name;
   };
 
 
@@ -271,10 +303,11 @@ function CreateUser() {
                             {hierarchyData?.[0]?.kshetras?.map((kshetra) => {
                               const translatedKshetra = translateName(kshetra.kshetra_name, kshetraTranslation);
                               return (
-                              <option key={kshetra._id} value={kshetra._id}>
-                                {translatedKshetra}
-                              </option>
-)})}
+                                <option key={kshetra._id} value={kshetra._id}>
+                                  {translatedKshetra}
+                                </option>
+                              )
+                            })}
                           </BootstrapForm.Select>
                         </div>
                       )}
@@ -293,10 +326,11 @@ function CreateUser() {
                               {hierarchyData?.[0]?.kshetras?.map((kshetra) => {
                                 const translatedKshetra = translateName(kshetra.kshetra_name, kshetraTranslation);
                                 return (
-                                <option key={kshetra._id} value={kshetra._id}>
-                                  {translatedKshetra}
-                                </option>
-                                  )})}
+                                  <option key={kshetra._id} value={kshetra._id}>
+                                    {translatedKshetra}
+                                  </option>
+                                )
+                              })}
                             </BootstrapForm.Select>
                           </div>
                           <label className="form-label">{labels?.SelectPrant}</label>
@@ -308,116 +342,70 @@ function CreateUser() {
                             }}
                           >
                             <option value="">{labels?.SelectPrant}</option>
-                            {hierarchyData?.[0]?.kshetras[0]?.prants?.map((prant) => {
-                              const translatedPrant = translateName(prant.prant_name, PrantTranslation);
-                              return (
-                              <option key={prant._id} value={prant._id}>
-                                {translatedPrant}
-                              </option>
-)})}
+                            {hierarchyData?.[0]?.kshetras
+                              ?.find(kshetra => kshetra._id === selectedKshetra)
+                              ?.prants?.map((prant) => {
+                                const translatedPrant = translateName(prant.prant_name, PrantTranslation);
+                                return (
+                                  <option key={prant._id} value={prant._id}>
+                                    {translatedPrant}
+                                  </option>
+                                );
+                              })}
                           </BootstrapForm.Select>
                         </div>
                       )}
                       {selectedUserType === "vibhag" && (
                         <div className="mb-3">
+                          {/* Kshetra Selection */}
                           <div className="mb-3">
-                            <div className="mb-3">
-                              <label className="form-label">{labels?.SelectKshetra}</label>
-                              <BootstrapForm.Select
-                                value={selectedKshetra}
-                                onChange={(e) => {
-                                  setSelectedKshetra(e.target.value);
-                                  setFieldValue("user_type_id", e.target.value);
-                                }}
-                              >
-                                <option value="">{labels?.SelectKshetra}</option>
-                                {hierarchyData?.[0]?.kshetras?.map((kshetra) => {
+                            <label className="form-label">{labels?.SelectKshetra}</label>
+                            <BootstrapForm.Select
+                              value={selectedKshetra}
+                              onChange={(e) => {
+                                setSelectedKshetra(e.target.value);
+                                setSelectedPrant(''); // Reset prant on kshetra change
+                                setSelectedVibhag(''); // Reset vibhag on kshetra change
+                                setFieldValue("user_type_id", e.target.value);
+                              }}
+                            >
+                              <option value="">{labels?.SelectKshetra}</option>
+                              {hierarchyData?.[0]?.kshetras?.map((kshetra) => {
                                 const translatedKshetra = translateName(kshetra.kshetra_name, kshetraTranslation);
                                 return (
-                                <option key={kshetra._id} value={kshetra._id}>
-                                  {translatedKshetra}
-                                </option>
-                                  )})}
-                              </BootstrapForm.Select>
-                            </div>
+                                  <option key={kshetra._id} value={kshetra._id}>
+                                    {translatedKshetra}
+                                  </option>
+                                )
+                              })}
+                            </BootstrapForm.Select>
+                          </div>
+
+                          {/* Prant Selection */}
+                          <div className="mb-3">
                             <label className="form-label">{labels?.SelectPrant}</label>
                             <BootstrapForm.Select
                               value={selectedPrant}
                               onChange={(e) => {
                                 setSelectedPrant(e.target.value);
+                                setSelectedVibhag(''); // Reset vibhag on prant change
                                 setFieldValue("user_type_id", e.target.value);
                               }}
                             >
                               <option value="">{labels?.SelectPrant}</option>
-                              {hierarchyData?.[0]?.kshetras[0]?.prants?.map((prant) => {
-                              const translatedPrant = translateName(prant.prant_name, PrantTranslation);
-                              return (
-                              <option key={prant._id} value={prant._id}>
-                                {translatedPrant}
-                              </option>
-)})}
+                              {hierarchyData?.[0]?.kshetras.find(k => k._id === selectedKshetra)?.prants?.map((prant) => {
+                                const translatedPrant = translateName(prant.prant_name, PrantTranslation);
+                                return (
+                                  <option key={prant._id} value={prant._id}>
+                                    {translatedPrant}
+                                  </option>
+                                )
+                              })}
                             </BootstrapForm.Select>
                           </div>
-                          <label className="form-label">{labels?.SelectVibhag}</label>
-                          <BootstrapForm.Select
-                            value={selectedVibhag}
-                            onChange={(e) => {
-                              setSelectedVibhag(e.target.value);
-                              setFieldValue("user_type_id", e.target.value);
-                            }}
-                          >
-                            <option value="">{labels?.SelectVibhag}</option>
-                            {hierarchyData?.[0]?.kshetras[0]?.prants[0]?.vibhags?.map((vibhag) => {
-                            const translatedVibhag = translateName(vibhag.vibhag_name, VibhagTranslation);
-                              return (
-                              <option key={vibhag._id} value={vibhag._id}>
-                                {translatedVibhag}
-                              </option>
-)})}
-                          </BootstrapForm.Select>
-                        </div>
-                      )}
-                      {selectedUserType === "jila" && (
-                        <div className="mb-3">
+
+                          {/* Vibhag Selection */}
                           <div className="mb-3">
-                            <div className="mb-3">
-                              <div className="mb-3">
-                                <label className="form-label">{labels?.SelectKshetra}</label>
-                                <BootstrapForm.Select
-                                  value={selectedKshetra}
-                                  onChange={(e) => {
-                                    setSelectedKshetra(e.target.value);
-                                    setFieldValue("user_type_id", e.target.value);
-                                  }}
-                                >
-                                  <option value="">{labels?.SelectKshetra}</option>
-                                  {hierarchyData?.[0]?.kshetras?.map((kshetra) => {
-                                const translatedKshetra = translateName(kshetra.kshetra_name, kshetraTranslation);
-                                return (
-                                <option key={kshetra._id} value={kshetra._id}>
-                                  {translatedKshetra}
-                                </option>
-                                  )})}
-                                </BootstrapForm.Select>
-                              </div>
-                              <label className="form-label">{labels?.SelectPrant}</label>
-                              <BootstrapForm.Select
-                                value={selectedPrant}
-                                onChange={(e) => {
-                                  setSelectedPrant(e.target.value);
-                                  setFieldValue("user_type_id", e.target.value);
-                                }}
-                              >
-                                <option value="">{labels?.SelectPrant}</option>
-                                {hierarchyData?.[0]?.kshetras[0]?.prants?.map((prant) => {
-                              const translatedPrant = translateName(prant.prant_name, PrantTranslation);
-                              return (
-                              <option key={prant._id} value={prant._id}>
-                                {translatedPrant}
-                              </option>
-)})}
-                              </BootstrapForm.Select>
-                            </div>
                             <label className="form-label">{labels?.SelectVibhag}</label>
                             <BootstrapForm.Select
                               value={selectedVibhag}
@@ -427,16 +415,110 @@ function CreateUser() {
                               }}
                             >
                               <option value="">{labels?.SelectVibhag}</option>
-                              {hierarchyData?.[0]?.kshetras[0]?.prants[0]?.vibhags?.map((vibhag) => {
-                            const translatedVibhag = translateName(vibhag.vibhag_name, VibhagTranslation);
-                              return (
-                              <option key={vibhag._id} value={vibhag._id}>
-                                {translatedVibhag}
-                              </option>
-)})}
+                              {hierarchyData?.[0]?.kshetras.find(k => k._id === selectedKshetra)?.prants.find(p => p._id === selectedPrant)?.vibhags?.map((vibhag) => {
+                                const translatedVibhag = translateName(vibhag.vibhag_name, VibhagTranslation);
+                                return (
+                                  <option key={vibhag._id} value={vibhag._id}>
+                                    {translatedVibhag}
+                                  </option>
+                                )
+                              })}
+                            </BootstrapForm.Select>
+                          </div>
+                        </div>
+                      )}
+                      {selectedUserType === "jila" && (
+                        <div className="mb-3">
+                          {/* Kshetra Selection */}
+                          <div className="mb-3">
+                            <label className="form-label">{labels?.SelectKshetra}</label>
+                            <BootstrapForm.Select
+                              value={selectedKshetra}
+                              onChange={(e) => {
+                                setSelectedKshetra(e.target.value);
+                                setSelectedPrant(''); // Reset prant on kshetra change
+                                setSelectedJila(''); // Reset jila on kshetra change
+                                setFieldValue("user_type_id", e.target.value);
+                              }}
+                            >
+                              <option value="">{labels?.SelectKshetra}</option>
+                              {hierarchyData?.[0]?.kshetras?.map((kshetra) => {
+                                const translatedKshetra = translateName(kshetra.kshetra_name, kshetraTranslation);
+                                return (
+                                  <option key={kshetra._id} value={kshetra._id}>
+                                    {translatedKshetra}
+                                  </option>
+                                )
+                              })}
                             </BootstrapForm.Select>
                           </div>
 
+                          {/* Prant Selection */}
+                          <div className="mb-3">
+                            <label className="form-label">{labels?.SelectPrant}</label>
+                            <BootstrapForm.Select
+                              value={selectedPrant}
+                              onChange={(e) => {
+                                setSelectedPrant(e.target.value);
+                                setSelectedJila(''); // Reset jila on prant change
+                                setFieldValue("user_type_id", e.target.value);
+                              }}
+                            >
+                              <option value="">{labels?.SelectPrant}</option>
+                              {hierarchyData?.[0]?.kshetras.find(k => k._id === selectedKshetra)?.prants?.map((prant) => {
+                                const translatedPrant = translateName(prant.prant_name, PrantTranslation);
+                                return (
+                                  <option key={prant._id} value={prant._id}>
+                                    {translatedPrant}
+                                  </option>
+                                )
+                              })}
+                            </BootstrapForm.Select>
+                          </div>
+
+                          {/* vibhag condition  */}
+                          <div className="mb-3">
+                            <label className="form-label">{labels?.SelectVibhag}</label>
+                            <BootstrapForm.Select
+                              value={selectedVibhag}
+                              onChange={(e) => {
+                                setSelectedVibhag(e.target.value);
+                                setFieldValue("user_type_id", e.target.value);
+                              }}
+                            >
+                              <option value="">{labels?.SelectVibhag}</option>
+                              {hierarchyData?.[0]?.kshetras.find(k => k._id === selectedKshetra)?.prants.find(p => p._id === selectedPrant)?.vibhags?.map((vibhag) => {
+                                const translatedVibhag = translateName(vibhag.vibhag_name, VibhagTranslation);
+                                return (
+                                  <option key={vibhag._id} value={vibhag._id}>
+                                    {translatedVibhag}
+                                  </option>
+                                )
+                              })}
+                            </BootstrapForm.Select>
+                          </div>
+
+                          {/* Jila Selection */}
+                          {/* <div className="mb-3">
+                            <label className="form-label">{labels?.SelectJila}</label>
+                            <BootstrapForm.Select
+                              value={selectedJila}
+                              onChange={(e) => {
+                                setSelectedJila(e.target.value);
+                                setFieldValue("user_type_id", e.target.value);
+                              }}
+                            >
+                              <option value="">{labels?.SelectJila}</option>
+                              {hierarchyData?.[0]?.kshetras.find(k => k._id === selectedKshetra)?.prants.find(p => p._id === selectedPrant)?.vibhags.find(v => v._id === selectedVibhag)?.jilas?.map((jila) => {
+                                const translatedJila = translateName(jila.jila_name, JilaTranslation);
+                                return (
+                                  <option key={jila._id} value={jila._id}>
+                                    {translatedJila}
+                                  </option>
+                                )
+                              })}
+                            </BootstrapForm.Select>
+                          </div> */}
                         </div>
                       )}
                     </>
@@ -444,8 +526,28 @@ function CreateUser() {
 
                   {user_type === "kshetra" && (
                     <>
-                      {selectedUserType === "prant" && (
+                     {selectedUserType === "prant" && (
                         <div className="mb-3">
+                          <div className="mb-3">
+                            <label className="form-label">{labels?.SelectKshetra}</label>
+                            <BootstrapForm.Select
+                              value={selectedKshetra}
+                              onChange={(e) => {
+                                setSelectedKshetra(e.target.value);
+                                setFieldValue("user_type_id", e.target.value);
+                              }}
+                            >
+                              <option value="">{labels?.SelectKshetra}</option>
+                              {hierarchyData?.[0]?.kshetras?.map((kshetra) => {
+                                const translatedKshetra = translateName(kshetra.kshetra_name, kshetraTranslation);
+                                return (
+                                  <option key={kshetra._id} value={kshetra._id}>
+                                    {translatedKshetra}
+                                  </option>
+                                )
+                              })}
+                            </BootstrapForm.Select>
+                          </div>
                           <label className="form-label">{labels?.SelectPrant}</label>
                           <BootstrapForm.Select
                             value={selectedPrant}
@@ -455,78 +557,70 @@ function CreateUser() {
                             }}
                           >
                             <option value="">{labels?.SelectPrant}</option>
-                            {hierarchyData?.[0]?.kshetras[0]?.prants?.map((prant) => {
-                              const translatedPrant = translateName(prant.prant_name, PrantTranslation);
-                              return (
-                              <option key={prant._id} value={prant._id}>
-                                {translatedPrant}
-                              </option>
-)})}
+                            {hierarchyData?.[0]?.kshetras
+                              ?.find(kshetra => kshetra._id === selectedKshetra)
+                              ?.prants?.map((prant) => {
+                                const translatedPrant = translateName(prant.prant_name, PrantTranslation);
+                                return (
+                                  <option key={prant._id} value={prant._id}>
+                                    {translatedPrant}
+                                  </option>
+                                );
+                              })}
                           </BootstrapForm.Select>
                         </div>
                       )}
                       {selectedUserType === "vibhag" && (
                         <div className="mb-3">
+                          {/* Kshetra Selection */}
+                          <div className="mb-3">
+                            <label className="form-label">{labels?.SelectKshetra}</label>
+                            <BootstrapForm.Select
+                              value={selectedKshetra}
+                              onChange={(e) => {
+                                setSelectedKshetra(e.target.value);
+                                setSelectedPrant(''); // Reset prant on kshetra change
+                                setSelectedVibhag(''); // Reset vibhag on kshetra change
+                                setFieldValue("user_type_id", e.target.value);
+                              }}
+                            >
+                              <option value="">{labels?.SelectKshetra}</option>
+                              {hierarchyData?.[0]?.kshetras?.map((kshetra) => {
+                                const translatedKshetra = translateName(kshetra.kshetra_name, kshetraTranslation);
+                                return (
+                                  <option key={kshetra._id} value={kshetra._id}>
+                                    {translatedKshetra}
+                                  </option>
+                                )
+                              })}
+                            </BootstrapForm.Select>
+                          </div>
+
+                          {/* Prant Selection */}
                           <div className="mb-3">
                             <label className="form-label">{labels?.SelectPrant}</label>
                             <BootstrapForm.Select
                               value={selectedPrant}
                               onChange={(e) => {
                                 setSelectedPrant(e.target.value);
+                                setSelectedVibhag(''); // Reset vibhag on prant change
                                 setFieldValue("user_type_id", e.target.value);
                               }}
                             >
                               <option value="">{labels?.SelectPrant}</option>
-                              {hierarchyData?.[0]?.kshetras[0]?.prants?.map((prant) => {
-                              const translatedPrant = translateName(prant.prant_name, PrantTranslation);
-                              return (
-                              <option key={prant._id} value={prant._id}>
-                                {translatedPrant}
-                              </option>
-)})}
+                              {hierarchyData?.[0]?.kshetras.find(k => k._id === selectedKshetra)?.prants?.map((prant) => {
+                                const translatedPrant = translateName(prant.prant_name, PrantTranslation);
+                                return (
+                                  <option key={prant._id} value={prant._id}>
+                                    {translatedPrant}
+                                  </option>
+                                )
+                              })}
                             </BootstrapForm.Select>
                           </div>
-                          <label className="form-label">{labels?.SelectVibhag}</label>
-                          <BootstrapForm.Select
-                            value={selectedVibhag}
-                            onChange={(e) => {
-                              setSelectedVibhag(e.target.value);
-                              setFieldValue("user_type_id", e.target.value);
-                            }}
-                          >
-                            <option value="">{labels?.SelectVibhag}</option>
-                            {hierarchyData?.[0]?.kshetras[0]?.prants[0]?.vibhags?.map((vibhag) => {
-                            const translatedVibhag = translateName(vibhag.vibhag_name, VibhagTranslation);
-                              return (
-                              <option key={vibhag._id} value={vibhag._id}>
-                                {translatedVibhag}
-                              </option>
-)})}
-                          </BootstrapForm.Select>
-                        </div>
-                      )}
-                      {selectedUserType === "jila" && (
-                        <div className="mb-3">
+
+                          {/* Vibhag Selection */}
                           <div className="mb-3">
-                            <div className="mb-3">
-                              <label className="form-label">{labels?.SelectPrant}</label>
-                              <BootstrapForm.Select
-                                value={selectedPrant}
-                                onChange={(e) => {
-                                  setSelectedPrant(e.target.value);
-                                  setFieldValue("user_type_id", e.target.value);
-                                }}
-                              >
-                                <option value="">{labels?.SelectPrant}</option>
-                                {hierarchyData?.[0]?.kshetras[0]?.prants?.map((prant) => {
-                              const translatedPrant = translateName(prant.prant_name, PrantTranslation);
-                              return (
-                              <option key={prant._id} value={prant._id}>
-                                {translatedPrant}
-                              </option>
-)})}
-                              </BootstrapForm.Select>
-                            </div>
                             <label className="form-label">{labels?.SelectVibhag}</label>
                             <BootstrapForm.Select
                               value={selectedVibhag}
@@ -536,31 +630,110 @@ function CreateUser() {
                               }}
                             >
                               <option value="">{labels?.SelectVibhag}</option>
-                              {hierarchyData?.[0]?.kshetras[0]?.prants[0]?.vibhags?.map((vibhag) => {
-                            const translatedVibhag = translateName(vibhag.vibhag_name, VibhagTranslation);
-                              return (
-                              <option key={vibhag._id} value={vibhag._id}>
-                                {translatedVibhag}
-                              </option>
-)})}
-
+                              {hierarchyData?.[0]?.kshetras.find(k => k._id === selectedKshetra)?.prants.find(p => p._id === selectedPrant)?.vibhags?.map((vibhag) => {
+                                const translatedVibhag = translateName(vibhag.vibhag_name, VibhagTranslation);
+                                return (
+                                  <option key={vibhag._id} value={vibhag._id}>
+                                    {translatedVibhag}
+                                  </option>
+                                )
+                              })}
                             </BootstrapForm.Select>
                           </div>
-                          {/* <label className="form-label">Select Jila</label>
-                          <BootstrapForm.Select
-                            value={selectedJila}
-                            onChange={(e) => {
-                              setSelectedJila(e.target.value);
-                              setFieldValue("jila", e.target.value);
-                            }}u
-                          >
-                            <option value="">Select Jila</option>
-                            {hierarchyData?.[0]?.kshetras[0]?.prants[0]?.vibhags[0]?.jilas?.map((jila) => (
-                              <option key={jila._id} value={jila._id}>
-                                {jila.jila_name}
-                              </option>
-                            ))}
-                          </BootstrapForm.Select> */}
+                        </div>
+                      )}
+                      {selectedUserType === "jila" && (
+                        <div className="mb-3">
+                          {/* Kshetra Selection */}
+                          <div className="mb-3">
+                            <label className="form-label">{labels?.SelectKshetra}</label>
+                            <BootstrapForm.Select
+                              value={selectedKshetra}
+                              onChange={(e) => {
+                                setSelectedKshetra(e.target.value);
+                                setSelectedPrant(''); // Reset prant on kshetra change
+                                setSelectedJila(''); // Reset jila on kshetra change
+                                setFieldValue("user_type_id", e.target.value);
+                              }}
+                            >
+                              <option value="">{labels?.SelectKshetra}</option>
+                              {hierarchyData?.[0]?.kshetras?.map((kshetra) => {
+                                const translatedKshetra = translateName(kshetra.kshetra_name, kshetraTranslation);
+                                return (
+                                  <option key={kshetra._id} value={kshetra._id}>
+                                    {translatedKshetra}
+                                  </option>
+                                )
+                              })}
+                            </BootstrapForm.Select>
+                          </div>
+
+                          {/* Prant Selection */}
+                          <div className="mb-3">
+                            <label className="form-label">{labels?.SelectPrant}</label>
+                            <BootstrapForm.Select
+                              value={selectedPrant}
+                              onChange={(e) => {
+                                setSelectedPrant(e.target.value);
+                                setSelectedJila(''); // Reset jila on prant change
+                                setFieldValue("user_type_id", e.target.value);
+                              }}
+                            >
+                              <option value="">{labels?.SelectPrant}</option>
+                              {hierarchyData?.[0]?.kshetras.find(k => k._id === selectedKshetra)?.prants?.map((prant) => {
+                                const translatedPrant = translateName(prant.prant_name, PrantTranslation);
+                                return (
+                                  <option key={prant._id} value={prant._id}>
+                                    {translatedPrant}
+                                  </option>
+                                )
+                              })}
+                            </BootstrapForm.Select>
+                          </div>
+
+                          {/* vibhag condition  */}
+                          <div className="mb-3">
+                            <label className="form-label">{labels?.SelectVibhag}</label>
+                            <BootstrapForm.Select
+                              value={selectedVibhag}
+                              onChange={(e) => {
+                                setSelectedVibhag(e.target.value);
+                                setFieldValue("user_type_id", e.target.value);
+                              }}
+                            >
+                              <option value="">{labels?.SelectVibhag}</option>
+                              {hierarchyData?.[0]?.kshetras.find(k => k._id === selectedKshetra)?.prants.find(p => p._id === selectedPrant)?.vibhags?.map((vibhag) => {
+                                const translatedVibhag = translateName(vibhag.vibhag_name, VibhagTranslation);
+                                return (
+                                  <option key={vibhag._id} value={vibhag._id}>
+                                    {translatedVibhag}
+                                  </option>
+                                )
+                              })}
+                            </BootstrapForm.Select>
+                          </div>
+
+                          {/* Jila Selection */}
+                          {/* <div className="mb-3">
+                            <label className="form-label">{labels?.SelectJila}</label>
+                            <BootstrapForm.Select
+                              value={selectedJila}
+                              onChange={(e) => {
+                                setSelectedJila(e.target.value);
+                                setFieldValue("user_type_id", e.target.value);
+                              }}
+                            >
+                              <option value="">{labels?.SelectJila}</option>
+                              {hierarchyData?.[0]?.kshetras.find(k => k._id === selectedKshetra)?.prants.find(p => p._id === selectedPrant)?.vibhags.find(v => v._id === selectedVibhag)?.jilas?.map((jila) => {
+                                const translatedJila = translateName(jila.jila_name, JilaTranslation);
+                                return (
+                                  <option key={jila._id} value={jila._id}>
+                                    {translatedJila}
+                                  </option>
+                                )
+                              })}
+                            </BootstrapForm.Select>
+                          </div> */}
                         </div>
                       )}
                     </>
@@ -580,17 +753,19 @@ function CreateUser() {
                       >
                         <option value="">{labels?.SelectVibhag}</option>
                         {hierarchyData?.[0]?.kshetras[0]?.prants[0]?.vibhags?.map((vibhag) => {
-                            const translatedVibhag = translateName(vibhag.vibhag_name, VibhagTranslation);
-                              return (
-                              <option key={vibhag._id} value={vibhag._id}>
-                                {translatedVibhag}
-                              </option>
-)})}
+                          const translatedVibhag = translateName(vibhag.vibhag_name, VibhagTranslation);
+                          return (
+                            <option key={vibhag._id} value={vibhag._id}>
+                              {translatedVibhag}
+                            </option>
+                          )
+                        })}
                       </BootstrapForm.Select>
                     </div>
                   )}
                   {user.user_type === "vibhag" && selectedVibhag && (
                     <div className="mb-3">
+                      
                       <label className="form-label">{labels?.SelectJila}</label>
                       <BootstrapForm.Select
                         value={selectedJila}
@@ -602,12 +777,12 @@ function CreateUser() {
                         <option value="">{labels?.SelectJila}</option>
                         {hierarchyData?.[0]?.kshetras[0]?.prants[0]?.vibhags[0]?.jilas?.map((jila) => {
                           const translatedJila = translateName(jila.jila_name, JilaTranslation);
-                          return(
-                           <option key={jila._id} value={jila._id}>
-                            {translatedJila}
-                          </option>
+                          return (
+                            <option key={jila._id} value={jila._id}>
+                              {translatedJila}
+                            </option>
                           )
-})}
+                        })}
                       </BootstrapForm.Select>
                     </div>
                   )}
@@ -625,12 +800,12 @@ function CreateUser() {
                         <option value="">{labels?.SelectJila}</option>
                         {hierarchyData?.[0]?.kshetras[0]?.prants[0]?.vibhags[0]?.jilas?.map((jila) => {
                           const translatedJila = translateName(jila.jila_name, JilaTranslation);
-                          return(
-                           <option key={jila._id} value={jila._id}>
-                            {translatedJila}
-                          </option>
-                          )
-})}
+                          return (
+                            <option key={jila._id} value={jila._id}>
+                              {translatedJila}
+                            </option>
+                          );
+                        })}
                       </BootstrapForm.Select>
                     </div>
                   )}
@@ -681,3 +856,6 @@ function CreateUser() {
 }
 
 export default CreateUser;
+
+
+
