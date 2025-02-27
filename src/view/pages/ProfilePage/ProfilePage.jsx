@@ -6,6 +6,7 @@ import { fetchUser, updateUser } from "../../redux/slice/profileSlice";
 import { FaUserCircle } from "react-icons/fa";
 import "./ProfilePage.css";
 import fieldLabels from "../../components/FiledLabels";
+import { JilaTranslation, KendraTranslation, kshetraTranslation, PrantTranslation, VibhagTranslation } from "../../components/Fileds";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export default function ProfilePage() {
   const labels = fieldLabels[language];
 
   const token = useSelector((state) => state.profile.token) || localStorage.getItem("token");
+
 
   const [profile, setProfile] = useState(null);
   const [editField, setEditField] = useState(null);
@@ -70,18 +72,30 @@ export default function ProfilePage() {
     setShowToast(true);
   };
 
+  const translateName = (name, translationMap) => {
+    if (language.trim() === "hindi" && translationMap[name]) {
+      return translationMap[name];
+    }
+    return name; 
+  };
+
   const getUserDesignation = () => {
+    const translatedKendra = translateName(profile?.kendra_name, KendraTranslation);
+     const translatedKshetra = translateName(profile?.kshetra_name, kshetraTranslation);
+        const translatedPrant = translateName(profile?.prant_name, PrantTranslation);
+        const translatedVibhag = translateName(profile?.vibhag_name, VibhagTranslation);
+        const translatedJila = translateName(profile?.jila_name, JilaTranslation);
     switch (profile?.user_type) {
       case "prant":
-        return profile?.prant_name ? `Prant: ${profile.prant_name}` : "Prant Not Available";
+        return profile?.prant_name ? `${fieldLabels[language]?.Prant}: ${translatedPrant}` : "Prant Not Available";
       case "vibhag":
-        return profile?.vibhag_name ? `Vibhag: ${profile.vibhag_name}` : "Vibhag Not Available";
+        return profile?.vibhag_name ? `${fieldLabels[language]?.Vibhag}: ${translatedVibhag}` : "Vibhag Not Available";
       case "jila":
-        return profile?.jila_name ? `Jila: ${profile.jila_name}` : "Jila Not Available";
+        return profile?.jila_name ? `${fieldLabels[language]?.Jila}: ${translatedJila}` : "Jila Not Available";
       case "kshetra":
-        return profile?.kshetra_name ? `Kshetra: ${profile.kshetra_name}` : "Kshetra Not Available";
+        return profile?.kshetra_name ? `${fieldLabels[language]?.Kshetra}: ${translatedKshetra}` : "Kshetra Not Available";
       case "kendra":
-        return profile?.kendra_name ? `Kendra: ${profile.kendra_name}` : "Kendra Not Available";
+        return profile?.kendra_name ? `${fieldLabels[language]?.Kendra}: ${translatedKendra}` : "Kendra Not Available";
       default:
         return "User Type Not Available";
     }

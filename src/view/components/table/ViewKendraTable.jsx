@@ -86,11 +86,6 @@ const CollapsibleTable = () => {
   // console.log("datatatatta",data[0]?.kshetras[2]?.prants[0]?.vibhags[0]?.jilas)
   // console.log("datatatatta",data[0]?.kshetras[3]?.prants[0]?.vibhags[0])
 
-  
-
-  
-  
-
   const fieldNames = [
     `${fieldLabels[language]?.districtNumber}`,
     `${fieldLabels[language]?.settlementNumber}`,
@@ -127,7 +122,6 @@ const CollapsibleTable = () => {
     `${fieldLabels[language]?.totalServiceInVillages}`,
   ];
 
-  // Helper function to get nested data
   const getNestedData = (jila, fieldName) => {
     if (!jila.reporting_form) return "-";
 
@@ -215,7 +209,6 @@ const CollapsibleTable = () => {
     }, 0);
   };
 
-  // Calculate grand total for all Kshetras
   const calculateGrandTotal = (fieldName) => {
     return data.reduce((total, kendra) => {
       return (
@@ -355,7 +348,6 @@ const CollapsibleTable = () => {
         </thead>
         <tbody>
   {filteredData.map((item) => {
-
 const translatedKshetra = translateName(item.kshetra_name, kshetraTranslation);
 const translatedPrant = translateName(item.prant_name, PrantTranslation);
 const translatedVibhag = translateName(item.vibhag_name, VibhagTranslation);
@@ -456,7 +448,6 @@ const translatedJila = translateName(item.jila_name, JilaTranslation);
             </React.Fragment>
             );
           })}
-          {/* Grand Total Row */}
           <tr className="grand-total-row">
             <td><strong>{fieldLabels[language]?.GrandTotal}</strong></td>
             {fieldNames.map((fieldName, index) => (
@@ -466,7 +457,6 @@ const translatedJila = translateName(item.jila_name, JilaTranslation);
         </React.Fragment>
       );
     }
-
     if (user.user_type === "kshetra") {
       return (
         <React.Fragment key={item._id}>
