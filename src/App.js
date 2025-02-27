@@ -3,6 +3,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
   useLocation,
 } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -18,18 +19,28 @@ import Header from "./view/layout/Header";
 import ProfilePage from "./view/pages/ProfilePage/ProfilePage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import CreateUser2 from "./view/pages/CreateUser2";
-import CreateUser  from "./view/pages/CreateUser";
+import CreateUser from "./view/pages/CreateUser";
 import ViewUsers from "./view/components/table/ViewUsers";
 import ActivityTable from "./view/components/table/ViewActivity";
-import NotFound from "./view/pages/404PageNotFound/PageNotFound"; 
+import NotFound from "./view/pages/404PageNotFound/PageNotFound";
 
 function Layout() {
   const location = useLocation();
-  const isLoginPage = location.pathname === "/";
+  const isLoginPage = location.pathname === "/login";
 
-  // Detect if the current route is 404 by checking if no defined routes match
-  const isNotFoundPage = !["/", "/dashboard", "/dashboard/jilareport", "/dashboard/viewkendratable", "/dashboard/profile", "/dashboard/view-user", "/dashboard/create-user", "/dashboard/create-user2", "/dashboard/activity"].includes(location.pathname);
+  // List of protected routes
+  const protectedRoutes = [
+    "/dashboard",
+    "/dashboard/jilareport",
+    "/dashboard/viewkendratable",
+    "/dashboard/profile",
+    "/dashboard/view-user",
+    "/dashboard/create-user",
+    "/dashboard/activity",
+  ];
+
+  // Check if user is on a 404 Page
+  const isNotFoundPage = ![...protectedRoutes, "/login"].includes(location.pathname);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 768);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -45,27 +56,45 @@ function Layout() {
   }, []);
 
   useEffect(() => {
-    if (isLoginPage && localStorage.getItem("token")) {
+    if (isLoginPage) {
       localStorage.removeItem("token");
     }
   }, [isLoginPage]);
-  
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!protectedRoutes.includes(location.pathname)) {
+      // If user manually changes URL to a non-protected route, clear the token
+      localStorage.removeItem("token");
+    }
+
+    // Redirect to login if no token
+    if (!token && protectedRoutes.includes(location.pathname)) {
+      window.location.href = "/login";
+    }
+  }, [location.pathname]);
 
   return (
     <div className="d-flex">
-      {/* Hide Sidebar on login and 404 pages */}
+     
       {!isLoginPage && !isNotFoundPage && (
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
       )}
 
-      {/* Main Content */}
+
       <div className={`main-content ${isSidebarOpen ? "expanded" : "collapsed"} flex-grow-1`}>
-        {/* Hide Header on login and 404 pages */}
+
         {!isLoginPage && !isNotFoundPage && <Header toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />}
 
         <div className="content-container p-0">
           <Routes>
-            <Route path="/" element={<Login />} />
+           
+            <Route path="/" element={<Navigate to="/login" replace />} />
+
+          
+            <Route path="/login" element={<Login />} />
+
+            {/* Protected Routes */}
             <Route element={<PrivateRoute />}>
               <Route path="/dashboard" element={<Dashboard />}>
                 <Route index element={<DashboardCards />} />
@@ -78,7 +107,7 @@ function Layout() {
               </Route>
             </Route>
 
-            {/* 404 Page */}
+          
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
@@ -86,7 +115,6 @@ function Layout() {
     </div>
   );
 }
-
 
 function App() {
   return (
