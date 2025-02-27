@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import fieldLabels from "./FiledLabels";
 import Loader from "../components/Loader/Loader"; // Importing the Loader component
+import { JilaTranslation, kshetraTranslation, PrantTranslation, VibhagTranslation } from "./Fileds";
 
 const DashboardCards = () => {
   const user = useSelector((state) => state.auth.user);
@@ -38,12 +39,23 @@ const DashboardCards = () => {
     fetchDashboardData();
   }, []);
  
-  // Show loader or error message if applicable
+
+
+  const translateName = (name, translationMap) => {
+    if (language.trim() === "hindi" && translationMap[name]) {
+      return translationMap[name];
+    }
+    return name; 
+  };
 
 
   // Define cards based on user_type and fetched data
   const getCards = () => {
-    if (!dashboardData) return []; // Return empty if no data is available
+    const translatedKshetra = translateName(dashboardData.kshetra_name, kshetraTranslation);
+    const translatedPrant = translateName(dashboardData.prant_name, PrantTranslation);
+    const translatedVibhag = translateName(dashboardData.vibhag_name, VibhagTranslation);
+    const translatedJila = translateName(dashboardData.jila_name, JilaTranslation);
+    if (!dashboardData) return [];
 
     switch (userType) {
       case "kendra":
@@ -55,25 +67,25 @@ const DashboardCards = () => {
         ];
       case "kshetra":
         return [
-          { title: labels?.ToatalKshetra, value: dashboardData.kshetra_name || "N/A", color: "#4caf50" },
+          { title: labels?.ToatalKshetra, value: translatedKshetra || "N/A", color: "#4caf50" },
           { title: labels?.ToatalPrant, value: dashboardData.total_prants || "N/A", color: "#66bb6a" },
           { title: labels?.TotalVibhag, value: dashboardData.total_vibhags || "N/A", color: "#ffa726" },
           { title: labels?.TotalJila, value: dashboardData.total_jilas || "N/A", color: "#42a5f5" },
         ];
       case "prant":
         return [
-          { title: labels?.ToatalPrant, value: dashboardData.prant_name || "N/A", color: "#4caf50" },
+          { title: labels?.ToatalPrant, value: translatedPrant || "N/A", color: "#4caf50" },
           { title: labels?.TotalVibhag, value: dashboardData.total_vibhags || "N/A", color: "#ffa726" },
           { title: labels?.TotalJila, value: dashboardData.total_jilas || "N/A", color: "#42a5f5" },
         ];
       case "vibhag":
         return [
-          { title: labels?.TotalVibhag, value: dashboardData.vibhag_name || "N/A", color: "#ffa726" },
+          { title: labels?.TotalVibhag, value: translatedVibhag || "N/A", color: "#ffa726" },
           { title: labels?.TotalJila, value: dashboardData.total_jilas || "N/A", color: "#42a5f5" },
         ];
       case "jila":
         return [
-          { title: labels?.TotalJila, value: dashboardData.jila_name || "N/A", color: "#42a5f5" },
+          { title: labels?.TotalJila, value: translatedJila || "N/A", color: "#42a5f5" },
         ];
       default:
         return [];
