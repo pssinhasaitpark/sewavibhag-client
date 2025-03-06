@@ -6,8 +6,7 @@ import { PropagateLoader } from "react-spinners";
 
 const ActivityTable = () => {
     const dispatch = useDispatch();
-    const { activities, status, error, totalLogs, page, limit, totalPages } = useSelector((state) => state.viewActivities);
-    const user = useSelector((state) => state.auth.user);
+    const { activities, status, error, totalPages } = useSelector((state) => state.viewActivities);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [actionFilter, setActionFilter] = useState("");

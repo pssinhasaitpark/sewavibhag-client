@@ -84,7 +84,7 @@ function Layout() {
 
       <div className={`main-content ${isSidebarOpen ? "expanded" : "collapsed"} flex-grow-1`}>
 
-        {!isLoginPage && !isNotFoundPage && <Header toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />}
+        {!isLoginPage && !isNotFoundPage && !isMobile && <Header toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />}
 
         <div className="content-container p-0">
           <Routes>

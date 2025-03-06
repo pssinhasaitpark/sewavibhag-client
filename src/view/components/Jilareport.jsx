@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Form, Button, Accordion } from "react-bootstrap";
+import { Container, Row, Col, Form, Button} from "react-bootstrap";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { toast, ToastContainer } from "react-toastify";
@@ -8,13 +8,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import fieldLabels from "./FiledLabels";
 import { fetchVibhagList, fetchFormDataByJila, updateReportingForm, clearFormData } from "../redux/slice/JilaReportSlice"; 
-import { JilaTranslation, kshetraTranslation, PrantTranslation, VibhagTranslation } from "./Fileds";
+import { JilaTranslation, VibhagTranslation } from "./Fileds";
 
 const Jilareport = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const language = useSelector((state) => state.language.language);
-  const labels = fieldLabels[language];
   
 
   const vibhagList = useSelector((state) => state.jilareport.vibhagList);
@@ -24,7 +23,6 @@ const Jilareport = () => {
   const [selectedVibhag, setSelectedVibhag] = useState("");
   const [selectedJila, setSelectedJila] = useState("");
   const [jilaList, setJilaList] = useState();
-  const [selectedJilaData, setSelectedJilaData] = useState("");
 
   useEffect(() => {
     if (userType === "prant" || userType === "vibhag") {

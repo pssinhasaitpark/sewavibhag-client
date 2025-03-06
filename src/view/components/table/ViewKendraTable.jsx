@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Table, Button, Collapse, Container, Alert } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Table, Button, Collapse, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchHierarchy } from "../../redux/slice/hierarchySlice";
 import { PropagateLoader } from "react-spinners";
@@ -15,7 +15,6 @@ const CollapsibleTable = () => {
   const { data, loading, error } = useSelector((state) => state.hierarchy);
 
   const language = useSelector((state) => state.language.language);
-  const labels = fieldLabels[language];
 
 
   const user = useSelector((state) => state.auth.user);
@@ -66,19 +65,19 @@ const CollapsibleTable = () => {
     Array(fieldGroups.length).fill(true)
   );
 
-  const calculateGroupTotal = (groupIndex, kendra) => {
-    const startIndex = fieldGroups
-      .slice(0, groupIndex)
-      .reduce((sum, group) => sum + group.count, 0);
-    const endIndex = startIndex + fieldGroups[groupIndex].count;
+  // const calculateGroupTotal = (groupIndex, kendra) => {
+  //   const startIndex = fieldGroups
+  //     .slice(0, groupIndex)
+  //     .reduce((sum, group) => sum + group.count, 0);
+  //   const endIndex = startIndex + fieldGroups[groupIndex].count;
 
-    let total = 0;
-    for (let i = startIndex; i < endIndex; i++) {
-      const fieldName = fieldNames[i];
-      total += calculateTotals([kendra], fieldName) || 0;
-    }
-    return total;
-  };
+  //   let total = 0;
+  //   for (let i = startIndex; i < endIndex; i++) {
+  //     const fieldName = fieldNames[i];
+  //     total += calculateTotals([kendra], fieldName) || 0;
+  //   }
+  //   return total;
+  // };
 
   // console.log("userTypeeeee",user.user_type_id);
  
@@ -127,8 +126,8 @@ const CollapsibleTable = () => {
 
     const {
       mahanagar,
-      jilaKendra,
-      anyaNagar,
+      // jilaKendra,
+      // anyaNagar,
       villagesOver5000,
       villagesUnder5000,
     } = jila.reporting_form;
@@ -348,9 +347,6 @@ const CollapsibleTable = () => {
         </thead>
         <tbody>
   {filteredData.map((item) => {
-const translatedKshetra = translateName(item.kshetra_name, kshetraTranslation);
-const translatedPrant = translateName(item.prant_name, PrantTranslation);
-const translatedVibhag = translateName(item.vibhag_name, VibhagTranslation);
 const translatedJila = translateName(item.jila_name, JilaTranslation);
     if (user.user_type === "jila") {
       return (

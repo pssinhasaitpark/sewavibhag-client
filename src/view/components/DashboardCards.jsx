@@ -18,16 +18,21 @@ const DashboardCards = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
+
   useEffect(() => {
     // Fetch user details and dashboard data
     const fetchDashboardData = async () => {
       try {
-        const response = await axios.get("https://sewavibhag-api.vercel.app/api/v1/me", {
+        const response = await axios.get(`${BASE_URL}/api/v1/me`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-
+   
+        console.log(">>>>>>>>>",response.data.data);
+        
         setDashboardData(response.data.data);
       } catch (err) {
         setError(err);
