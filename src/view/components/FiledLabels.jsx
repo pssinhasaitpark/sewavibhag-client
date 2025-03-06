@@ -66,7 +66,6 @@ const fieldLabels = {
       SelectPrant:"Select Prant",
       SelectVibhag:"Select Vibhag",
       SelectJila:"Select Jila",
-      SelectKshetra:"Select Kshetra",
       English:"English",
       Hindi:"Hindi",
       ToatalKshetra:"Toatal Kshetra",
@@ -156,7 +155,7 @@ const fieldLabels = {
       SelectPrant:"प्रांत चुनें",
       SelectVibhag:"विभाग चुनें",
       SelectJila:"जिला चुनें",
-      SelectKshetra:"क्षेत्र चुनें",
+     
       English:"English",
       Hindi:"हिंदी",
       ToatalKshetra:"कुल क्षेत्र",

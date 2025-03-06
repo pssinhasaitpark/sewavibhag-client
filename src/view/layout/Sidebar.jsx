@@ -13,18 +13,14 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const language = useSelector((state) => state.language.language);
-  const labels = fieldLabels[language];
 
-  // Get user_type from Redux store
   const user_type = useSelector((state) => state.auth.user?.user_type?.trim().toLowerCase() || "");
   const isJilaUser = user_type === "jila";
 
-  // Check if any User Management route is active
   const isUserManagementActive = ["/dashboard/create-user", "/dashboard/create-user", "/dashboard/view-user"].some((path) =>
     location.pathname.includes(path)
   );
 
-  // Check if any View Reporting route is active
   const isViewReportingActive = ["/dashboard/jilareport", "/dashboard/viewkendratable"].some((path) =>
     location.pathname.includes(path)
   );
@@ -35,12 +31,10 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Hamburger Icon for Mobile View */}
       <div className="hamburger" onClick={toggleSidebar}>
         {isSidebarOpen ? <FaTimes className="svg1" size={20} /> : <FaBars size={20} />}
       </div>
 
-      {/* Sidebar */}
       <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
         <div className="sidebar-header" onClick={() => navigate("/dashboard")}>
           <img src={BrandLogo} alt="Sewa Vibhag Logo" className="sidebar-logo" style={{ cursor: "pointer" }} />

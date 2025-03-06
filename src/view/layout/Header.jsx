@@ -21,33 +21,39 @@ const Header = () => {
   const language = useSelector((state) => state.language.language);
 
 
-  console.log("language",language);
   
 
 
 
-  // Fetch user details from Redux store
   const user = useSelector((state) => state.auth.user);
-  const userType = user?.user_type;
 
-  // Fetch hierarchical names from Redux store
   const { kshetraName, prantName, vibhagName, jilaName, kendraName } =
     useSelector((state) => state.profile);
 
-  useEffect(() => {
-    dispatch(fetchUser())
-      .unwrap()
-      .then((res) => {})
-      .catch((err) => {
-        console.error("Error Fetching User:", err);
-      });
-  }, [dispatch]);
+    useEffect(() => {
+      const fetchUserData = async () => {
+        setLoading(true); 
+        setError(null); 
+  
+        dispatch(fetchUser())
+          .unwrap()
+          .then((res) => {
+            setLoading(false);
+          })
+          .catch((err) => {
+            setLoading(false); 
+            setError("Error Fetching User: " + err.message); 
+            console.error("Error Fetching User:", err);
+          });
+      };
+  
+      fetchUserData();
+    }, [dispatch]);
 
   const handleLanguageChange = (e) => {
     dispatch(setLanguage(e.target.value));
   };
 
-  const labels = fieldLabels[language];
 
   const handleLogout = () => {
     dispatch(logout());
@@ -72,7 +78,7 @@ const Header = () => {
       translateName(prantName, PrantTranslation),
       translateName(vibhagName, VibhagTranslation),
       translateName(jilaName, JilaTranslation),
-    ].filter(Boolean); // Remove empty or undefined values
+    ].filter(Boolean); 
   
     return names.length ? names.join(" / ") : "No Name Available";
   };
